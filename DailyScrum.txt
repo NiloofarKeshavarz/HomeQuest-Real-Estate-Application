@@ -9,3 +9,14 @@
 - databse setup with Azure
 3. Need assistance / figure things out
 - blob storage in Azure and hosting
+
+
+2023/01/31 Rucheng
+1. Done / not done since last scrum:
+- created project plan
+- created UI mockup
+2. To do until next Scrum:
+- Finish project proposal
+- start implement website UI 
+3. Need assistance / figure things out
+- UI design for website (bootstrap)
