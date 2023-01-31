@@ -1,1 +1,11 @@
-
+2023/01/31 Niloofar
+1. Done / not done since last scrum:
+- created project plan
+- created database mockup
+- did not Complete the database yet
+2. To do until next Scrum:
+- finish the project startup actions like github, Trello
+- Finalize the tasks until the next scrum
+- databse setup with Azure
+3. Need assistance / figure things out
+- blob storage in Azure and hosting
