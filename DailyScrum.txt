@@ -20,3 +20,13 @@
 - start implement website UI 
 3. Need assistance / figure things out
 - UI design for website (bootstrap)
+
+2023/01/31 Shiva
+1. Done / not done since last scrum:
+- defined user stories
+- participated on defining project scope and specs.
+- worked on the datdabase
+2. To do until next Scrum:
+- working on proposal and make it ready to submit
+3. Need assistance / figure things out
+ how to secure an internship that helps me grow :D
