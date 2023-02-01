@@ -41,3 +41,13 @@
 - implement some page interface
 3. Need assistance / figure things out
 - how to use Azure Blob storage
+
+2023/02/01 Shiva
+1. Done / not done since last scrum:
+- done with proposal
+2. To do until next Scrum:
+- create a cheat sheet and best practices for asp mvc
+- define models 
+- work on authentication (login/register)
+3. Need assistance / figure things out
+- Thanks, I'm good! :D
