@@ -30,3 +30,14 @@
 - working on proposal and make it ready to submit
 3. Need assistance / figure things out
  how to secure an internship that helps me grow :D
+
+2023/02/01 Rucheng
+1. Done / not done since last scrum:
+- Finish Proposal part
+- Did research about ASP.NET CORE MVC
+2. To do until next Scrum:
+- Finish MVC tutorial video
+- build the file structure of project
+- implement some page interface
+3. Need assistance / figure things out
+- how to use Azure Blob storage
