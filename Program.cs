@@ -1,7 +1,13 @@
+using HomeQuest.Data;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<HomeQuestDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("HomeQuestConnection")));
+
+
 
 var app = builder.Build();
 
