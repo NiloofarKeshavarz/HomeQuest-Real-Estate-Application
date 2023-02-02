@@ -11,7 +11,7 @@ using static HomeQuest.Models.Property;
 
 namespace HomeQuest.Controllers
 {
-    [Route("[controller]")]
+    // [Route("[controller]")]
     public class PropertyController : Controller
     {
         private readonly ILogger<PropertyController> _logger;

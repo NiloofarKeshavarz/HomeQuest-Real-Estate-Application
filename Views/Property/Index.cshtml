@@ -1,10 +1,114 @@
 @model IEnumerable<HomeQuest.Models.Property>
 
 @{
-    ViewData["Title"] = "Property Page";
+    ViewData["Title"] = "Properties";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="breadcrumb-section another-breadcrumb-section wf-section">
+    <div class="container w-container">
+        <div class="breadcrumb-wrapper another-breadcrumb-section">
+            <div class="breadcrumb-content another-breadcrumb-section">
+                <div class="breadcrumb-sub-heading another-breadcrumb-section">Our Properties <br />
+                </div>
+                <h1 class="breadcrumb-main-heading another-breadcrumb-section">
+                    <span class="breadcrumb-span-text another-breadcrumb-section">All Properties</span>
+                </h1>
+                <p class="breadcrumb-details-content another-details-content">Huge number of propreties availabe here
+                    for buy and sell, also you can find here co-living property</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="properties-filter-section wf-section">
+    <div class="container w-container"></div>
+</div>
+<div class="all-properties-section wf-section">
+    <div class="container w-container">
+        <div fs-cmsfilter-element="filters" class="filter-wrapper-form w-form">
+            <form method="get" class="filter-inner-form">
+                @if (Model.Count() > 0)
+                {
+                    <div class="all-properties-wrapper">
+                        <div fs-cmssort-element="list" fs-cmsfilter-element="list"
+                        class="propertise-list-wrapper w-dyn-list">
+                            <div role="list" class="properties-wrapper w-dyn-items w-row">
+
+                                @foreach (var item in Model)
+                                {
+                                    <div role="listitem" class="single-properties w-dyn-item w-col w-col-4">
+                                        <div class="single-properties-item">
+                                            <div class="properties-image-block">
+                                                <img loading="lazy"
+                                            src="https://assets.website-files.com/622596ceb2da993727fc3dbe/6225da2f83ace35bc4f853fd_properties3.jpg"
+                                            alt="Properties Thumbnail Image " class="properties-image" />
+                                                <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                                <div class="properties-badge home-type">@item.Type</div>
+                                            </div>
+                                            <div class="properties-description-content">
+                                                <a fs-cmsfilter-field="name" href="/listing/esaac-dell-house"
+                                            class="properties-title">@item.Title</a>
+                                                <div fs-cmsfilter-field="city" class="properties-location">@item.Address</div>
+                                                <div class="properties-added-date-block">
+                                                    <div class="properties-added-text">Added:</div>
+                                                    <div class="properties-added-date">@item.CreatedAt</div>
+                                                </div>
+                                                <div class="properties-price-box">
+                                                    <div class="line-shape"></div>
+                                                    <div class="properties-price-block">
+                                                        <div class="properties-price-text">Price: $</div>
+                                                        <div fs-cmsfilter-field="price" class="properties-price-amount">
+                                                            @item.Price</div>
+                                                    </div>
+                                                </div>
+                                                <div class="properties-description">
+                                                    <div fs-cmsfilter-field="square feet" class="number-of-square-feet">
+                                                        @item.LotArea</div>
+                                                    <div class="square-feet-text">Sq.fit</div>
+                                                    <div class="dash-shape"></div>
+                                                    <div fs-cmsfilter-field="bedrooms" class="number-of-bedroom">
+                                                        @item.BedroomCount</div>
+                                                    <div class="bed-text">Bed</div>
+                                                    <div class="dash-shape"></div>
+                                                    <div fs-cmsfilter-field="bathrooms" class="number-of-bathroom">
+                                                        @item.BathroomCount</div>
+                                                    <div class="bath-text">Bath</div>
+                                                    <div class="dash-shape"></div>
+                                                    <div fs-cmsfilter-field="garages" class="number-of-garage">@item.GarageCont
+                                                    </div>
+                                                    <div class="garage-text">Garage</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div fs-cmsfilter-element="empty" class="filter-empty-wrapper">
+                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/62458fc4fa0f2281d6e5c556_error.png"
+                        loading="lazy" sizes="(max-width: 479px) 100vw, 200px"
+                        srcset="https://assets.website-files.com/6224513e7396e88bd7269d7b/62458fc4fa0f2281d6e5c556_error-p-500.png 500w, https://assets.website-files.com/6224513e7396e88bd7269d7b/62458fc4fa0f2281d6e5c556_error.png 512w"
+                        alt="Error Image Icon" class="filter-empty-image" />
+                        <div class="filter-image-text">No properties found.</div>
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@* <h1>@ViewData["Title"]</h1>
 <div class="container p-3">
     <div class="col-6">
         <h2>property list</h2>
@@ -57,6 +161,6 @@
     else{
         <p>No property exist.</p>
     }
-</div>
+</div> *@
 
 
