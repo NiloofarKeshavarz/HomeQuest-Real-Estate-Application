@@ -81,6 +81,7 @@
 - Create View :Register, Login, Contact, Add Property
 2. To do until next Scrum:
 - Create View: Property List
+- Create View: Property Detail
 - keep doing research about MVC
 3. Need assistance / figure things out
 - 
