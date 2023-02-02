@@ -11,7 +11,7 @@ using static HomeQuest.Models.Property;
 
 namespace HomeQuest.Controllers
 {
-    //[Route("[controller]")]
+    [Route("[controller]")]
     public class PropertyController : Controller
     {
         private readonly ILogger<PropertyController> _logger;
@@ -52,17 +52,18 @@ namespace HomeQuest.Controllers
         }
 
 
-        //public IActionResult Create()
-        //{
-        //      if (ModelState.IsValid)
-        //     {
-        //         var newProperty = new HomeQuest.Models.Property{Title = Title, Description = Description, Address = Address, PostalCode = PostalCode};
-        //         db.Add(newProperty);
-        //         db.SaveChangesAsync();
+
+        public IActionResult Create()
+        {
+             if (ModelState.IsValid)
+            {
+                var newProperty = new HomeQuest.Models.Property{Title = Title, Description = Description, Address = Address, PostalCode = PostalCode};
+                db.Add(newProperty);
+                db.SaveChangesAsync();
               
-        // }
-        //     return View();
-       // }
+         }
+            return View();
+       }
 
 
 

@@ -85,3 +85,13 @@
 - keep doing research about MVC
 3. Need assistance / figure things out
 - 
+
+2023/02/02 Shiva
+1. Done / not done since last scrum:
+- login and registration done. we have problem with connecting identity to our customized template.
+2. To do until next Scrum:
+- work on the connection mentioned above.
+- define roles 
+- if i had extra time: create other entities. (properties already taken care of)
+3. Need assistance / figure things out
+-

@@ -27,39 +27,32 @@
             <div class="add-properties-form-wrapper w-form">
                 <form asp-controller="Property" asp-action="AddProperty" method="post" class="add-properties-form">
                     <div class="form-wrapper">
-                        <div class="single-form width-75">
+                        <div class="single-form width-50">
                             <label for="name" class="properties-label">Property Title</label>
                             <input type="text" class="properties-form-field w-input" maxlength="256" name="name"
                                 data-name="Name" placeholder="Property Title" id="name" required="" />
-                        </div>
-                        <div class="single-form width-25">
+
                             <label for="Price" class="properties-label">Price</label>
-                            <input type="text" class="properties-form-field w-input" maxlength="256" name="name"
+                            <input type="number" class="properties-form-field w-input" maxlength="256" name="name"
                                 data-name="Name" placeholder="Price" id="name" required="" />
-                        </div>
-                        <div class="single-form width-100">
-                            <label for="Text-Field" class="properties-label">Property Description</label>
-                            <textarea placeholder="Write Your Description Here" maxlength="5000" id="Text-Field"
-                                name="Text-Field" required="" data-name="field"
-                                class="properties-form-field textarea w-input"></textarea>
-                        </div>
-                        <div class="single-form width-100">
+
                             <label for="Address-line" class="properties-label">Address</label>
                             <input type="text" class="properties-form-field w-input" maxlength="256"
-                                name="Address-line-1" data-name="Address line 1" placeholder="Address"
-                                id="Address-line" required="" />
-                        </div>
-                      
-                        <div class="single-form width-50">
-                            <label for="City" class="properties-label">City</label>
-                            <input type="text" class="properties-form-field w-input" maxlength="256" name="City"
-                                data-name="City" placeholder="City" id="City" required="" />
-                        </div>
-                        <div class="single-form width-50">
+                                name="Address-line-1" data-name="Address line 1" placeholder="Address" id="Address-line"
+                                required="" />
+
                             <label for="Postal-Code" class="properties-label">Postal Code</label>
                             <input type="text" class="properties-form-field w-input" maxlength="256" name="Zip-Code"
                                 data-name="Postal Code" placeholder="Postal Code" id="Postal-Code" required="" />
                         </div>
+                        
+                        <div class="single-form width-50">
+                            <label for="Text-Field" class="properties-label">Property Description</label>
+                            <textarea placeholder="Write Your Description Here" maxlength="5000" id="Text-Field"
+                                name="Text-Field" required="" data-name="field"
+                                class="properties-form-field textarea w-input" style="height: 390px;"></textarea>
+                        </div>
+                      
                         <div class="single-form width-50">
                             <label for="property-type" class="properties-label">Property Type <br />
                             </label>
