@@ -37,9 +37,8 @@ namespace HomeQuest.Models
        }
        public PropertyType Type{get; set;}
 
-
-
-       
+        
+        public ICollection<Image> Images { get; set; }      
        
 
 

@@ -28,8 +28,8 @@
             </a>
             <nav role="navigation" class="nav-menu header-two w-nav-menu">
                 <a href="/" class="nav-link w-nav-link">Home</a>
-                <a href="/properties" class="nav-link w-nav-link">properties</a>
-                <a href="/contact" class="nav-link w-nav-link">Contact</a>
+                <a  asp-controller="Property" asp-action="Index" class="nav-link w-nav-link">properties</a>
+                <a class="nav-link w-nav-link" asp-area="" asp-controller="Home" asp-action="Contact" >Contact</a>
                 
                 @* ---- Services Dropdown ------ *@
                 <div class="dropdown nav-link w-dropdown">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <a href="/add-properties" class="button mobile-button w-nav-link">Add Property</a>
+                <a class="button mobile-button w-nav-link" asp-area="" asp-controller="Property" asp-action="Create">Add Property</a>
             </nav>
             <div class="mobile-menu-button w-nav-button">
                 <div class="mobile-menu-icon w-icon-nav-menu"></div>
