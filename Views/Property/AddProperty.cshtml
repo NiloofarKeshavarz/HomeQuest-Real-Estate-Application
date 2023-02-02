@@ -1,0 +1,162 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="breadcrumb-section another-breadcrumb-section wf-section">
+    <div class="container w-container">
+        <div class="breadcrumb-wrapper another-breadcrumb-section">
+            <div class="breadcrumb-content another-breadcrumb-section">
+                <div class="breadcrumb-sub-heading another-breadcrumb-section">
+                    <span class="breadcrumb-span-text another-breadcrumb-section"> Property Add</span>
+                    <br />
+                </div>
+                <h1 class="breadcrumb-main-heading another-breadcrumb-section">
+                    <span class="breadcrumb-span-text another-breadcrumb-section">Add Property</span>
+                </h1>
+                <p class="breadcrumb-details-content another-details-content">Huge number of propreties availabe here
+                    for buy and sell also you can find here co-living property</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blank-space-section wf-section"></div>
+
+<div class="add-properties wf-section">
+    <div class="container w-container">
+        <div class="add-properties-wrapper">
+            <div class="add-properties-form-wrapper w-form">
+                <form asp-controller="Property" asp-action="AddProperty" method="post" class="add-properties-form">
+                    <div class="form-wrapper">
+                        <div class="single-form width-75">
+                            <label for="name" class="properties-label">Property Title</label>
+                            <input type="text" class="properties-form-field w-input" maxlength="256" name="name"
+                                data-name="Name" placeholder="Property Title" id="name" required="" />
+                        </div>
+                        <div class="single-form width-25">
+                            <label for="Price" class="properties-label">Price</label>
+                            <input type="text" class="properties-form-field w-input" maxlength="256" name="name"
+                                data-name="Name" placeholder="Price" id="name" required="" />
+                        </div>
+                        <div class="single-form width-100">
+                            <label for="Text-Field" class="properties-label">Property Description</label>
+                            <textarea placeholder="Write Your Description Here" maxlength="5000" id="Text-Field"
+                                name="Text-Field" required="" data-name="field"
+                                class="properties-form-field textarea w-input"></textarea>
+                        </div>
+                        <div class="single-form width-100">
+                            <label for="Address-line" class="properties-label">Address</label>
+                            <input type="text" class="properties-form-field w-input" maxlength="256"
+                                name="Address-line-1" data-name="Address line 1" placeholder="Address"
+                                id="Address-line" required="" />
+                        </div>
+                      
+                        <div class="single-form width-50">
+                            <label for="City" class="properties-label">City</label>
+                            <input type="text" class="properties-form-field w-input" maxlength="256" name="City"
+                                data-name="City" placeholder="City" id="City" required="" />
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="Postal-Code" class="properties-label">Postal Code</label>
+                            <input type="text" class="properties-form-field w-input" maxlength="256" name="Zip-Code"
+                                data-name="Postal Code" placeholder="Postal Code" id="Postal-Code" required="" />
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="property-type" class="properties-label">Property Type <br />
+                            </label>
+                            <select id="property-type" name="property-type" data-name="property-type" required=""
+                                class="properties-form-field w-select">
+                                <option value="0">House</option>
+                                <option value="1">Apartment</option>
+                                <option value="2">Duplex</option>
+                                <option value="3">TownHouse</option>
+                                <option value="4">Condo</option>
+                            </select>
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="property-status" class="properties-label">Property Status</label>
+                            <select id="property-status" name="property-status" data-name="property-status" required=""
+                                class="properties-form-field w-select">
+                                <option value="0">Pending</option>
+                                <option value="1">Sold</option>
+                                <option value="2">For Sale</option>
+                            </select>
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="floors" class="properties-label">Floors</label>
+                            <input type="number" class="properties-form-field w-input" maxlength="256"
+                                name="floors" data-name="floors" placeholder="Floors"
+                                id="floors" required="" />
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="floor-area" class="properties-label">Floor Area</label>
+                            <input type="number" class="properties-form-field w-input" maxlength="256"
+                                name="floor-area" data-name="floor-area" placeholder="Floor Area (Sqft)"
+                                id="floor-area" required="" />
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="lot-area" class="properties-label">Lot Area</label>
+                            <input type="number" class="properties-form-field w-input" maxlength="256"
+                                name="lot-area" data-name="lot-area" placeholder="Lot Area (Sqft)"
+                                id="lot-area" required="" />
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="Number-of-Bedroom-2" class="properties-label">Number of Bedroom</label>
+                            <input type="text" class="properties-form-field w-input" maxlength="256"
+                                name="Number-of-Bedroom" data-name="Number of Bedroom" placeholder="Number of Bedroom"
+                                id="Number-of-Bedroom-2" required="" />
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="Number-of-Bathroom" class="properties-label">Number of Bathroom</label>
+                            <input type="text" class="properties-form-field w-input" maxlength="256"
+                                name="Number-of-Bathroom" data-name="Number of Bathroom"
+                                placeholder="Number of Bathroom" id="Number-of-Bathroom" required="" />
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="Number-of-Garage" class="properties-label">Number of Garage</label>
+                            <input type="text" class="properties-form-field w-input" maxlength="256"
+                                name="Number-of-Garage" data-name="Number of Garage" placeholder="Number of Garage"
+                                id="Number-of-Garage" required="" />
+                        </div>
+                        <div class="single-form width-50">
+                            <label for="year-built" class="properties-label">Year Built</label>
+                            <input type="number" class="properties-form-field w-input" maxlength="256"
+                                name="year-built" data-name="year-built" placeholder="Year Built"
+                                id="year-built" required="" />
+                        </div>
+                        <div class="single-form width-100">
+                            <label for="Number-of-Garage-3" class="properties-label">Add Images</label>
+                            <div class="input-box">
+                                <a href="#" class="button add-button w-inline-block">
+                                    <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/623c28f947c67e1564acd07f_folder.svg"
+                                        loading="lazy" width="22" height="22" alt="Folder Icon" class="folder-icon" />
+                                    <div class="button-text">Add Image</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-aminitie mb-5">
+
+                        @* To do: response address on map *@
+                        <div class="property-location-map">
+                            <h3 class="property-aminitie-title">Place on Map</h3>
+                            <div>
+                                <div class="map-inner w-richtext">
+                                    <figure style="padding-bottom:75%"
+                                        class="w-richtext-align-fullwidth w-richtext-figure-type-video">
+                                        <div>
+                                            <iframe allowfullscreen="true" frameborder="0" scrolling="no"
+                                                src="//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.google.com%2Fmaps%2Fembed%2Fv1%2Fplace%3Fcenter%3D40.7178143%252C-74.0781629%26key%3DAIzaSyD9HrlRuI1Ani0-MTZ7pvzxwxi4pgW0BCY%26zoom%3D13%26q%3DNew%2BYork%2C%2BNY%2C%2BUSA&amp;display_name=Google+Maps&amp;url=https%3A%2F%2Fwww.google.com%2Fmaps%2Fplace%2FNew%2BYork%2C%2BNY%2C%2BUSA%2F%4040.7178143%2C-74.0781629%2C13z%2Fdata%3D%214m5%213m4%211s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62%218m2%213d40.7127766%214d-74.0059769%3Fshorturl%3D1&amp;image=http%3A%2F%2Fmaps-api-ssl.google.com%2Fmaps%2Fapi%2Fstaticmap%3Fcenter%3D40.7178143%2C-74.0781629%26zoom%3D15%26size%3D250x250%26sensor%3Dfalse&amp;key=96f1f04c5f4143bcb0f2e68c87d65feb&amp;type=text%2Fhtml&amp;schema=google"
+                                                title="New York, NY, USA"></iframe>
+                                        </div>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Add Property" data-wait="Please wait..."
+                        class="button agency-creat-button add-property-button w-button" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
