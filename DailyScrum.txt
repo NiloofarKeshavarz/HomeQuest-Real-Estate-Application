@@ -31,6 +31,19 @@
 3. Need assistance / figure things out
  how to secure an internship that helps me grow :D
 =============================================================================================
+2023/02/01 Niloofar
+1. Done / not done since last scrum:
+- submitted the proposal
+- completed the project setup on Github and Trello
+- Went over links about MVC and Blob storage
+2. To do until next Scrum:
+- Finish MVC tutorial video
+- property crud 
+- merge the backend with front end
+- implement some page interface
+3. Need assistance / figure things out
+- how to use Azure Blob storage
+
 2023/02/01 Rucheng
 1. Done / not done since last scrum:
 - Finish Proposal part
@@ -51,3 +64,15 @@
 - work on authentication (login/register)
 3. Need assistance / figure things out
 - Thanks, I'm good! :D
+===============================================
+2023/02/02 Niloofar
+1. Done / not done since last scrum:
+- Property view and add done
+- should work on the image storage
+- Went over links about MVC and Blob storage
+2. To do until next Scrum:
+- work on remove a property
+- merge the user part to property
+- database update
+3. Need assistance / figure things out
+
