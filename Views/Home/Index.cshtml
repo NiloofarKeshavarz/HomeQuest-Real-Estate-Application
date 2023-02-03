@@ -1,8 +1,258 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<HomeQuest.Models.Property>
+
+@{
+    ViewData["Title"] = "HomeQuest";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div data-w-id="92e130a8-de95-af7f-8fe3-42f1270caeda" class="hero-section wf-section">
+    <div class="container position-realtive w-container">
+        <div class="hero-wrapper">
+            <div class="hero-content">
+                <div class="hero-content-top-block">
+                    <div class="hero-intro-text">A new way to find Properties</div>
+                    <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/622583405671972ffe53fedc_spinin-image.png"
+                        loading="lazy" alt="Spinin Image" class="spainin-image" />
+                </div>
+                <h1 class="hero-title">Find your Most Suitable Property</h1>
+                <p class="hero-description-text">Huge number of propreties availabe here for buy, and sell, also you can
+                    find here co-living property, So you have lots of opportunity.</p>
+                <a asp-area="" asp-controller="Home" asp-action="Contact" class="button w-button">Contact Us</a>
+                <div class="hero-qusetion-block">
+                    <div class="question">Have a question?</div>
+                    <a class="number">+514-000-1234</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image-block">
+            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/622495d2dd39aff8c5b4a76e_hero-image.png"
+                loading="lazy" alt="Hero Large Image" class="large-image" />
+            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/62249d6de2f1f8a4dcb8301b_small-image-one.png"
+                loading="lazy" alt="Hero Small Image" class="small-image-one" />
+            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/62249d63fbfee674432551cf_small-image-three.png"
+                loading="lazy" alt="Hero Small Image" class="small-image-two" />
+            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/62249d64acea247a8cedba2e_small-image-two.png"
+                loading="lazy" alt="Hero Small Image" class="small-image-three" />
+        </div>
+    </div>
+    <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/622eb8abe78c33eaaa83e978_small-image-four.png"
+        loading="lazy" alt="Hero Design Image" class="small-image-four" />
+</div>
+
+<div class="popular-properties-section wf-section">
+    <div class="container">
+        <div class="section-title">
+            <div class="subtitle">Best Choice</div>
+            <div class="title-block">
+                <h2 class="title">Popular Properties <span class="section-color-shape">.</span>
+                </h2>
+                <a data-w-id="b7a70601-c45c-3359-9d83-6f05a7e659ae" asp-area="" asp-controller="Property"
+                    asp-action="Index" class="explore-link w-inline-block">
+                    <div class="link-text">Explore all</div>
+                    <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/624e60a08c6773d17f4f78bf_arrow-black.svg"
+                        loading="lazy"
+                        style="-webkit-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+                        alt="Arrow Icon" class="arrow-icon" />
+                </a>
+            </div>
+        </div>
+
+        <div class="all-properties-wrapper">
+            <div fs-cmssort-element="list" fs-cmsfilter-element="list" class="propertise-list-wrapper w-dyn-list">
+                <div role="list" class="properties-wrapper w-dyn-items w-row">
+
+                    @foreach (var item in Model)
+                    {
+                        <div role="listitem" class="single-properties w-dyn-item w-col w-col-4">
+                            <div class="single-properties-item">
+                                <div class="properties-image-block">
+                                    <img loading="lazy"
+                                    src="https://assets.website-files.com/622596ceb2da993727fc3dbe/6225da2f83ace35bc4f853fd_properties3.jpg"
+                                    alt="Properties Thumbnail Image " class="properties-image" />
+                                    <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                    <div class="properties-badge home-type">@item.Type</div>
+                                </div>
+                                <div class="properties-description-content">
+                                    <a fs-cmsfilter-field="name" href="/listing/esaac-dell-house"
+                                    class="properties-title">@item.Title</a>
+                                    <div fs-cmsfilter-field="city" class="properties-location">@item.Address</div>
+                                    <div class="properties-added-date-block">
+                                        <div class="properties-added-text">Added:</div>
+                                        <div class="properties-added-date">@item.CreatedAt</div>
+                                    </div>
+                                    <div class="properties-price-box">
+                                        <div class="line-shape"></div>
+                                        <div class="properties-price-block">
+                                            <div class="properties-price-text">Price: $</div>
+                                            <div fs-cmsfilter-field="price" class="properties-price-amount">
+                                                @item.Price</div>
+                                        </div>
+                                    </div>
+                                    <div class="properties-description">
+                                        <div fs-cmsfilter-field="square feet" class="number-of-square-feet">
+                                            @item.LotArea</div>
+                                        <div class="square-feet-text">Sq.fit</div>
+                                        <div class="dash-shape"></div>
+                                        <div fs-cmsfilter-field="bedrooms" class="number-of-bedroom">
+                                            @item.BedroomCount</div>
+                                        <div class="bed-text">Bed</div>
+                                        <div class="dash-shape"></div>
+                                        <div fs-cmsfilter-field="bathrooms" class="number-of-bathroom">
+                                            @item.BathroomCount</div>
+                                        <div class="bath-text">Bath</div>
+                                        <div class="dash-shape"></div>
+                                        <div fs-cmsfilter-field="garages" class="number-of-garage">@item.GarageCont
+                                        </div>
+                                        <div class="garage-text">Garage</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blank-space-section wf-section"></div>
+
+<div class="about-us-section wf-section">
+    <div class="container w-container">
+        <div class="about-wrapper">
+            <div class="about-left-content">
+                <div class="about-left-image">
+                    <img src="https://assets.website-files.com/62c3b7111a998e227c8476ea/62c548db5edd0e3dd7a798cf_collection-image.png"
+                        alt="About Image" class="about-image" />
+                </div>
+            </div>
+            <div class="about-right-content">
+                <div class="section-title">
+                    <div class="subtitle">Why Choose us</div>
+                    <div class="title-block">
+                        <h2 class="title">We Provide Right Choice of Properties that You need <span
+                                class="section-color-shape">.</span>
+                        </h2>
+                    </div>
+                    <p class="section-details">Huge number of propreties availabe here for buy, sell and Rent. Also you
+                        find here co-living property so lots opportunity you have to choose here and enjoy huge
+                        discount.</p>
+                </div>
+                <div class="about-content">
+                    <div class="about-single-content">
+                        <div class="about-content-icon">
+                            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/622717c5735aef1c45491454_about-icon.svg"
+                                loading="lazy" alt="About Icon" class="about-icon-image" />
+                        </div>
+                        <div class="about-content-text">
+                            <h3 class="about-content-title">Budget Friendly</h3>
+                            <p class="about-content-details">Properties are most budget friendly so you have opportunity
+                                to find the best one</p>
+                        </div>
+                    </div>
+                    <div class="about-single-content">
+                        <div class="about-content-icon">
+                            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/622717c4a324803bbe861cc6_about-icon-2.svg"
+                                loading="lazy" alt="About Icon" class="about-icon-image" />
+                        </div>
+                        <div class="about-content-text">
+                            <h3 class="about-content-title">Prime Location</h3>
+                            <p class="about-content-details">Properties are most budget friendly so you have opportunity
+                                to find the best one</p>
+                        </div>
+                    </div>
+                    <div class="about-single-content">
+                        <div class="about-content-icon">
+                            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/622717c5735aef1c45491454_about-icon.svg"
+                                loading="lazy" alt="About Icon" class="about-icon-image" />
+                        </div>
+                        <div class="about-content-text">
+                            <h3 class="about-content-title">Trusted By Thousand</h3>
+                            <p class="about-content-details">Properties are most budget friendly so you have opportunity
+                                to find the best one</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ----REVIEW----- *@
+<div class="testimonial-section wf-section">
+    <div class="container w-container">
+        <div class="testimonial-wrapper">
+            <div class="testimonial-slider-wrapper w-slider">
+                <div class="testimonial-slider-inner w-slider-mask">
+                    <div class="testimonial-slider-item w-slide">
+                        <div class="testimonial-content-side">
+                            <div class="testimonial-image-group">
+                                <div class="testimonial-background-shape">
+                                    <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/62298259e5963a18b540bb3d_shape.png"
+                                        alt="Shape Image" class="testimonial-shape-image" />
+                                </div>
+                            </div>
+                            <div class="testimonial-content mb-5">
+                                <p class="testimonial-text">Bary do a great job to find the perfect home. It’s very easy
+                                    for every one to buy, sell or rent property we belive they continure their great
+                                    service.</p>
+                                <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e830f7eb91e307056_quote.svg"
+                                    loading="lazy" alt="Quote Icon" class="quote-icon" />
+                                <div class="testimonial-meta-content">
+                                    <h4 class="client-name">Oliver Stephen</h4>
+                                    <div class="client-rating">
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">Bary do a great job to find the perfect home. It’s very easy
+                                    for every one to buy, sell or rent property we belive they continure their great
+                                    service.</p>
+                                <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e830f7eb91e307056_quote.svg"
+                                    loading="lazy" alt="Quote Icon" class="quote-icon" />
+                                <div class="testimonial-meta-content">
+                                    <h4 class="client-name">Albert S. Smith</h4>
+                                    <div class="client-rating">
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/6229834e5c4b71fb1e4ddb68_star.svg"
+                                            loading="lazy" alt="Rating Star" class="rating-star" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-title-side">
+                <div class="section-title testimonial-title">
+                    <div class="subtitle">Testimonial <br />
+                    </div>
+                    <div class="title-block">
+                        <h2 class="title">Reviews from our happy Clients <span class="section-color-shape">.</span>
+                            <br />
+                        </h2>
+                    </div>
+                    <p class="section-details">Huge number of propreties availabe here for buy, sell and Rent. Also you
+                        find here co-living property so lots opportunity you have to choose here and enjoy.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
