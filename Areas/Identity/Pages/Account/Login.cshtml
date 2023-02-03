@@ -52,10 +52,11 @@
                                 </label>
                                 <a id="forgot-password" asp-page="./ForgotPassword" class="forget-password">Forgot Password</a>
                             </div>
-                            <div class="button-block">
+                            <div class="button-block register-block">
                                 <input type="submit" value="Login" data-wait="Please wait..."
                                     class="button login-button w-button" />
-                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="register-link">Register</a>
+                                <div class="already-account">New here?</div>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="register-link register-block">Register</a>
                             </div>
                         </form>
                     </div>

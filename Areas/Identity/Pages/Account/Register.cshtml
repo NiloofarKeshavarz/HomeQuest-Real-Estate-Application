@@ -3,8 +3,76 @@
 @{
     ViewData["Title"] = "Register";
 }
+<div class="breadcrumb-section another-breadcrumb-section wf-section">
+    <div class="container w-container">
+        <div class="breadcrumb-wrapper another-breadcrumb-section">
+            <div class="breadcrumb-content another-breadcrumb-section">
+                <div class="breadcrumb-sub-heading another-breadcrumb-section">Register <br />
+                </div>
+                <h1 class="breadcrumb-main-heading another-breadcrumb-section">
+                    <span class="breadcrumb-span-text another-breadcrumb-section">Register Now!</span>
+                </h1>
+                <p class="breadcrumb-details-content another-details-content">Huge number of propreties availabe here
+                    for buy and sell also you can find here co-living property</p>
+            </div>
+        </div>
+    </div>
+</div>
+ <div class="blank-space-section wf-section"></div>
+<div class="login-section wf-section">
+    <div class="container w-container">
+        <div class="login-wrapper">
+            <div class="login-left-side">
+                <div class="login-top">
+                    <h2 class="login-title">Create Account <span class="section-color-shape">.</span>
+                    </h2>
+                    <p class="login-details">Huge number of propreties availabe here for buy, sell and Rent. Also you
+                        find here co-living property, lots opportunity you have to choose here and enjoy huge discount
+                        you can get. <br />
+                    </p>
+                </div>
+                <div class="login-form-block">
+                    <div class="form-block w-form">
+                        @* Register Form *@
+                        <form iid="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"
+                            class="login-form">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                            <input asp-for="Input.Email" type="email" aria-required="true"  class="form-field width-full login-form w-input" maxlength="256"
+                                name="Email" placeholder="Email: name@example.com" />
+                            <input asp-for="Input.Password" type="password" class="form-field width-full login-form w-input" maxlength="256"
+                                name="Password" data-name="Password" placeholder="Password" aria-required="true"  />
+                            <input asp-for="Input.ConfirmPassword" type="password" aria-required="true"  class="form-field width-full login-form w-input" maxlength="256"
+                                name="Conform-Password" placeholder="Conform Password" />
+                            <div class="forget-password-block register-block">
+                                <label class="w-checkbox form-checkbox register-block">
+                                    <input type="checkbox" name="Checkbox" id="Checkbox" data-name="Checkbox"
+                                        aria-required="true"  class="w-checkbox-input checkbox" />
+                                    <span class="checkbox-label w-form-label" for="Checkbox">I agree with the</span>
+                                </label>
+                                <a href="#" class="forget-password register-block">Terms &amp; Conditions</a>
+                            </div>
+                            <div class="button-block register-block">
+                                <input type="submit" value="Register" data-wait="Please wait..."
+                                    class="button login-button w-button" />
+                                <div class="already-account">Already have an Account?</div>
+                                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="register-link register-block">Login</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="login-right-side">
+                <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/623be93102def05b04fea5cd_image2.png"
+                    loading="lazy" alt="Register Image" class="login-image" />
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>@ViewData["Title"]</h1>
+
+
+
+@* <h1>@ViewData["Title"]</h1>
 
 <div class="row">
     <div class="col-md-4">
@@ -60,7 +128,7 @@
             }
         </section>
     </div>
-</div>
+</div> *@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
