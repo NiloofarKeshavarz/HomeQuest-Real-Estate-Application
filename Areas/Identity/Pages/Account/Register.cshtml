@@ -18,118 +18,139 @@
         </div>
     </div>
 </div>
- <div class="blank-space-section wf-section"></div>
+<div class="blank-space-section wf-section"></div>
 <div class="login-section wf-section">
-    <div class="container w-container">
-        <div class="login-wrapper">
-            <div class="login-left-side">
-                <div class="login-top">
-                    <h2 class="login-title">Create Account <span class="section-color-shape">.</span>
-                    </h2>
-                    <p class="login-details">Huge number of propreties availabe here for buy, sell and Rent. Also you
-                        find here co-living property, lots opportunity you have to choose here and enjoy huge discount
-                        you can get. <br />
-                    </p>
-                </div>
-                <div class="login-form-block">
-                    <div class="form-block w-form">
-                        @* Register Form *@
-                        <form iid="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"
-                            class="login-form">
-                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                            <input asp-for="Input.Email" type="email" aria-required="true"  class="form-field width-full login-form w-input" maxlength="256"
-                                name="Email" placeholder="Email: name@example.com" />
-                            <input asp-for="Input.Password" type="password" class="form-field width-full login-form w-input" maxlength="256"
-                                name="Password" data-name="Password" placeholder="Password" aria-required="true"  />
-                            <input asp-for="Input.ConfirmPassword" type="password" aria-required="true"  class="form-field width-full login-form w-input" maxlength="256"
-                                name="Conform-Password" placeholder="Conform Password" />
-                            <div class="forget-password-block register-block">
-                                <label class="w-checkbox form-checkbox register-block">
-                                    <input type="checkbox" name="Checkbox" id="Checkbox" data-name="Checkbox"
-                                        aria-required="true"  class="w-checkbox-input checkbox" />
-                                    <span class="checkbox-label w-form-label" for="Checkbox">I agree with the</span>
-                                </label>
-                                <a href="#" class="forget-password register-block">Terms &amp; Conditions</a>
-                            </div>
-                            <div class="button-block register-block">
-                                <input type="submit" value="Register" data-wait="Please wait..."
-                                    class="button login-button w-button" />
-                                <div class="already-account">Already have an Account?</div>
-                                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="register-link register-block">Login</a>
-                            </div>
-                        </form>
+    <div>
+        <div class="container w-container">
+            <div class="login-wrapper">
+                <div class="login-left-side">
+                    <div class="login-top">
+                        <h2 class="login-title">Create Account <span class="section-color-shape">.</span>
+                        </h2>
+                        <p class="login-details">Huge number of propreties availabe here for buy, sell and Rent. Also
+                            you
+                            find here co-living property, lots opportunity you have to choose here and enjoy huge
+                            discount
+                            you can get. <br />
+                        </p>
+                    </div>
+                    <div class="login-form-block">
+                        <div class="form-block w-form">
+                            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"
+                                class="login-form">
+                                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                                @* <div class="form-floating mb-3"> *@
+                                    <input asp-for="Input.Email" type="email" aria-required="true" class="form-field width-full
+                                login-form w-input" maxlength="256" autocomplete="username"
+                                        placeholder="Email: name@example.com" />
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                @* </div> *@
+
+                                @* <div class="form-floating mb-3"> *@
+                                    <input asp-for="Input.Password" type="password" class="form-field width-full login-form
+                                w-input" maxlength="256" placeholder="Password" aria-required="true" autocomplete="new-password" />
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                @* </div> *@
+
+                                @* <div class="form-floating mb-3"> *@
+                                    <input asp-for="Input.ConfirmPassword" type="password" aria-required="true"
+                                        class="form-field width-full login-form w-input" maxlength="256"
+                                         placeholder="Conform Password" />
+                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                @* </div> *@
+                                <div class="forget-password-block register-block">
+                                    <label class="w-checkbox form-checkbox register-block">
+                                        <input type="checkbox" name="Checkbox" id="Checkbox" data-name="Checkbox"
+                                            aria-required="true" class="w-checkbox-input checkbox" />
+                                        <span class="checkbox-label w-form-label" for="Checkbox">I agree with the</span>
+                                    </label>
+                                    <a href="#" class="forget-password register-block">Terms &amp; Conditions</a>
+                                </div>
+                                <div class="button-block register-block">
+                                    <input type="submit" id="registerSubmit" class="button login-button w-button" />
+                                    <div class="already-account">Already have an Account?</div>
+                                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="register-link
+                                register-block">Login</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="login-right-side">
-                <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/623be93102def05b04fea5cd_image2.png"
-                    loading="lazy" alt="Register Image" class="login-image" />
+                <div class="login-right-side">
+                    <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/623be93102def05b04fea5cd_image2.png"
+                        loading="lazy" alt="Register Image" class="login-image" />
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
 
-@* <h1>@ViewData["Title"]</h1>
+    @* <h1>@ViewData["Title"]</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr/>
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-4">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h2>Create a new account.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"
+                        placeholder="name@example.com" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password"
+                        aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Password">Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
+                        aria-required="true" placeholder="password" />
+                    <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            </form>
+        </div>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h3>Use another service to register.</h3>
+                <hr />
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
                         <div>
                             <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
+                                There are no external authentication services configured. See this <a
+                                href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                                    about setting up this ASP.NET application to support logging in via external services</a>.
                             </p>
                         </div>
-                    </form>
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl"
+                    method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name"
+                                    title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }
                 }
-            }
-        </section>
-    </div>
-</div> *@
+            </section>
+        </div>
+    </div> *@
 
-@section Scripts {
+    @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}
+    }
