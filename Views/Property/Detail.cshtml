@@ -1,0 +1,104 @@
+@model HomeQuest.Models.Property
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="breadcrumb-section another-breadcrumb-section wf-section">
+    <div class="container w-container">
+        <div class="breadcrumb-wrapper another-breadcrumb-section">
+            <div class="breadcrumb-content another-breadcrumb-section">
+                <div class="breadcrumb-sub-heading another-breadcrumb-section"><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Status</span></div>
+                <h1 class="breadcrumb-main-heading another-breadcrumb-section">@Model.Title</h1>
+                <p class="breadcrumb-details-content another-details-content">Huge number of propreties availabe here
+                    for buy and sell, also you can find here co-living property</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blank-space-section wf-section"></div>
+
+<div class="properties-details-section wf-section">
+    <div class="container w-container">
+        <div class="properties-details-wrapper">
+            <div class="propertise-details-side">
+                <div class="properties-details-inner">
+                    @* --- leftside content ---- *@
+                    <div class="properties-main-image">
+                        <img alt="Properties Main Image" loading="lazy"
+                            src="https://assets.website-files.com/622596ceb2da993727fc3dbe/623c5a57f92b3fabf5167826_post1.png"
+                            class="properties-details-image" />
+                    </div>
+                    <div class="properties-details-top">
+                        <div><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Type</span></div>
+                        <div class="properties-location-address properties-details-page">@Model.Address</div>
+                        <h2 class="properties-details-title">@Model.Title <span class="section-color-shape">.</span>
+                        </h2>
+                        <p class="properties-details-text">@Model.Description</p>
+                    </div>
+
+                    <div class="properties-image-gallery">
+                        <div class="gallery-list-wrapper w-dyn-list">
+                            <div role="list" class="gallery-list w-dyn-items w-row">
+                                <div role="listitem" class="gallery-item w-dyn-item w-dyn-repeater-item w-col w-col-4">
+                                    <h3 class="properties-facilites-heading">Property Gallery <span
+                                            class="section-color-shape">.</span>
+                                    </h3>
+                                    <a href="#" class="gallery-link w-inline-block w-lightbox">
+                                        <img alt="" loading="lazy"
+                                            src="https://assets.website-files.com/622596ceb2da993727fc3dbe/623c5aa7011666306d4233d0_01.png"
+                                            class="gallery-mage" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="property-facilities">
+                        <h3 class="properties-facilites-heading">Property Features <span
+                                class="section-color-shape">.</span>
+                        </h3>
+                        <div class="properties-facilities-wrapper">
+                            <div class="single-facilities">
+                                <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de6c978835bb853f99_cama.svg"
+                                    width="30" height="30" alt="bed Icon" class="facilities-icon" />
+                                <div class="facilities-text"><h4 class="section-color-shape">@Model.BedroomCount <span>Bedrooms</span></h4></div>
+                            </div>
+                            <div class="single-facilities">
+                                <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de528d2e2aa8bf8e81_ducha.svg"
+                                    width="25" height="25" alt="bath Icon" class="facilities-icon" />
+                                <div class="facilities-text"><h4 class="section-color-shape">@Model.BathroomCount <span>Bathrooms</span></h4></div>
+                            </div>
+                            <div class="single-facilities">
+                                <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de03e4102bf23c62a0_Car.png"
+                                    width="25" height="25" alt="car Icon" class="facilities-icon" />
+                                <div class="facilities-text"><h4 class="section-color-shape">@Model.GarageCont <span>Garages</span></h4></div>
+                            </div>
+                             <div class="single-facilities">
+                                <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de6c9788cef7853f98_anteproyecto.svg"
+                                    width="25" height="25" alt="area Icon" class="facilities-icon" />
+                                <div class="facilities-text"><h4 class="section-color-shape">@Model.FloorArea <span>Sq Feet</span></h4></div>
+                            </div>
+                            <div class="single-facilities">
+                                <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de6c9788cef7853f98_anteproyecto.svg"
+                                    width="25" height="25" alt="area Icon" class="facilities-icon" />
+                                <div class="facilities-text"><h4 class="section-color-shape">Built In  @Model.YearBuilt.Year</h4></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    @* --leftside content end-- *@
+
+                </div>
+            </div>
+            @* ---rightside--- *@
+            <div class="properties-sidebar">
+                <div class="sidebar-box">
+                    @* --- *@
+                    asdfasdfafdfsad
+                    @* --- *@
+                </div>
+            </div>
+            @*---- rightside end---*@
+        </div>
+    </div>
+</div>

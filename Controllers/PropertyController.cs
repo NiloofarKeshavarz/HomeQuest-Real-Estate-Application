@@ -66,6 +66,11 @@ namespace HomeQuest.Controllers
             return View();
        }
 
+        public IActionResult Detail(int Id)
+        {   
+            Property property = db.Properties.Where(x => x.Id == Id).FirstOrDefault();
+            return View(property);
+        }
 
 
         // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
