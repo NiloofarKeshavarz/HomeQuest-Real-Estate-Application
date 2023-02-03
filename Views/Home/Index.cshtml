@@ -62,51 +62,53 @@
 
                     @foreach (var item in Model)
                     {
-                        <div role="listitem" class="single-properties w-dyn-item w-col w-col-4">
-                            <div class="single-properties-item">
-                                <div class="properties-image-block">
-                                    <img loading="lazy"
-                                    src="https://assets.website-files.com/622596ceb2da993727fc3dbe/6225da2f83ace35bc4f853fd_properties3.jpg"
-                                    alt="Properties Thumbnail Image " class="properties-image" />
-                                    <div asp-for="Status" class="properties-badge">@item.Status</div>
-                                    <div class="properties-badge home-type">@item.Type</div>
-                                </div>
-                                <div class="properties-description-content">
-                                    <a fs-cmsfilter-field="name" href="/listing/esaac-dell-house"
-                                    class="properties-title">@item.Title</a>
-                                    <div fs-cmsfilter-field="city" class="properties-location">@item.Address</div>
-                                    <div class="properties-added-date-block">
-                                        <div class="properties-added-text">Added:</div>
-                                        <div class="properties-added-date">@item.CreatedAt</div>
+                        <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id">
+                            <div role="listitem" class="single-properties w-dyn-item w-col w-col-4">
+                                <div class="single-properties-item">
+                                    <div class="properties-image-block">
+                                        <img
+                                        src="https://assets.website-files.com/622596ceb2da993727fc3dbe/6225da2f83ace35bc4f853fd_properties3.jpg"
+                                        alt="Properties Thumbnail Image " class="properties-image" />
+                                        <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                        <div class="properties-badge home-type">@item.Type</div>
                                     </div>
-                                    <div class="properties-price-box">
-                                        <div class="line-shape"></div>
-                                        <div class="properties-price-block">
-                                            <div class="properties-price-text">Price: $</div>
-                                            <div fs-cmsfilter-field="price" class="properties-price-amount">
-                                                @item.Price</div>
+                                    <div class="properties-description-content">
+                                        <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id"
+                                        class="properties-title">@item.Title</a>
+                                        <div fs-cmsfilter-field="city" class="properties-location">@item.Address</div>
+                                        <div class="properties-added-date-block">
+                                            <div class="properties-added-text">Added:</div>
+                                            <div class="properties-added-date">@item.CreatedAt</div>
                                         </div>
-                                    </div>
-                                    <div class="properties-description">
-                                        <div fs-cmsfilter-field="square feet" class="number-of-square-feet">
-                                            @item.LotArea</div>
-                                        <div class="square-feet-text">Sq.fit</div>
-                                        <div class="dash-shape"></div>
-                                        <div fs-cmsfilter-field="bedrooms" class="number-of-bedroom">
-                                            @item.BedroomCount</div>
-                                        <div class="bed-text">Bed</div>
-                                        <div class="dash-shape"></div>
-                                        <div fs-cmsfilter-field="bathrooms" class="number-of-bathroom">
-                                            @item.BathroomCount</div>
-                                        <div class="bath-text">Bath</div>
-                                        <div class="dash-shape"></div>
-                                        <div fs-cmsfilter-field="garages" class="number-of-garage">@item.GarageCont
+                                        <div class="properties-price-box">
+                                            <div class="line-shape"></div>
+                                            <div class="properties-price-block">
+                                                <div class="properties-price-text">Price: $</div>
+                                                <div fs-cmsfilter-field="price" class="properties-price-amount">
+                                                    @item.Price</div>
+                                            </div>
                                         </div>
-                                        <div class="garage-text">Garage</div>
+                                        <div class="properties-description">
+                                            <div fs-cmsfilter-field="square feet" class="number-of-square-feet">
+                                                @item.LotArea</div>
+                                            <div class="square-feet-text">Sq.fit</div>
+                                            <div class="dash-shape"></div>
+                                            <div fs-cmsfilter-field="bedrooms" class="number-of-bedroom">
+                                                @item.BedroomCount</div>
+                                            <div class="bed-text">Bed</div>
+                                            <div class="dash-shape"></div>
+                                            <div fs-cmsfilter-field="bathrooms" class="number-of-bathroom">
+                                                @item.BathroomCount</div>
+                                            <div class="bath-text">Bath</div>
+                                            <div class="dash-shape"></div>
+                                            <div fs-cmsfilter-field="garages" class="number-of-garage">@item.GarageCont
+                                            </div>
+                                            <div class="garage-text">Garage</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     }
 
                 </div>
