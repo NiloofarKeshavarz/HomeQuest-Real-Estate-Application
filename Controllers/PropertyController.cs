@@ -11,15 +11,15 @@ using static HomeQuest.Models.Property;
 
 namespace HomeQuest.Controllers
 {
-    // [Route("[controller]")]
+    [Route("[controller]")]
     public class PropertyController : Controller
     {
-        private readonly ILogger<PropertyController> _logger;
+        private readonly ILogger<PropertyController> logger;
         private HomeQuestDbContext db;
 
         public PropertyController(HomeQuestDbContext db, ILogger<PropertyController> logger)
         {
-            _logger = logger;
+            this.logger = logger;
             this.db = db;
         }
         [BindProperty]
@@ -45,6 +45,7 @@ namespace HomeQuest.Controllers
         public PropertyStatus Status{get; set;}
         public PropertyType Type{get; set;}
 
+        [Route("[controller]/Index")]
         public IActionResult Index()
         {
             IEnumerable<Property> propList = db.Properties;
@@ -52,7 +53,7 @@ namespace HomeQuest.Controllers
         }
 
 
-
+        [Route("[controller]/Create")]
         public IActionResult Create()
         {
              if (ModelState.IsValid)
