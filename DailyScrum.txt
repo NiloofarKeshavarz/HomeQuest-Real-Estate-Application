@@ -98,6 +98,15 @@
 -
 
 ===============================================
+2023/02/03 Niloofar
+1. Done / not done since last scrum:
+- Still working on image table and saving images in the blob storage
+- remove property not completed
+2. To do until next Scrum:
+- complete the image storage, remove and merge the user to property with Shiva
+3. Need assistance / figure things out
+- My Azure account disabled , we need to figure out a way not to use all our credis
+
 2023/02/03 Rucheng
 1. Done / not done since last scrum:
 -  update Register and Login page to identity
