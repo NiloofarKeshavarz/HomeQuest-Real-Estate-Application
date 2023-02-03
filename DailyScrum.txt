@@ -84,7 +84,8 @@
 - Create View: Property Detail
 - keep doing research about MVC
 3. Need assistance / figure things out
-- 
+-
+
 
 2023/02/02 Shiva
 1. Done / not done since last scrum:
@@ -95,3 +96,15 @@
 - if i had extra time: create other entities. (properties already taken care of)
 3. Need assistance / figure things out
 -
+
+===============================================
+2023/02/03 Rucheng
+1. Done / not done since last scrum:
+-  update Register and Login page to identity
+-  Create Home page
+2. To do until next Scrum:
+- Create property details page
+- do some rearch about show spot on map by entering address
+- keep doing research about MVC
+3. Need assistance / figure things out
+- 
