@@ -41,13 +41,16 @@
                         <form id="account" method="post" class="login-form">
                             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                             <input asp-for="Input.Email" type="email" class="form-field width-full login-form w-input" maxlength="256"
-                                name="email" data-name="Name" placeholder="Email:name@example.com" id="email" aria-required="true" />
+                                placeholder="Email:name@example.com" aria-required="true" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+
                             <input asp-for="Input.Password" type="password" class="form-field width-full login-form w-input" maxlength="256"
-                                name="Password" data-name="Password" placeholder="Password" id="Password" aria-required="true" />
+                                placeholder="Password" aria-required="true" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+
                             <div class="forget-password-block">
                                 <label asp-for="Input.RememberMe" class="w-checkbox form-checkbox">
-                                    <input asp-for="Input.RememberMe" type="checkbox" name="Checkbox" id="Checkbox" data-name="Checkbox"
-                                        required="" class="w-checkbox-input checkbox" />
+                                    <input asp-for="Input.RememberMe" type="checkbox" class="w-checkbox-input checkbox" />
                                     <span class="checkbox-label w-form-label" for="Checkbox">Remember Me</span>
                                 </label>
                                 <a id="forgot-password" asp-page="./ForgotPassword" class="forget-password">Forgot Password</a>

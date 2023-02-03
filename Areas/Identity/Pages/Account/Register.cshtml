@@ -39,25 +39,21 @@
                             <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"
                                 class="login-form">
                                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                                @* <div class="form-floating mb-3"> *@
                                     <input asp-for="Input.Email" type="email" aria-required="true" class="form-field width-full
                                 login-form w-input" maxlength="256" autocomplete="username"
                                         placeholder="Email: name@example.com" />
                                     <span asp-validation-for="Input.Email" class="text-danger"></span>
-                                @* </div> *@
 
-                                @* <div class="form-floating mb-3"> *@
                                     <input asp-for="Input.Password" type="password" class="form-field width-full login-form
                                 w-input" maxlength="256" placeholder="Password" aria-required="true" autocomplete="new-password" />
                                     <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                @* </div> *@
 
-                                @* <div class="form-floating mb-3"> *@
+
                                     <input asp-for="Input.ConfirmPassword" type="password" aria-required="true"
                                         class="form-field width-full login-form w-input" maxlength="256"
                                          placeholder="Conform Password" />
                                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                                @* </div> *@
+                                    
                                 <div class="forget-password-block register-block">
                                     <label class="w-checkbox form-checkbox register-block">
                                         <input type="checkbox" name="Checkbox" id="Checkbox" data-name="Checkbox"
