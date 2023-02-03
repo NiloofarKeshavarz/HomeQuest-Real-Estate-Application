@@ -22,62 +22,45 @@ namespace HomeQuest.Controllers
             this.logger = logger;
             this.db = db;
         }
-        [BindProperty]
-        public string Title { get; set; }
-
-        [BindProperty]
-        public string Description { get; set; }
-        [BindProperty]
-        public string Address { get; set; }
-        [BindProperty]
-        public string PostalCode { get; set; }
-        public int Price { get; set;}
-        public int Floors { get; set; }
-        public int BedroomCount { get; set; }
-        public int BathroomCount { get; set; }
-        public int GarageCont { get; set; }
-        public DateTime YearBuilt { get; set; }
-        public int FloorArea { get; set; }
-        public int LotArea { get; set; }
-        public DateTime CreatedAt { get; set; }
-
         
-        public PropertyStatus Status{get; set;}
-        public PropertyType Type{get; set;}
+        [BindProperty]
+        public Property Property { get; set; }
 
-        [Route("[controller]/Index")]
+
+        [Route("/Index")]
         public IActionResult Index()
         {
             IEnumerable<Property> propList = db.Properties;
-              return View(propList);
+            return View(propList);
         }
 
-
-        [Route("[controller]/Create")]
+        // Redirect to add property page 
+        [Route("/Create")]
         public IActionResult Create()
         {
-             if (ModelState.IsValid)
-            {
-                var newProperty = new HomeQuest.Models.Property{Title = Title, Description = Description, Address = Address, PostalCode = PostalCode};
-                db.Add(newProperty);
-                db.SaveChangesAsync();
-              
-         }
             return View();
-       }
+        }
+
+        [Route("/CreateNewProperty")]
+        public IActionResult CreateNewProperty()
+        {
+          
+                db.Properties.Add(Property);
+                db.SaveChangesAsync();
+                Console.WriteLine("insertion DONE!");
+
+
+            // }
+            return View();
+        }
 
         public IActionResult Detail(int Id)
-        {   
+        {
             Property property = db.Properties.Where(x => x.Id == Id).FirstOrDefault();
             return View(property);
         }
 
 
-        // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        // public IActionResult Error()
-        // {
-        //     return View("Error!");
-        // }
     }
 }
 

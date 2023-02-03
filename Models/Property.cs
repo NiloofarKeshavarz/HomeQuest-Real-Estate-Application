@@ -21,10 +21,12 @@ namespace HomeQuest.Models
        public int Floors { get; set; }
        public int BedroomCount { get; set; }
        public int BathroomCount { get; set; }
+
        public int GarageCont { get; set; }
        public DateTime YearBuilt { get; set; }
        public int FloorArea { get; set; }
        public int LotArea { get; set; }
+       
        public DateTime CreatedAt { get; set; }
 
        public enum PropertyStatus {
