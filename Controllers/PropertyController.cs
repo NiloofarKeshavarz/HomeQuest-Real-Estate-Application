@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using HomeQuest.Data;
 using HomeQuest.Models;
-using static HomeQuest.Models.Property;
+using Microsoft.AspNetCore.Http;
 
 namespace HomeQuest.Controllers
 {
@@ -15,16 +15,21 @@ namespace HomeQuest.Controllers
     public class PropertyController : Controller
     {
         private readonly ILogger<PropertyController> logger;
+         private IWebHostEnvironment environment;
         private HomeQuestDbContext db;
 
-        public PropertyController(HomeQuestDbContext db, ILogger<PropertyController> logger)
+        public PropertyController(HomeQuestDbContext db, ILogger<PropertyController> logger,IWebHostEnvironment environment)
         {
             this.logger = logger;
             this.db = db;
+            this.environment = environment;
         }
         
         [BindProperty]
         public Property Property { get; set; }
+
+        [BindProperty]
+         public IFormFile Upload { get; set; }
 
 
         [Route("/Index")]
@@ -37,6 +42,12 @@ namespace HomeQuest.Controllers
         // Redirect to add property page 
         [Route("/Create")]
         public IActionResult Create()
+        {
+            return View();
+        }
+
+        [Route("/imageUploadDownload")]
+        public IActionResult imageUploadDownload()
         {
             return View();
         }
@@ -60,6 +71,7 @@ namespace HomeQuest.Controllers
             return View(property);
         }
 
+        
 
     }
 }

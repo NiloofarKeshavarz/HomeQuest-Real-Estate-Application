@@ -1,0 +1,43 @@
+@model List<HomeQuest.Models.Image>    // a list of image model entities to display or create
+
+@{
+    ViewData["Title"] = "imageUploadDownload";
+}
+
+
+
+<h2>welcome to image upload/download</h2>
+
+
+<form asp-controller="Image" asp-action="UploadFiles" method="Post" enctype="multipart/form-data">
+    <div class="form-group">
+        <input type="file" name="files" multiple />
+    </div>
+    <button type="submit">Upload Files</button>
+</form>
+
+@if (Model != null && Model.Count > 0)
+{
+    <h3>Uploaded Files</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>File URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var file in Model)
+            {
+                <tr>
+                    <td>@file.FileName</td>
+                    <td>@file.URL</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+

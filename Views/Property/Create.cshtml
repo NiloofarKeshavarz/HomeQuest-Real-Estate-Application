@@ -1,3 +1,4 @@
+
 @model HomeQuest.Models.Property
 @{
     ViewData["Title"] = "Create";
@@ -26,7 +27,7 @@
     <div class="container w-container">
         <div class="add-properties-wrapper">
             <div class="add-properties-form-wrapper w-form">
-                <form asp-controller="Property" asp-action="CreateNewProperty" method="post" class="add-properties-form">
+                <form asp-controller="Property" asp-action="CreateNewProperty" enctype="multipart/form-data" method="post" class="add-properties-form">
                     
                     <div class="form-wrapper">
                         <div class="single-form width-50">
@@ -140,14 +141,10 @@
                                 <span asp-validation-for="CreatedAt" ></span>
                         </div>
                         <div class="single-form width-100">
-                            <label for="Image" class="properties-label">Add Images</label>
-                            <div class="input-box">
-                                <a  class="button add-button w-inline-block">
-                                    <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/623c28f947c67e1564acd07f_folder.svg"
-                                        loading="lazy" width="22" height="22" alt="Folder Icon" class="folder-icon" />
-                                    <div class="button-text">Add Image</div>
-                                </a>
-                            </div>
+                            
+                <a class="button mobile-button w-nav-link" asp-area="" asp-controller="Property" asp-action="imageUploadDownload">Go to Upload image page</a>
+
+
                         </div>
                     </div>
                     <div class="property-aminitie mb-5">
