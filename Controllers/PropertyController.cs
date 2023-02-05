@@ -71,6 +71,15 @@ namespace HomeQuest.Controllers
             return View(property);
         }
 
+        [Route("/imageManager")]
+        [HttpPost]
+        public IActionResult imageManager(int Id)
+        {
+            ViewBag.currentPropertyId = Id;
+            Console.WriteLine("going to image page with id:" + Id);
+
+            return View();
+        }
         
 
     }

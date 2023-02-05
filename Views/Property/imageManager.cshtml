@@ -8,10 +8,12 @@
 
 <h2>welcome to image upload/download</h2>
 
+<h3>Image Manager for the property with id @ViewBag.currentPropertyId</h3>
 
 <form asp-controller="Image" asp-action="UploadFiles" method="Post" enctype="multipart/form-data">
     <div class="form-group">
         <input type="file" name="files" multiple />
+        <input type="text" name="propertyId" value=@ViewBag.currentPropertyId></input
     </div>
     <button type="submit">Upload Files</button>
 </form>

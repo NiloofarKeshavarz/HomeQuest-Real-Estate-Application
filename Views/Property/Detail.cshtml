@@ -53,6 +53,13 @@
                         </div>
                     </div>
 
+
+                    <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form" enctype="multipart/form-data">
+                         <input asp-for="Id">@Model.Id</input>
+                         <button class="button mobile-button w-nav-link">Go to Upload image page</button>
+
+                    </form>
+
                     <div class="property-facilities">
                         <h3 class="properties-facilites-heading">Property Features <span
                                 class="section-color-shape">.</span>

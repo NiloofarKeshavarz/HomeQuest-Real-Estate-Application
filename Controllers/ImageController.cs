@@ -60,7 +60,7 @@ namespace HomeQuest.Controllers
         //     return View();
         // }
 
-        public async Task<IActionResult> UploadFiles(List<IFormFile> files)
+        public async Task<IActionResult> UploadFiles(List<IFormFile> files, int propertyId)
         {
 
             Console.WriteLine("connecting to azure blob...");
@@ -88,11 +88,12 @@ namespace HomeQuest.Controllers
 
                 });
 
-
+                Console.WriteLine("Upload infor to image table in db for property id: " + propertyId);
                 Image newImage = new Image();
                 newImage.FileName = file.FileName;
                 newImage.URL = blockBlob.Uri.AbsoluteUri;
-                newImage.PropertyId=1;
+                newImage.PropertyId = propertyId;
+                newImage.IsPrimaryImage = false;
 
                 db.Images.Add(newImage);
                 db.SaveChanges();
