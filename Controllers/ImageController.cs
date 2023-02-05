@@ -39,10 +39,10 @@ namespace HomeQuest.Controllers
         }
 
         [BindProperty]
-        public Property Property { get; set; }
+        public Property? Property { get; set; }
 
         [BindProperty]
-        public Image Image { get; set; }
+        public Image? Image { get; set; }
 
 
 
@@ -88,7 +88,7 @@ namespace HomeQuest.Controllers
 
                 });
 
-                Console.WriteLine("Upload infor to image table in db for property id: " + propertyId);
+                Console.WriteLine("Upload info to image table in db for property id: " + propertyId);
                 Image newImage = new Image();
                 newImage.FileName = file.FileName;
                 newImage.URL = blockBlob.Uri.AbsoluteUri;
@@ -104,10 +104,10 @@ namespace HomeQuest.Controllers
 
             }
 
-                        return View();
+                        // return View();
 
 
-            // return View("imageUploadDownload", uploadedFiles);
+            return View("imageManager", uploadedFiles);
         }
 
 

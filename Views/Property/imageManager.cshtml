@@ -13,7 +13,7 @@
 <form asp-controller="Image" asp-action="UploadFiles" method="Post" enctype="multipart/form-data">
     <div class="form-group">
         <input type="file" name="files" multiple />
-        <input type="text" name="propertyId" value=@ViewBag.currentPropertyId></input
+        <input type="text" name="propertyId" value=@ViewBag.currentPropertyId></input>
     </div>
     <button type="submit">Upload Files</button>
 </form>

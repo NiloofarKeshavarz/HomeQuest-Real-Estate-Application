@@ -26,7 +26,7 @@ namespace HomeQuest.Controllers
         }
         
         [BindProperty]
-        public Property Property { get; set; }
+        public Property? Property { get; set; }
 
         [BindProperty]
          public IFormFile Upload { get; set; }
