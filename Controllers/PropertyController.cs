@@ -78,7 +78,7 @@ namespace HomeQuest.Controllers
             ViewBag.currentPropertyId = Id;
             Console.WriteLine("going to image page with id:" + Id);
 
-            return View();
+            return View("~/Views/Image/ImageManager.cshtml");
         }
         
 
