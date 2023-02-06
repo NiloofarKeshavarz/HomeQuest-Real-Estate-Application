@@ -29,13 +29,19 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var url in ViewBag.urlList)
+            @if (ViewBag.urlList != null){
+                      @foreach (var url in ViewBag.urlList)
             {
                 <tr>
                     <img src="@url"/>
+                    
 
                 </tr>
             }
+            }else{
+                <h1>View bag is null</h1>
+            }
+      
         </tbody>
     </table>
 
@@ -53,6 +59,7 @@
             @foreach (var file in Model)
             {
                 <tr>
+                    <td>@ViewBag.currentPropertyId</td>
                     <td>@file.FileName</td>
                     <td>@file.URL</td>
                     <img src="@file.URL"/>

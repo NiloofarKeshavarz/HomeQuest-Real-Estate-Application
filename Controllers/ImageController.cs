@@ -27,6 +27,7 @@ namespace HomeQuest.Controllers
     [Route("[controller]")]
     public class ImageController : Controller
     {
+        int currentPropertyId = 0;
         private readonly ILogger<ImageController> logger;
         private IWebHostEnvironment environment;
         private HomeQuestDbContext db;
@@ -47,11 +48,11 @@ namespace HomeQuest.Controllers
 
 
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        // [HttpGet]
+        // public IActionResult Index()
+        // {
+        //     return View();
+        // }
 
         [Route("/UploadFiles")]
         [HttpPost]
@@ -92,12 +93,20 @@ namespace HomeQuest.Controllers
                 Image newImage = new Image();
                 newImage.FileName = file.FileName;
                 newImage.URL = blockBlob.Uri.AbsoluteUri;
+                currentPropertyId = propertyId;
                 newImage.PropertyId = propertyId;
                 newImage.IsPrimaryImage = false;
 
                 db.Images.Add(newImage);
                 db.SaveChanges();
                 Console.WriteLine("insertion new image DONE!");
+                Console.WriteLine("View bag captured with the value: " + currentPropertyId);
+
+                var imageUrls = db.Images
+                .Where(i => i.PropertyId == currentPropertyId)
+                .Select(i => i.URL)
+                .ToList();
+                ViewBag.urlList = imageUrls;
 
 
 
@@ -107,7 +116,7 @@ namespace HomeQuest.Controllers
                         // return View();
 
 
-            return View("imageManager", uploadedFiles);
+            return View("imageManager");
         }
 
 
