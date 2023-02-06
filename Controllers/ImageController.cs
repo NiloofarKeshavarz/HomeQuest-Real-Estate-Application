@@ -109,12 +109,27 @@ namespace HomeQuest.Controllers
                 ViewBag.urlList = imageUrls;
 
 
-
-
             }
 
-                        // return View();
+            return View("imageManager");
+        }
 
+        [Route("DeleteImage")]
+        [HttpPost]
+        public ActionResult DeleteImage(string urlToDelete, int propertyId){
+
+            Console.WriteLine("Deleting image url: " + urlToDelete);
+
+            // Delete from the db
+            // Image image = db.Images.SingleOrDefault(i => i.URL == urlToDelete);
+            Image image = db.Images.Where(i => i.URL == urlToDelete).FirstOrDefault();
+            if (image != null)
+            {
+                db.Images.Remove(image);
+                db.SaveChanges();
+            }
+
+            // Delete Image from the azure blob
 
             return View("imageManager");
         }

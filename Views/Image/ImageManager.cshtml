@@ -22,18 +22,16 @@
 
 <h3>DB saved Files</h3>
     <table>
-        <thead>
-            <tr>
-                <th>File Name</th>
-                <th>File URL</th>
-            </tr>
-        </thead>
         <tbody>
             @if (ViewBag.urlList != null){
                       @foreach (var url in ViewBag.urlList)
             {
                 <tr>
                     <img src="@url"/>
+                    <form asp-controller="Image" asp-action="DeleteImage" method="Post" enctype="multipart/form-data">
+                            <input type="text" name="urlToDelete" value=@url></input>
+                            <button type="submit">Delete</button>
+                    </form>
                     
 
                 </tr>
