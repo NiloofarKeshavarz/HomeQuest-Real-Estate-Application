@@ -18,6 +18,27 @@
     <button type="submit">Upload Files</button>
 </form>
 
+
+
+<h3>DB saved Files</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>File URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var url in ViewBag.urlList)
+            {
+                <tr>
+                    <img src="@url"/>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
 @if (Model != null && Model.Count > 0)
 {
     <h3>Uploaded Files</h3>
@@ -34,7 +55,7 @@
                 <tr>
                     <td>@file.FileName</td>
                     <td>@file.URL</td>
-                    <td>@file.URL</td>
+                    <img src="@file.URL"/>
 
                 </tr>
             }

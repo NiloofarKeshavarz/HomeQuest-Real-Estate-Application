@@ -29,6 +29,9 @@ namespace HomeQuest.Controllers
         public Property? Property { get; set; }
 
         [BindProperty]
+        public Image? Image { get; set; }
+
+        [BindProperty]
          public IFormFile Upload { get; set; }
 
 
@@ -78,7 +81,17 @@ namespace HomeQuest.Controllers
             ViewBag.currentPropertyId = Id;
             Console.WriteLine("going to image page with id:" + Id);
 
+
+            // query all images url
+            var imageUrls = db.Images
+                .Where(i => i.PropertyId == Id)
+                .Select(i => i.URL)
+                .ToList();
+            ViewBag.urlList = imageUrls;
+
             return View("~/Views/Image/ImageManager.cshtml");
+
+            // TO-DO passing a list of images frm db as list
         }
         
 
