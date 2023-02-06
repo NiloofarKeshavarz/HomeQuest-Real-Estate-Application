@@ -8,7 +8,10 @@ using Microsoft.Extensions.Logging;
 using HomeQuest.Data;
 using HomeQuest.Models;
 using Microsoft.AspNetCore.Http;
-
+using Microsoft.AspNetCore.Mvc;
+using HomeQuest.Data;
+using HomeQuest.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace HomeQuest.Controllers
 {
     [Route("[controller]")]
@@ -43,7 +46,7 @@ namespace HomeQuest.Controllers
         }
 
         // Redirect to add property page
-        // [Authorize(Policy = "RequireAgentRole")]
+        [Authorize(Policy = "RequireAgentRole")]
         [Route("/Create")]
         public IActionResult Create()
         {
