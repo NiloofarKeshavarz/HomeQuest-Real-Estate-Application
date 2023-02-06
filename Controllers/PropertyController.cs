@@ -42,7 +42,8 @@ namespace HomeQuest.Controllers
             return View(propList);
         }
 
-        // Redirect to add property page 
+        // Redirect to add property page
+        // [Authorize(Policy = "RequireAgentRole")]
         [Route("/Create")]
         public IActionResult Create()
         {

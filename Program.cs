@@ -6,12 +6,26 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<HomeQuestDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("HomeQuestConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<HomeQuestDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>
+            (options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<HomeQuestDbContext>();
 
+//add new authorization policies
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+});
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAgentRole", policy => policy.RequireRole("Agent"));
+});
 
 var app = builder.Build();
 
@@ -28,7 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -36,4 +50,48 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+using (var scope = app.Services.CreateScope()) {
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    SeedUsersAndRoles(userManager, roleManager);
+}
+
 app.Run();
+
+void SeedUsersAndRoles(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+{
+    Action<IdentityResult> handleResult = result => 
+    {
+        foreach (var error in result.Errors)
+        {
+            app.Logger.LogError("Error seeding users and roles: " + error.Description);
+        }
+        if (!result.Succeeded) {
+            Environment.Exit(1);
+        }
+    };
+
+    string[] roleNamesList = new String[] { "User", "Admin", "Agent" };
+    foreach (var roleName in roleNamesList)
+    {
+        if (!roleManager.RoleExistsAsync(roleName).Result)
+        {
+            IdentityRole role = new IdentityRole();
+            role.Name = roleName;
+            handleResult(roleManager.CreateAsync(role).Result);
+        }
+    }
+
+    // Create an Administrator account
+    string defaultAdminEmail = "admin@homequest.com";
+    string defaultAdminPass = "Admin123!";
+    if (userManager.FindByNameAsync(defaultAdminEmail).Result == null)
+    {
+        IdentityUser user = new IdentityUser();
+        user.UserName = defaultAdminEmail;
+        user.Email = defaultAdminEmail;
+        user.EmailConfirmed = true;
+        handleResult(userManager.CreateAsync(user, defaultAdminPass).Result);
+        handleResult(userManager.AddToRoleAsync(user, "Admin").Result);
+    }
+}
