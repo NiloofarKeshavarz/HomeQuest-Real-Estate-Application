@@ -136,3 +136,23 @@
 - work on the rest of image crud
 3. Need assistance / figure things out
 - how transfer data between different controllers and views?
+==================================================================
+2023/02/06 Niloofar
+1. Done / not done since last scrum:
+- Completed image upload and delete in DB and Blob storage
+2. To do until next Scrum:
+- Complete update property with image update in both db and blob
+- property and image validation 
+- check out the Ui with Rucheng 
+3. Need assistance / figure things out
+- how transfer data between different controllers and views??
+
+
+
+2023/02/06 Shiva
+1. Done / not done since last scrum:
+- implement roles and add authorization based on pages
+2. To do until next Scrum:
+- search about / implement online payment
+3. Need assistance / figure things out
+-
