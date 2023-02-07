@@ -90,9 +90,18 @@
                                     width="25" height="25" alt="area Icon" class="facilities-icon" />
                                 <div class="facilities-text"><h4 class="section-color-shape">Built In  @Model.YearBuilt.Year</h4></div>
                             </div>
-                            
+
                         </div>
                     </div>
+                    <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form" enctype="multipart/form-data">
+                         <input hidden asp-for="Id">@Model.Id</input>
+                         <button class="button mobile-button w-nav-link">Update Property</button>
+                    </form>
+                    <form asp-controller="Property" asp-action="Delete" method="post" class="add-properties-form" enctype="multipart/form-data">
+                         <input asp-for="Id">@Model.Id</input>
+                         <button class="button mobile-button w-nav-link">Delete Property</button>
+
+                    </form>
                     @* --leftside content end-- *@
 
                 </div>
