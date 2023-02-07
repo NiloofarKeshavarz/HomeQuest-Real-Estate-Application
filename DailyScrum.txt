@@ -165,3 +165,12 @@
 - search about / implement online payment
 3. Need assistance / figure things out
 -
+==================================================================
+2023/02/06 Niloofar
+1. Done / not done since last scrum:
+- Crud Completed for property with its images 
+2. To do until next Scrum:
+- finialize the database for new tables, adds the validation
+- working on search function
+- check out the Ui with Rucheng for search bar and search page
+3. Need assistance / figure things out
