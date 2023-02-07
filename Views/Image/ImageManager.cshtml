@@ -33,8 +33,8 @@
                             <button type="submit">Delete</button>
                     </form>
 
-                    <form asp-controller="Image" asp-action="SetAsPrimary" method="Get" enctype="multipart/form-data">
-                            <input type="text" name="urlToDelete" value=@url></input>
+                    <form asp-controller="Image" asp-action="SetAsPrimary" method="post" enctype="multipart/form-data">
+                            <input type="text" name="SetAsPrimary" value=@url></input>
                             <button type="submit">SetAsPrimary</button>
                     </form>
 

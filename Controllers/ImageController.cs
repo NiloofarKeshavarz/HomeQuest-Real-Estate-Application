@@ -174,6 +174,28 @@ namespace HomeQuest.Controllers
             return View("imageManager");
         }
 
+        [Route("SetAsPrimary")]
+        [HttpPost]
+        public IActionResult SetAsPrimary(string SetAsPrimary){
+            Image image = db.Images.Where(i => i.URL == SetAsPrimary).FirstOrDefault();
+            Console.WriteLine("This is Image Id"+  image.Id);
+            Console.WriteLine("This is Image Id"+  image.IsPrimaryImage);
+            // Reset isPrimary column in image to zero for specific PropertyId
+            var imageList = db.Images.Where(i => i.PropertyId == image.PropertyId).ToList();
+
+            foreach(Image img in imageList ){
+                img.IsPrimaryImage = false;
+            }
+
+
+            image.IsPrimaryImage = true;
+            
+            db.SaveChanges();
+            Console.WriteLine("This is Image Id"+  image.IsPrimaryImage);
+
+            return View("imageManager");
+        }
+
 
 
 
