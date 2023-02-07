@@ -126,7 +126,7 @@ namespace HomeQuest.Controllers
         public IActionResult Update()
         {
 
-            Console.WriteLine("PropertyToEdit is :" + PropertyToEdit.Title);
+            Console.WriteLine("PropertyToEdit Title is :" + PropertyToEdit.Title);
             Console.WriteLine("PropertyToEdit ID is :" + PropertyToEdit.Id);
 
             Property UpdatedProperty = db.Properties.Find(PropertyToEdit.Id);
@@ -150,6 +150,26 @@ namespace HomeQuest.Controllers
             db.SaveChanges();
             return View("~/Views/Property/Detail.cshtml",UpdatedProperty);
         }
+
+        [Route("/Delete")]
+        [HttpPost]
+        public IActionResult Delete(int Id)
+        {
+
+            Console.WriteLine("PropertyToEdit ID is :" + Id);
+
+            // Delete from Properties table in db
+            Property PropertyToDelete = db.Properties.Find(Id);
+            db.Properties.Remove(PropertyToDelete);
+            db.SaveChanges();
+
+            //Delete images from images table in db
+            IEnumerable<Image> ImageListToDelete = db.Images.Where(x => x.PropertyId == Id).ToList();
+            db.Images.RemoveRange(ImageListToDelete);
+
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
