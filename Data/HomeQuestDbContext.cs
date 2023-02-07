@@ -8,7 +8,7 @@ using HomeQuest.Models;
 
 namespace HomeQuest.Data
 {
-    public class HomeQuestDbContext :IdentityDbContext
+    public class HomeQuestDbContext :IdentityDbContext<ApplicationUser>
     {
         public HomeQuestDbContext (DbContextOptions<HomeQuestDbContext> options) :base (options){ }
         public DbSet<Property> Properties { get; set; }  

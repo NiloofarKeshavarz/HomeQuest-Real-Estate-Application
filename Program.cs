@@ -1,7 +1,9 @@
 using HomeQuest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,7 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HomeQuestDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("HomeQuestConnection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>
             (options => options.SignIn.RequireConfirmedAccount = true)
                 .AddDefaultTokenProviders()
                 .AddDefaultUI()
@@ -51,14 +53,14 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 using (var scope = app.Services.CreateScope()) {
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     SeedUsersAndRoles(userManager, roleManager);
 }
 
 app.Run();
 
-void SeedUsersAndRoles(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+void SeedUsersAndRoles(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
 {
     Action<IdentityResult> handleResult = result => 
     {
@@ -87,11 +89,12 @@ void SeedUsersAndRoles(UserManager<IdentityUser> userManager, RoleManager<Identi
     string defaultAdminPass = "Admin123!";
     if (userManager.FindByNameAsync(defaultAdminEmail).Result == null)
     {
-        IdentityUser user = new IdentityUser();
+        ApplicationUser user = new ApplicationUser();
         user.UserName = defaultAdminEmail;
         user.Email = defaultAdminEmail;
         user.EmailConfirmed = true;
         handleResult(userManager.CreateAsync(user, defaultAdminPass).Result);
         handleResult(userManager.AddToRoleAsync(user, "Admin").Result);
     }
+
 }
