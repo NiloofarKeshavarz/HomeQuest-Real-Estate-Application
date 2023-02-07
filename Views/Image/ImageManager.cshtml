@@ -32,6 +32,13 @@
                             <input type="text" name="urlToDelete" value=@url></input>
                             <button type="submit">Delete</button>
                     </form>
+
+                    <form asp-controller="Image" asp-action="SetAsPrimary" method="Get" enctype="multipart/form-data">
+                            <input type="text" name="urlToDelete" value=@url></input>
+                            <button type="submit">SetAsPrimary</button>
+                    </form>
+
+
                     
 
                 </tr>
@@ -43,7 +50,7 @@
         </tbody>
     </table>
 
-@if (Model != null && Model.Count > 0)
+@* @if (Model != null && Model.Count > 0)
 {
     <h3>Uploaded Files</h3>
     <table>
@@ -66,7 +73,7 @@
             }
         </tbody>
     </table>
-}
+} *@
 
 
 

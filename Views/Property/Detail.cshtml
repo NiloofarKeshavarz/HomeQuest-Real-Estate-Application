@@ -36,7 +36,7 @@
                         <p class="properties-details-text">@Model.Description</p>
                     </div>
 
-                    <div class="properties-image-gallery">
+                    @* <div class="properties-image-gallery">
                         <div class="gallery-list-wrapper w-dyn-list">
                             <div role="list" class="gallery-list w-dyn-items w-row">
                                 <div role="listitem" class="gallery-item w-dyn-item w-dyn-repeater-item w-col w-col-4">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> *@
 
 
                     <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form" enctype="multipart/form-data">
@@ -103,6 +103,34 @@
 
                     </form>
                     @* --leftside content end-- *@
+
+
+                    @* --------------------for image gallery *@
+
+                    <h3>images</h3>
+                        <table>
+                            <tbody>
+                                @if (ViewBag.urlList != null){
+                                        @foreach (var url in ViewBag.urlList)
+                                {
+                                    <tr>
+                                        <img src="@url"/>
+                                        <form asp-controller="Image" asp-action="DeleteImage" method="Post" enctype="multipart/form-data">
+                                                <input type="text" name="urlToDelete" value=@url></input>
+                                                <button type="submit">Delete</button>
+                                        </form>
+                                        
+
+                                    </tr>
+                                }
+                                }else{
+                                    <h1>View bag is null</h1>
+                                }
+                        
+                            </tbody>
+                        </table>
+
+                    @* ---------------------------------- *@
 
                 </div>
             </div>

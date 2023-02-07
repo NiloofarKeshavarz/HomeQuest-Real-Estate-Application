@@ -77,9 +77,21 @@ namespace HomeQuest.Controllers
             return View();
         }
 
+        private void FetchImageUrlListToViewBag(int id){
+
+            // Fetch property images from the db for image gallery
+            var imageUrls = db.Images.Where(i => i.PropertyId == Id).Select(i => i.URL).ToList();
+            ViewBag.urlList = imageUrls;
+            
+        }
+
         public IActionResult Detail(int Id)
         {
+            // Fetch property from the DB
             Property property = db.Properties.Where(x => x.Id == Id).FirstOrDefault();
+
+            FetchImageUrlListToViewBag(Id);
+
             return View(property);
         }
 
@@ -91,12 +103,8 @@ namespace HomeQuest.Controllers
             Console.WriteLine("going to image page with id:" + Id);
 
 
-            // query all images url
-            var imageUrls = db.Images
-                .Where(i => i.PropertyId == Id)
-                .Select(i => i.URL)
-                .ToList();
-            ViewBag.urlList = imageUrls;
+            FetchImageUrlListToViewBag(Id);
+
 
             return View("~/Views/Image/ImageManager.cshtml");
 
