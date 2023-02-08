@@ -166,7 +166,7 @@
 3. Need assistance / figure things out
 -
 ==================================================================
-2023/02/06 Niloofar
+2023/02/07 Niloofar
 1. Done / not done since last scrum:
 - Crud Completed for property with its images 
 2. To do until next Scrum:
@@ -190,3 +190,15 @@
 - implement the above.
 3. Need assistance / figure things out
 - 
+====================================================================
+2023/02/08 Niloofar
+1. Done / not done since last scrum:
+- Database modification done with new applicationUser 
+- Search function is almost done
+- search function needs some polishup 
+2. To do until next Scrum:
+- finialize the database for new tables, adds the validation
+- Adds City to the form, entity and search
+- check out the Ui with Rucheng for the whole app till now
+3. Need assistance / figure things out
+- why enum city gives me error?
