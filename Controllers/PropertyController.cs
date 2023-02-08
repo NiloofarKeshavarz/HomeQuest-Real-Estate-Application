@@ -50,6 +50,7 @@ namespace HomeQuest.Controllers
             return View(propList);
         }
 
+
         [Route("/SearchResult")]
         public IActionResult SearchResult()
         {

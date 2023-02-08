@@ -28,6 +28,17 @@
                             src="https://assets.website-files.com/622596ceb2da993727fc3dbe/623c5a57f92b3fabf5167826_post1.png"
                             class="properties-details-image" />
                     </div>
+                    <div class="d-flex justify-content-end mt-2">
+                        <a asp-area="" asp-controller="Property"
+                        asp-action="imageManager" class="d-flex w-inline-block">
+                            <div class="link-text fs-5">Add more images</div>
+                            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/624e60a08c6773d17f4f78bf_arrow-black.svg"
+                            loading="lazy"
+                            style="-webkit-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+                            alt="Arrow Icon" class="arrow-icon" />
+                        </a>
+                    </div>
+
                     <div class="properties-details-top">
                         <div><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Type</span></div>
                         <div class="properties-location-address properties-details-page">@Model.Address</div>
@@ -36,29 +47,6 @@
                         <p class="properties-details-text">@Model.Description</p>
                     </div>
 
-                    @* <div class="properties-image-gallery">
-                        <div class="gallery-list-wrapper w-dyn-list">
-                            <div role="list" class="gallery-list w-dyn-items w-row">
-                                <div role="listitem" class="gallery-item w-dyn-item w-dyn-repeater-item w-col w-col-4">
-                                    <h3 class="properties-facilites-heading">Property Gallery <span
-                                            class="section-color-shape">.</span>
-                                    </h3>
-                                    <a href="#" class="gallery-link w-inline-block w-lightbox">
-                                        <img alt="" loading="lazy"
-                                            src="https://assets.website-files.com/622596ceb2da993727fc3dbe/623c5aa7011666306d4233d0_01.png"
-                                            class="gallery-mage" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> *@
-
-
-                    <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form" enctype="multipart/form-data">
-                         <input asp-for="Id">@Model.Id</input>
-                         <button class="button mobile-button w-nav-link">Go to Upload image page</button>
-
-                    </form>
 
                     <div class="property-facilities">
                         <h3 class="properties-facilites-heading">Property Features <span
@@ -93,6 +81,90 @@
 
                         </div>
                     </div>
+                    @* image gallery *@
+                   
+                    <div class="properties-image-gallery">
+                         <h3 class="properties-facilites-heading">Property Gallery <span
+                                            class="section-color-shape">.</span>
+                        </h3>
+                        <div class="gallery-list-wrapper w-dyn-list">
+                            <div role="list" class="gallery-list w-dyn-items w-row">
+                                 @if (ViewBag.urlList != null){
+                                    @foreach (var url in ViewBag.urlList)
+                                    { 
+                                        <div role="listitem" class="gallery-item w-dyn-item w-dyn-repeater-item w-col w-col-4">
+                                            <a href="#" class="gallery-link w-inline-block w-lightbox">
+                                                <img alt="" loading="lazy"
+                                                src="@url"
+                                                class="gallery-mage" />
+                                            </a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    @* ----map----- *@
+                    <div class="mb-3">
+                        <h3 class="properties-facilites-heading">Place on Map<span class="section-color-shape">.</span>
+                        </h3>
+                        <div class="floor-plan-wrapper w-dyn-list">
+                            <script
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4j0qdZp-SFab15F-vWwJD8N8MQCrf_Qc&callback=initMap&v=weekly"
+                                defer></script>
+                            <div class=" w-dyn-items">
+                                <div>
+                                    <div class="map-inner w-richtext">
+                                        <figure style="padding-bottom:75%"
+                                            class="w-richtext-align-fullwidth w-richtext-figure-type-video">
+                                            <div id="map">
+                                            </div>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-dyn-hide w-dyn-empty">
+                                <div>No items found.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        // 1.---Initialize and add the map(static API)
+                        function initMap() {
+                            let geocoder = new google.maps.Geocoder();
+                            let uluru;
+                            geocoder
+                                .geocode({ address: "Montreal" })
+                                .then((result) => {
+                                    const { results } = result;
+                                    if (status == google.maps.GeocoderStatus.OK) {
+                                        uluru = results[0].geometry.location;
+                                    } else {
+                                        //the address is invalid
+                                        uluru = { lat: 45.5019, lng: -73.5674 };
+                                    }
+                                    // The map, centered at Uluru
+                                    const map = new google.maps.Map(document.getElementById("map"), {
+                                        zoom: 15,
+                                        center: uluru,
+                                    });
+                                    // The marker, positioned at Uluru
+                                    const marker = new google.maps.Marker({
+                                        position: uluru,
+                                        map: map,
+                                    });
+                                });
+                        }
+                    </script>
+                    @* ------------ *@
+
+
+                    <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form" enctype="multipart/form-data">
+                         <input asp-for="Id">@Model.Id</input>
+                         <button class="button mobile-button w-nav-link">Go to Upload image page</button>
+                    </form>
+
                     <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form" enctype="multipart/form-data">
                          <input hidden asp-for="Id">@Model.Id</input>
                          <button class="button mobile-button w-nav-link">Update Property</button>
@@ -100,49 +172,13 @@
                     <form asp-controller="Property" asp-action="Delete" method="post" class="add-properties-form" enctype="multipart/form-data">
                          <input asp-for="Id">@Model.Id</input>
                          <button class="button mobile-button w-nav-link">Delete Property</button>
-
                     </form>
                     @* --leftside content end-- *@
 
 
                     @* --------------------for image gallery *@
 
-                    <h3>images</h3>
-                        <table>
-                            <tbody>
-                                @if (ViewBag.urlList != null){
-                                        @foreach (var url in ViewBag.urlList)
-                                {
-                                    <tr>
-                                        <img src="@url"/>
-                                        <form asp-controller="Image" asp-action="DeleteImage" method="Post" enctype="multipart/form-data">
-                                                <input type="text" name="urlToDelete" value=@url></input>
-                                                <button type="submit">Delete</button>
-                                        </form>
-                                        
-
-                                    </tr>
-                                }
-                                }else{
-                                    <h1>View bag is null</h1>
-                                }
-                        
-                            </tbody>
-                        </table>
+                    
 
                     @* ---------------------------------- *@
 
-                </div>
-            </div>
-            @* ---rightside--- *@
-            <div class="properties-sidebar">
-                <div class="sidebar-box">
-                    @* --- *@
-                    asdfasdfafdfsad
-                    @* --- *@
-                </div>
-            </div>
-            @*---- rightside end---*@
-        </div>
-    </div>
-</div>
