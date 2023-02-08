@@ -93,6 +93,7 @@ namespace HomeQuest.Controllers
             
         }
 
+        [Route("/Property/{id}")]
         public IActionResult Detail(int Id)
         {
             // Fetch property from the DB
@@ -103,8 +104,8 @@ namespace HomeQuest.Controllers
             return View(property);
         }
 
-        [Route("/imageManager")]
-        [HttpPost]
+        [Route("/imageManager/{id}")]
+        // [HttpPost]
         public IActionResult imageManager(int Id)
         {
             ViewBag.currentPropertyId = Id;
@@ -120,10 +121,9 @@ namespace HomeQuest.Controllers
         }
 
         //Update  aproperty 
-
-        [Route("/PopulateToUpdate")]
-        [HttpPost]
-        public IActionResult GetPropertyToUpdate(int? Id)
+        [Route("/PopulateToUpdate/{id}")]
+        // [HttpPost]
+        public IActionResult GetPropertyToUpdate(int Id)
         {
             PropertyToEdit = db.Properties.Where(a => a.Id == Id).FirstOrDefault();
             Console.WriteLine("Property ID is :" + PropertyToEdit.Id);
@@ -134,9 +134,9 @@ namespace HomeQuest.Controllers
                 return NotFound();
             }
             return View("~/Views/Property/Update.cshtml",PropertyToEdit);
-
-
         }
+
+
         [Route("/Update")]
         [HttpPost]
         public IActionResult Update()

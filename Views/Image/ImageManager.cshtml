@@ -1,80 +1,116 @@
-@model List<HomeQuest.Models.Image>    // a list of image model entities to display or create
+@model List<HomeQuest.Models.Image> // a list of image model entities to display or create
 
 @{
     ViewData["Title"] = "imageUploadDownload";
 }
 
 
+<div class="breadcrumb-section another-breadcrumb-section wf-section">
+    <div class="container w-container">
+        <div class="breadcrumb-wrapper another-breadcrumb-section">
+            <div class="breadcrumb-content another-breadcrumb-section">
+                <h1 class="breadcrumb-main-heading another-breadcrumb-section">
+                    <span class="breadcrumb-span-text another-breadcrumb-section">Edit Property Images</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+@* <div class="blank-space-section wf-section"></div> *@
 
-<h2>welcome to image upload/download</h2>
+<div class="add-properties wf-section">
+    <div class="container w-container">
+        <div class="add-properties-wrapper">
+            <div class="properties-image-gallery">
+                <h3 class="properties-facilites-heading">Property Gallery <span class="section-color-shape">.</span>
+                </h3>
+                <div class="gallery-list-wrapper w-dyn-list">
+                    <div role="list" class="gallery-list w-dyn-items w-row">
+                        @if (ViewBag.urlList != null)
+                        {
+                            @foreach (var url in ViewBag.urlList)
+                            {
+                                <div role="listitem" class="gallery-item w-dyn-item w-dyn-repeater-item w-col w-col-4">
+                                    <a href="#" class="gallery-link w-inline-block w-lightbox">
+                                        <img alt="" loading="lazy" src="@url" class="gallery-mage" />
+                                    </a>
+                                    <p class="gallery-link w-inline-block w-lightbox">URL: <span>@url</span></p>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h3>Image Manager for the property with id @ViewBag.currentPropertyId</h3>
 
-<form asp-controller="Image" asp-action="UploadFiles" method="Post" enctype="multipart/form-data">
+@* <h2>welcome to image upload/download</h2>
+
+    <h3>Image Manager for the property with id @ViewBag.currentPropertyId</h3>
+
+    <form asp-controller="Image" asp-action="UploadFiles" method="Post" enctype="multipart/form-data">
     <div class="form-group">
-        <input type="file" name="files" multiple />
-        <input type="text" name="propertyId" value=@ViewBag.currentPropertyId></input>
+    <input type="file" name="files" multiple />
+    <input type="text" name="propertyId" value=@ViewBag.currentPropertyId></input>
     </div>
     <button type="submit">Upload Files</button>
-</form>
+    </form>
 
 
 
-<h3>DB saved Files</h3>
+    <h3>DB saved Files</h3>
     <table>
-        <tbody>
-            @if (ViewBag.urlList != null){
-                      @foreach (var url in ViewBag.urlList)
-            {
-                <tr>
-                    <img src="@url"/>
-                    <form asp-controller="Image" asp-action="DeleteImage" method="Post" enctype="multipart/form-data">
-                            <input type="text" name="urlToDelete" value=@url></input>
-                            <button type="submit">Delete</button>
-                    </form>
+    <tbody>
+    @if (ViewBag.urlList != null){
+    @foreach (var url in ViewBag.urlList)
+    {
+    <tr>
+    <img src="@url"/>
+    <form asp-controller="Image" asp-action="DeleteImage" method="Post" enctype="multipart/form-data">
+    <input type="text" name="urlToDelete" value=@url></input>
+    <button type="submit">Delete</button>
+    </form>
 
-                    <form asp-controller="Image" asp-action="SetAsPrimary" method="post" enctype="multipart/form-data">
-                            <input type="text" name="SetAsPrimary" value=@url></input>
-                            <button type="submit">SetAsPrimary</button>
-                    </form>
+    <form asp-controller="Image" asp-action="SetAsPrimary" method="post" enctype="multipart/form-data">
+    <input type="text" name="SetAsPrimary" value=@url></input>
+    <button type="submit">SetAsPrimary</button>
+    </form>
 
 
-                    
 
-                </tr>
-            }
-            }else{
-                <h1>View bag is null</h1>
-            }
-      
-        </tbody>
-    </table>
+
+    </tr>
+    }
+    }else{
+    <h1>View bag is null</h1>
+    }
+
+    </tbody>
+    </table> *@
 
 @* @if (Model != null && Model.Count > 0)
-{
+    {
     <h3>Uploaded Files</h3>
     <table>
-        <thead>
-            <tr>
-                <th>File Name</th>
-                <th>File URL</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var file in Model)
-            {
-                <tr>
-                    <td>@ViewBag.currentPropertyId</td>
-                    <td>@file.FileName</td>
-                    <td>@file.URL</td>
-                    <img src="@file.URL"/>
+    <thead>
+    <tr>
+    <th>File Name</th>
+    <th>File URL</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var file in Model)
+    {
+    <tr>
+    <td>@ViewBag.currentPropertyId</td>
+    <td>@file.FileName</td>
+    <td>@file.URL</td>
+    <img src="@file.URL"/>
 
-                </tr>
-            }
-        </tbody>
+    </tr>
+    }
+    </tbody>
     </table>
-} *@
-
-
-
-
+    } *@
