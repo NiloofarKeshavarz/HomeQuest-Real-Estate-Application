@@ -26,9 +26,9 @@ namespace HomeQuest.Models
         [Required(ErrorMessage = "Required")]
         public string PostalCode { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        [StringLength(50)]
-        public CityNames City { get; set; }
+        // [Required(ErrorMessage = "Required")]
+        // [StringLength(50)]
+        //public CityNames City { get; set; }
 
         [Required(ErrorMessage = "Required")]
         public decimal? Price { get; set; }
@@ -58,11 +58,11 @@ namespace HomeQuest.Models
             Pending = 0, Sold = 1, ForSale = 2
         }
 
-        public enum CityNames
-        {
-            Montreal = 0, Laval = 1, Longueuil = 2 , Dorval = 3, CôteSaintLuc = 4, Brossard = 5,
-            Boucherville = 6, Candiac = 7, DollardDesOrmeaux = 8, LaPrairie = 9, Kirkland =10
-        }
+        // public enum CityNames
+        // {
+        //     Montreal = 0, Laval = 1, Longueuil = 2 , Dorval = 3, CôteSaintLuc = 4, Brossard = 5,
+        //     Boucherville = 6, Candiac = 7, DollardDesOrmeaux = 8, LaPrairie = 9, Kirkland =10
+        // }
 
         [Required(ErrorMessage = "Required")]
         public PropertyStatus Status { get; set; }
