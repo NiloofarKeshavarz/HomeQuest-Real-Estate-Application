@@ -50,6 +50,13 @@ namespace HomeQuest.Controllers
             return View(propList);
         }
 
+        [Route("/SearchResult")]
+        public IActionResult SearchResult()
+        {
+            IEnumerable<Property> propList = db.Properties;
+            return View(propList);
+        }
+
         // Redirect to add property page
         [Authorize(Policy = "RequireAgentRole")]
         [Route("/Create")]

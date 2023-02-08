@@ -1,0 +1,205 @@
+@model IEnumerable<HomeQuest.Models.Property>
+
+@{
+    ViewData["Title"] = "Properties";
+}
+
+<div class="breadcrumb-section another-breadcrumb-section wf-section">
+    <div class="container w-container">
+        <div class="breadcrumb-wrapper another-breadcrumb-section">
+            <div class="breadcrumb-content another-breadcrumb-section">
+                <h1 class="breadcrumb-main-heading another-breadcrumb-section">
+                    <span class="breadcrumb-span-text another-breadcrumb-section">Property Result</span>
+                </h1>
+                <p class="breadcrumb-details-content another-details-content">Huge number of propreties availabe here
+                    for buy and sell, also you can find here co-living property</p>
+            </div>
+        </div>
+        @* search bar *@
+        <section class="search-sec">
+            <div class="container">
+                <form asp-controller="Property" asp-action="SearchResult" method="post" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-12 p-0">
+                                    <input type="text" class="form-control search-slt location-icon left-radius"
+                                        placeholder="Search By City, Address">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                    <select class="form-select form-control search-slt">
+                                        <option selected>City</option>
+                                        <option value="0">Montreal</option>
+                                        <option value="1">Laval</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                    <select class="form-select form-control search-slt ">
+                                        <option selected>Property Type</option>
+                                        <option value="0">House</option>
+                                        <option value="1">Apartment</option>
+                                        <option value="2">Duplex</option>
+                                        <option value="3">TownHouse</option>
+                                        <option value="4">Condo</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <a type="button" class="btn wrn-btn right-radius" asp-controller="Property" asp-action="SearchResult">Search</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    @* ------- *@
+    </div>
+</div>
+<div class="properties-filter-section wf-section">
+    <div class="container w-container">
+    </div>
+</div>
+<div class="all-properties-section">
+    <div class="container w-container">
+        <div fs-cmsfilter-element="filters" class="filter-wrapper-form w-form">
+            <form method="get" class="filter-inner-form">
+                @if (Model.Count() > 0)
+                {
+                    <div class="all-properties-wrapper">
+                        <div fs-cmssort-element="list" fs-cmsfilter-element="list"
+                        class="propertise-list-wrapper w-dyn-list">
+                            <div role="list" class="properties-wrapper w-dyn-items w-row">
+
+                                @foreach (var item in Model)
+                                {
+                                    <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id">
+                                        <div role="listitem" class="single-properties w-dyn-item w-col w-col-4">
+                                            <div class="single-properties-item">
+                                                <div class="properties-image-block">
+                                                    <img loading="lazy"
+                                                src="https://assets.website-files.com/622596ceb2da993727fc3dbe/6225da2f83ace35bc4f853fd_properties3.jpg"
+                                                alt="Properties Thumbnail Image " class="properties-image" />
+                                                    <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                                    <div class="properties-badge home-type">@item.Type</div>
+                                                </div>
+                                                <div class="properties-description-content">
+                                                    <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id"
+                                                class="properties-title">@item.Title</a>
+                                                    <div fs-cmsfilter-field="city" class="properties-location">@item.Address
+                                                    </div>
+                                                    <div class="properties-added-date-block">
+                                                        <div class="properties-added-text">Added:</div>
+                                                        <div class="properties-added-date">@item.CreatedAt</div>
+                                                    </div>
+                                                    <div class="properties-price-box">
+                                                        <div class="line-shape"></div>
+                                                        <div class="properties-price-block">
+                                                            <div class="properties-price-text">Price: $</div>
+                                                            <div fs-cmsfilter-field="price" class="properties-price-amount">
+                                                                @item.Price</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="properties-description">
+                                                        <div fs-cmsfilter-field="square feet" class="number-of-square-feet">
+                                                            @item.LotArea</div>
+                                                        <div class="square-feet-text">Sq.fit</div>
+                                                        <div class="dash-shape"></div>
+                                                        <div fs-cmsfilter-field="bedrooms" class="number-of-bedroom">
+                                                            @item.BedroomCount</div>
+                                                        <div class="bed-text">Bed</div>
+                                                        <div class="dash-shape"></div>
+                                                        <div fs-cmsfilter-field="bathrooms" class="number-of-bathroom">
+                                                            @item.BathroomCount</div>
+                                                        <div class="bath-text">Bath</div>
+                                                        <div class="dash-shape"></div>
+                                                        <div fs-cmsfilter-field="garages" class="number-of-garage">
+                                                            @item.GarageCont
+                                                        </div>
+                                                        <div class="garage-text">Garage</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div fs-cmsfilter-element="empty" class="filter-empty-wrapper">
+                        <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/62458fc4fa0f2281d6e5c556_error.png"
+                        loading="lazy" sizes="(max-width: 479px) 100vw, 200px"
+                        srcset="https://assets.website-files.com/6224513e7396e88bd7269d7b/62458fc4fa0f2281d6e5c556_error-p-500.png 500w, https://assets.website-files.com/6224513e7396e88bd7269d7b/62458fc4fa0f2281d6e5c556_error.png 512w"
+                        alt="Error Image Icon" class="filter-empty-image" />
+                        <div class="filter-image-text">No properties found.</div>
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@* <h1>@ViewData["Title"]</h1>
+    <div class="container p-3">
+    <div class="col-6">
+    <h2>property list</h2>
+    </div>
+    <br/>
+    <br/>
+
+    @if(Model.Count() > 0)
+    {
+    <table class= "table table-bordered table-striped" width = "100%">
+    <thead>
+    <tr>
+    <th>
+    Title
+    </th>
+    <th>
+    Description
+    </th>
+    <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+    <td > @item.Title</td>
+    <td > @item.Description</td>
+    <td > @item.Address</td>
+    <td > @item.PostalCode</td>
+    <td > @item.Price</td>
+    <td > @item.Floors</td>
+    <td > @item.BedroomCount</td>
+    <td > @item.BathroomCount</td>
+    <td > @item.GarageCont</td>
+    <td > @item.YearBuilt</td>
+    <td > @item.FloorArea</td>
+    <td > @item.LotArea</td>
+    <td > @item.CreatedAt</td>
+    <td > @item.Status</td>
+    <td > @item.Type</td>
+
+
+
+    </tr>
+    }
+    </tbody>
+
+    </table>
+    }
+    else{
+    <p>No property exist.</p>
+    }
+    </div> *@

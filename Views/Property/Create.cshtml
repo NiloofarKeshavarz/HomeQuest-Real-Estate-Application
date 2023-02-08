@@ -28,43 +28,42 @@
         <div class="add-properties-wrapper">
             <div class="add-properties-form-wrapper w-form">
                 <form asp-controller="Property" asp-action="CreateNewProperty" enctype="multipart/form-data" method="post" class="add-properties-form">
-                    
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     <div class="form-wrapper">
                         <div class="single-form width-50">
                             <label asp-for="Title" class="properties-label">Property Title</label>
-                            <input asp-for="Title" type="text" class="properties-form-field w-input" maxlength="256"
-                                data-name="Name" placeholder="Property Title" id="name" required />
+                            <input asp-for="Title" type="text" class="properties-form-field w-input"
+                                 placeholder="Property Title" required />
                                 <span asp-validation-for="Title" ></span>
 
                             <label asp-for="Price"  class="properties-label">Price</label>
-                            <input asp-for="Price"  type="number" class="properties-form-field w-input" maxlength="256"
-                                data-name="Name" placeholder="Price" id="name" required />
+                            <input asp-for="Price"  type="number" class="properties-form-field w-input"
+                                 placeholder="Price"  required />
                                  <span asp-validation-for="Price" ></span>
 
                             <label asp-for="Address"  for="Address-line" class="properties-label">Address</label>
-                            <input asp-for="Address"  type="text" class="properties-form-field w-input" maxlength="256"
-                                 data-name="Address line 1" placeholder="Address" id="Address-line"
+                            <input asp-for="Address"  type="text" class="properties-form-field w-input"
+                                 placeholder="Address"
                                 required />
                                 <span asp-validation-for="Address" ></span>
 
                             <label asp-for="PostalCode" for="Postal-Code" class="properties-label">Postal Code</label>
-                            <input asp-for="PostalCode" type="text" class="properties-form-field w-input" maxlength="256" 
-                                data-name="Postal Code" placeholder="Postal Code" id="Postal-Code" required />
+                            <input asp-for="PostalCode" type="text" class="properties-form-field w-input" 
+                                 placeholder="Postal Code" required />
                                 <span asp-validation-for="PostalCode" ></span>
                         </div>
                         
                         <div class="single-form width-50">
-                            <label asp-for="Description" for="Text-Field" class="properties-label">Property Description</label>
-                            <textarea asp-for="Description" placeholder="Write Your Description Here" maxlength="5000" id="Text-Field"
-                             required data-name="field"
-                                class="properties-form-field textarea w-input" style="height: 390px;"></textarea>
+                            <label asp-for="Description" class="properties-label">Property Description</label>
+                            <textarea asp-for="Description" placeholder="Write Your Description Here" 
+                             required class="properties-form-field textarea w-input" style="height: 390px;"></textarea>
                                 <span asp-validation-for="Description" ></span>
                         </div>
                       
                         <div class="single-form width-50">
-                            <label asp-for="Type" for="property-type" class="properties-label">Property Type <br />
+                            <label asp-for="Type" class="properties-label">Property Type <br />
                             </label>
-                            <select asp-for="Type" id="property-type" data-name="property-type" required
+                            <select asp-for="Type" required
                                 class="properties-form-field w-select">
                                 <option value="0">House</option>
                                 <option value="1">Apartment</option>
@@ -75,9 +74,8 @@
                             <span asp-validation-for="Type" ></span>
                         </div>
                         <div class="single-form width-50">
-                            <label asp-for="Status" for="property-status" class="properties-label">Property Status</label>
-                            <select  asp-for="Status" id="property-status" data-name="property-status" required
-                                class="properties-form-field w-select">
+                            <label asp-for="Status"  class="properties-label">Property Status</label>
+                            <select  asp-for="Status" required class="properties-form-field w-select">
                                 <option value="0">Pending</option>
                                 <option value="1">Sold</option>
                                 <option value="2">For Sale</option>
@@ -85,59 +83,49 @@
                             <span asp-validation-for="Type" ></span>
                         </div>
                         <div class="single-form width-50">
-                            <label asp-for="Floors" for="floors" class="properties-label">Floors</label>
-                            <input asp-for="Floors" type="number" class="properties-form-field w-input" maxlength="256"
-                             data-name="floors" placeholder="Floors"
-                                id="floors" required />
-                                <span asp-validation-for="Floors" ></span>
+                            <label asp-for="Floors" class="properties-label">Floors</label>
+                            <input asp-for="Floors" type="number" class="properties-form-field w-input" placeholder="Floors" required />
+                            <span asp-validation-for="Floors" ></span>
                         </div>
                         <div class="single-form width-50">
-                            <label asp-for="FloorArea" for="floor-area" class="properties-label">Floor Area</label>
-                            <input asp-for="FloorArea" type="number" class="properties-form-field w-input" maxlength="256"
-                                 data-name="floor-area" placeholder="Floor Area (Sqft)"
-                                id="floor-area" required />
+                            <label asp-for="FloorArea" class="properties-label">Floor Area</label>
+                            <input asp-for="FloorArea" type="number" class="properties-form-field w-input" placeholder="Floor Area (Sqft)" required />
                                 <span asp-validation-for="FloorArea" ></span>
                         </div>
                         <div class="single-form width-50">
-                            <label asp-for="LotArea" for="lot-area" class="properties-label">Lot Area</label>
-                            <input asp-for="LotArea" type="number" class="properties-form-field w-input" maxlength="256"
-                                data-name="lot-area" placeholder="Lot Area (Sqft)"
-                                id="lot-area" required />
+                            <label asp-for="LotArea" class="properties-label">Lot Area</label>
+                            <input asp-for="LotArea" type="number" class="properties-form-field w-input" placeholder="Lot Area (Sqft)"
+                               required />
                                 <span asp-validation-for="LotArea" ></span>
                         </div>
                         <div class="single-form width-50">
-                            <label asp-for="BedroomCount" for="Number-of-Bedroom-2" class="properties-label">Number of Bedroom</label>
-                            <input asp-for="BedroomCount" type="text" class="properties-form-field w-input" maxlength="256"
-                                 data-name="Number of Bedroom" placeholder="Number of Bedroom"
-                                id="Number-of-Bedroom-2" required />
+                            <label asp-for="BedroomCount" class="properties-label">Number of Bedroom</label>
+                            <input asp-for="BedroomCount" type="text" class="properties-form-field w-input"
+                                placeholder="Number of Bedroom" required />
                                  <span asp-validation-for="BedroomCount" ></span>
                         </div>
                         <div class="single-form width-50">
-                            <label asp-for="BathroomCount" for="Number-of-Bathroom" class="properties-label">Number of Bathroom</label>
-                            <input asp-for="BathroomCount" type="text" class="properties-form-field w-input" maxlength="256"
-                                 data-name="Number of Bathroom"
-                                placeholder="Number of Bathroom" id="Number-of-Bathroom" required />
+                            <label asp-for="BathroomCount" class="properties-label">Number of Bathroom</label>
+                            <input asp-for="BathroomCount" type="text" class="properties-form-field w-input"
+                                placeholder="Number of Bathroom" required />
                                 <span asp-validation-for="BathroomCount" ></span>
                         </div>
                         <div class="single-form width-50">
-                            <label asp-for="GarageCont" for="Number-of-Garage" class="properties-label">Number of Garage</label>
-                            <input asp-for="GarageCont" type="text" class="properties-form-field w-input" maxlength="256"
-                                 data-name="Number of Garage" placeholder="Number of Garage"
-                                id="Number-of-Garage" required />
+                            <label asp-for="GarageCont" class="properties-label">Number of Garage</label>
+                            <input asp-for="GarageCont" type="text" class="properties-form-field w-input"
+                                placeholder="Number of Garage" required />
                                 <span asp-validation-for="GarageCont" ></span>
                         </div>
                         <div class="single-form width-50">
-                            <label asp-for="YearBuilt" for="year-built" class="properties-label">Year Built</label>
-                            <input asp-for="YearBuilt" type="date" class="properties-form-field w-input" maxlength="256"
-                                 data-name="year-built" placeholder="Year Built"
-                                id="year-built" required />
+                            <label asp-for="YearBuilt" class="properties-label">Year Built</label>
+                            <input asp-for="YearBuilt" type="date" class="properties-form-field w-input" placeholder="Year Built"
+                                required />
                                 <span asp-validation-for="YearBuilt" ></span>
                         </div>
                          <div class="single-form width-50">
-                            <label asp-for="CreatedAt" for="year-built" class="properties-label">CreatedAt</label>
-                            <input asp-for="CreatedAt" type="date" class="properties-form-field w-input" maxlength="256"
-                                 data-name="created-at" placeholder="Created At"
-                                id="created-at" required />
+                            <label asp-for="CreatedAt" class="properties-label">CreatedAt</label>
+                            <input asp-for="CreatedAt" type="date" class="properties-form-field w-input"
+                                 placeholder="Created At" required />
                                 <span asp-validation-for="CreatedAt" ></span>
                         </div>
                         
