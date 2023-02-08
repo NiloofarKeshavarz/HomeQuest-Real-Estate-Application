@@ -202,3 +202,15 @@
 - check out the Ui with Rucheng for the whole app till now
 3. Need assistance / figure things out
 - why enum city gives me error?
+
+
+2023/02/08 Rucheng
+1. Done / not done since last scrum:
+- Search result page
+- modify detail page UI
+2. To do until next Scrum:
+-  form validation message check
+- keep modify detail page
+- modify upload image page
+3. Need assistance / figure things out
+- 
