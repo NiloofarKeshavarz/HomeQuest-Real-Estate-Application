@@ -16,7 +16,6 @@
         </div>
     </div>
 </div>
-@* <div class="blank-space-section wf-section"></div> *@
 
 <div class="add-properties wf-section">
     <div class="container w-container">
@@ -25,7 +24,7 @@
                 <h3 class="properties-facilites-heading">Property Gallery <span class="section-color-shape">.</span>
                 </h3>
                 <div class="gallery-list-wrapper w-dyn-list">
-                    <div role="list" class="gallery-list w-dyn-items w-row">
+                    <div role="list" class="gallery-list w-dyn-items w-row mb-3">
                         @if (ViewBag.urlList != null)
                         {
                             @foreach (var url in ViewBag.urlList)
@@ -34,83 +33,44 @@
                                     <a href="#" class="gallery-link w-inline-block w-lightbox">
                                         <img alt="" loading="lazy" src="@url" class="gallery-mage" />
                                     </a>
-                                    <p class="gallery-link w-inline-block w-lightbox">URL: <span>@url</span></p>
+                                    <div class="gallery-link w-inline-block w-lightbox">
+                                        <p class="text-break">URL:@url</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <form asp-controller="Image" asp-action="SetAsPrimary" method="post"
+                                    enctype="multipart/form-data">
+                                            <input type="text" name="SetAsPrimary" value=@url hidden></input>
+                                            <button class="btn btn-link p-0" type="submit">Set As Primary</button>
+                                        </form>
+
+                                        <form asp-controller="Image" asp-action="DeleteImage" method="Post"
+                                    enctype="multipart/form-data">
+                                            <input type="text" name="urlToDelete" value=@url hidden></input>
+                                            <button type="submit" class="btn btn-link text-danger p-0">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
                             }
                         }
                     </div>
+                    <div role="list" class="gallery-list w-dyn-items w-row">
+                        <h3 class="properties-facilites-heading">Add Images<span class="section-color-shape">.</span>
+                        </h3>
+                        <div class="input-box">
+                            <form asp-controller="Image" asp-action="UploadFiles" method="Post"
+                                enctype="multipart/form-data" class="d-flex justify-content-center">
+                                <div class="mb-3" style="width:80%">
+                                    <input class="form-control" type="file" id="formFile">
+                                    <input type="text" name="propertyId" value=@ViewBag.currentPropertyId
+                                        hidden></input>
+                                </div>
+                                <button type="submit" class="button mx-3">Upload Images</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-@* <h2>welcome to image upload/download</h2>
-
-    <h3>Image Manager for the property with id @ViewBag.currentPropertyId</h3>
-
-    <form asp-controller="Image" asp-action="UploadFiles" method="Post" enctype="multipart/form-data">
-    <div class="form-group">
-    <input type="file" name="files" multiple />
-    <input type="text" name="propertyId" value=@ViewBag.currentPropertyId></input>
-    </div>
-    <button type="submit">Upload Files</button>
-    </form>
-
-
-
-    <h3>DB saved Files</h3>
-    <table>
-    <tbody>
-    @if (ViewBag.urlList != null){
-    @foreach (var url in ViewBag.urlList)
-    {
-    <tr>
-    <img src="@url"/>
-    <form asp-controller="Image" asp-action="DeleteImage" method="Post" enctype="multipart/form-data">
-    <input type="text" name="urlToDelete" value=@url></input>
-    <button type="submit">Delete</button>
-    </form>
-
-    <form asp-controller="Image" asp-action="SetAsPrimary" method="post" enctype="multipart/form-data">
-    <input type="text" name="SetAsPrimary" value=@url></input>
-    <button type="submit">SetAsPrimary</button>
-    </form>
-
-
-
-
-    </tr>
-    }
-    }else{
-    <h1>View bag is null</h1>
-    }
-
-    </tbody>
-    </table> *@
-
-@* @if (Model != null && Model.Count > 0)
-    {
-    <h3>Uploaded Files</h3>
-    <table>
-    <thead>
-    <tr>
-    <th>File Name</th>
-    <th>File URL</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var file in Model)
-    {
-    <tr>
-    <td>@ViewBag.currentPropertyId</td>
-    <td>@file.FileName</td>
-    <td>@file.URL</td>
-    <img src="@file.URL"/>
-
-    </tr>
-    }
-    </tbody>
-    </table>
-    } *@
