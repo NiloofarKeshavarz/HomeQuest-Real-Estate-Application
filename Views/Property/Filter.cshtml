@@ -1,0 +1,145 @@
+@model IEnumerable<HomeQuest.Models.Property>
+
+@{
+    ViewData["Title"] = "Properties";
+}
+
+<div class="breadcrumb-section another-breadcrumb-section wf-section">
+    <div class="container w-container">
+        <div class="breadcrumb-wrapper another-breadcrumb-section">
+            <div class="breadcrumb-content another-breadcrumb-section">
+                <div class="breadcrumb-sub-heading another-breadcrumb-section">Our Properties <br />
+                </div>
+                <h1 class="breadcrumb-main-heading another-breadcrumb-section">
+                    <span class="breadcrumb-span-text another-breadcrumb-section">All Properties</span>
+                </h1>
+                <p class="breadcrumb-details-content another-details-content">Huge number of propreties availabe here
+                    for buy and sell, also you can find here co-living property</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="properties-filter-section wf-section">
+    <div class="container w-container"></div>
+</div>
+<div class="all-properties-section wf-section">
+    <div class="container w-container">
+        <div fs-cmsfilter-element="filters" class="filter-wrapper-form w-form">
+          
+
+            <form asp-controller="Property" asp-action="FilterProperty" method="Post" enctype="multipart/form-data">
+                <input type="number" name="PropertyPriceFilter"></input>
+                <button type="submit">show filter</button>
+            </form>
+
+            @* test this UI *@
+            <form method="post">
+    <div class="form-group">
+        <label for="propertyTypeSelect">Property Type:</label>
+        <select id="propertyTypeSelect" name="propertyType" class="form-control">
+            <option value="">All</option>
+            @foreach (var type in Enum.GetValues(typeof(Property.PropertyType)))
+            {
+                <option value="@type">@type</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="postalCodeInput">Postal Code:</label>
+        <input id="postalCodeInput" name="postalCode" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="priceRangeInput">Price Range:</label>
+        <input id="priceRangeInput" name="minPrice" class="form-control mr-2" placeholder="Min Price" />
+        <input id="priceRangeInput" name="maxPrice" class="form-control" placeholder="Max Price" />
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Postal Code</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* @foreach (var property in Model.Properties)
+        {
+            <tr>
+                <td>@property.Type</td>
+                <td>@property.PostalCode</td>
+                <td>@property.Price</td>
+            </tr>
+        } *@
+    </tbody>
+</table>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@* <h1>@ViewData["Title"]</h1>
+    <div class="container p-3">
+    <div class="col-6">
+    <h2>property list</h2>
+    </div>
+    <br/>
+    <br/>
+
+    @if(Model.Count() > 0)
+    {
+    <table class= "table table-bordered table-striped" width = "100%">
+    <thead>
+    <tr>
+    <th>
+    Title
+    </th>
+    <th>
+    Description
+    </th>
+    <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+    <td > @item.Title</td>
+    <td > @item.Description</td>
+    <td > @item.Address</td>
+    <td > @item.PostalCode</td>
+    <td > @item.Price</td>
+    <td > @item.Floors</td>
+    <td > @item.BedroomCount</td>
+    <td > @item.BathroomCount</td>
+    <td > @item.GarageCont</td>
+    <td > @item.YearBuilt</td>
+    <td > @item.FloorArea</td>
+    <td > @item.LotArea</td>
+    <td > @item.CreatedAt</td>
+    <td > @item.Status</td>
+    <td > @item.Type</td>
+
+
+
+    </tr>
+    }
+    </tbody>
+
+    </table>
+    }
+    else{
+    <p>No property exist.</p>
+    }
+    </div> *@

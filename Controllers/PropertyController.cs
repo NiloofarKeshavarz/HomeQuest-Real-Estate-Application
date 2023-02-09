@@ -67,22 +67,23 @@ namespace HomeQuest.Controllers
         [Route("/CreateNewProperty")]
         public IActionResult CreateNewProperty()
         {
-
+            if(ModelState.IsValid){
             db.Properties.Add(Property);
             db.SaveChangesAsync();
             Console.WriteLine("insertion DONE!");
-
+            }
 
             // }
             return View();
         }
-
-        private void FetchImageUrlListToViewBag(int id){
+        // Show images of each property////////////////////////////////////////////////////
+        private void FetchImageUrlListToViewBag(int id)
+        {
 
             // Fetch property images from the db for image gallery
             var imageUrls = db.Images.Where(i => i.PropertyId == Id).Select(i => i.URL).ToList();
             ViewBag.urlList = imageUrls;
-            
+
         }
 
         public IActionResult Detail(int Id)
@@ -94,6 +95,8 @@ namespace HomeQuest.Controllers
 
             return View(property);
         }
+
+
 
         [Route("/imageManager")]
         [HttpPost]
@@ -111,7 +114,7 @@ namespace HomeQuest.Controllers
             // TO-DO passing a list of images frm db as list
         }
 
-        //Update  aproperty 
+        //Update  aproperty ////////////////////////////////////////////////////////////////
 
         [Route("/PopulateToUpdate")]
         [HttpPost]
@@ -125,7 +128,7 @@ namespace HomeQuest.Controllers
                 logger.LogWarning("Property not found");
                 return NotFound();
             }
-            return View("~/Views/Property/Update.cshtml",PropertyToEdit);
+            return View("~/Views/Property/Update.cshtml", PropertyToEdit);
 
 
         }
@@ -156,8 +159,82 @@ namespace HomeQuest.Controllers
 
             db.Properties.Update(UpdatedProperty);
             db.SaveChanges();
-            return View("~/Views/Property/Detail.cshtml",UpdatedProperty);
+            return View("~/Views/Property/Detail.cshtml", UpdatedProperty);
         }
+
+        //Delete a property /////////////////////////////////////////////////////////////
+        [Route("/Delete")]
+        [HttpPost]
+        public IActionResult Delete(int Id)
+        {
+
+            Console.WriteLine("PropertyToEdit ID is :" + Id);
+
+            // Delete from Properties table in db
+            Property PropertyToDelete = db.Properties.Find(Id);
+            db.Properties.Remove(PropertyToDelete);
+            db.SaveChanges();
+
+            //Delete images from images table in db
+            IEnumerable<Image> ImageListToDelete = db.Images.Where(x => x.PropertyId == Id).ToList();
+            db.Images.RemoveRange(ImageListToDelete);
+
+            return RedirectToAction("Index");
+        }
+
+
+        // Filter Module                  //////////////////////////////////////////////// 
+
+        [Route("/FilterProperty")]
+        [HttpPost]
+        public IActionResult FilterProperty(int PropertyMinPriceFilter, int PropertyMaxPriceFilter, string PropertyPostalCodeFilter, int PropertyTypeFilter)
+        {
+            Console.WriteLine("Start Filtering index with:");
+            Console.WriteLine("min price:" + PropertyMinPriceFilter);
+            Console.WriteLine("max price:" + PropertyMaxPriceFilter);
+            Console.WriteLine("postal code:" + PropertyPostalCodeFilter);
+            Console.WriteLine("type:" + PropertyTypeFilter);
+
+            IEnumerable<Property> filteredList = db.Properties;
+
+            // 1st filter: all min price filters are acceptable and logical
+            filteredList = filteredList.Where(p => p.Price >= PropertyMinPriceFilter);
+
+            // 2n filter: max price is logical if is equal or more than min price
+            if (PropertyMaxPriceFilter > PropertyMinPriceFilter) filteredList = filteredList.Where(p => p.Price <= PropertyMaxPriceFilter);
+
+            // 3rd filter: if postal code is valid
+            if (PropertyPostalCodeFilter != null) filteredList = filteredList.Where(p => p.PostalCode == PropertyPostalCodeFilter);
+
+            // 4th filter: if property type filter is not "ALL"
+            switch (PropertyTypeFilter)
+            {
+                case 10:
+                    filteredList = filteredList.Where(p => p.Type == Property.PropertyType.House);
+                    break;
+                case 20:
+                    filteredList = filteredList.Where(p => p.Type == Property.PropertyType.Apartment);
+                    break;
+                case 30:
+                    filteredList = filteredList.Where(p => p.Type == Property.PropertyType.Duplex);
+                    break;
+                case 40:
+                    filteredList = filteredList.Where(p => p.Type == Property.PropertyType.TownHouse);
+                    break;
+                case 50:
+                    filteredList = filteredList.Where(p => p.Type == Property.PropertyType.Condor);
+                    break;
+            }
+
+
+
+
+           
+            return View("~/Views/Property/Index.cshtml", filteredList);
+            
+        }
+
+       
 
     }
 }

@@ -101,6 +101,36 @@
                     </div>
                 }
             </form>
+
+            <form asp-controller="Property" asp-action="FilterProperty" method="Post" enctype="multipart/form-data">
+
+                <label for="PropertyMinPriceFilter">min price</label>
+                <input type="number" name="PropertyMinPriceFilter" min="0"></input>
+
+                <label for="PropertyMaxPriceFilter">max price</label>
+                <input type="number" name="PropertyMaxPriceFilter" min="0"></input>
+
+                <label for="PropertyPostalCodeFilter">postal code</label>
+                <input type="text" name="PropertyPostalCodeFilter"></input>
+
+                <label for="PropertyTypeFilter">property type</label>
+                <select type="number" id="PropertyTypeFilter" name="PropertyTypeFilter">
+                    <option value="0">All</option>
+                    <option value="10">House</option>
+                    <option value="20">Apartment</option>
+                    <option value="30">Duplex</option>
+                    <option value="40">TownHouse</option>
+                    <option value="50">Condo</option>
+                </select>
+
+                <br/>
+                <button type="submit">show filter</button>
+            </form>
+
+            @* test this UI *@
+            
+
+
         </div>
     </div>
 </div>

@@ -27,6 +27,24 @@
     <div class="container w-container">
         <div class="add-properties-wrapper">
             <div class="add-properties-form-wrapper w-form">
+
+                 <div id="strict-bounds-selector" class="pac-controls">
+          <input type="checkbox" id="use-location-bias" value="" checked />
+          <label for="use-location-bias">Bias to map viewport</label>
+
+          <input type="checkbox" id="use-strict-bounds" value="" />
+          <label for="use-strict-bounds">Strict bounds</label>
+        </div>
+      </div>
+      <div id="pac-container">
+        <input id="pac-input" type="text" placeholder="Enter a location" />
+      </div>
+    </div>
+    <div id="map"></div>
+    <div id="infowindow-content">
+      <span id="place-name" class="title"></span><br />
+      <span id="place-address"></span>
+    </div>
                 <form asp-controller="Property" asp-action="CreateNewProperty" enctype="multipart/form-data" method="post" class="add-properties-form">
                     
                     <div class="form-wrapper">
@@ -46,6 +64,8 @@
                                  data-name="Address line 1" placeholder="Address" id="Address-line"
                                 required />
                                 <span asp-validation-for="Address" ></span>
+
+
 
                             <label asp-for="PostalCode" for="Postal-Code" class="properties-label">Postal Code</label>
                             <input asp-for="PostalCode" type="text" class="properties-form-field w-input" maxlength="256" 
