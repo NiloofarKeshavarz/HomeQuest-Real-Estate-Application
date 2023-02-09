@@ -40,13 +40,13 @@
                                         <form asp-controller="Image" asp-action="SetAsPrimary" method="post"
                                     enctype="multipart/form-data">
                                             <input type="text" name="SetAsPrimary" value=@url hidden></input>
-                                            <button class="btn btn-link p-0" type="submit">Set As Primary</button>
+                                            <button class="btn btn-link p-0" type="submit" style="color:#01614e">Set As Primary</button>
                                         </form>
 
                                         <form asp-controller="Image" asp-action="DeleteImage" method="Post"
                                     enctype="multipart/form-data">
                                             <input type="text" name="urlToDelete" value=@url hidden></input>
-                                            <button type="submit" class="btn btn-link text-danger p-0">Delete</button>
+                                            <button type="submit" class="btn btn-link p-0" style="color:#ff6500">Delete</button>
                                         </form>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
     </div>
 </div>
 
-<h2>welcome to image upload/download</h2>
+@* <h2>welcome to image upload/download</h2>
 
 <h3>Image Manager for the property with id @ViewBag.currentPropertyId</h3>
 
@@ -116,7 +116,7 @@
         }
 
     </tbody>
-</table>
+</table> *@
 
 @* @if (Model != null && Model.Count > 0)
     {

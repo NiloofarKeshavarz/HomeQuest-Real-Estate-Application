@@ -17,12 +17,13 @@ namespace HomeQuest.Data
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        //public virtual DbSet<IdentityUser> ApplicationUser {get; set;}
+        public virtual DbSet<ApplicationUser> ApplicationUser {get; set;}
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            
             modelBuilder.Entity<Property>()
                .HasMany(p => p.Images)
                .WithOne(i => i.Property)
@@ -34,18 +35,18 @@ namespace HomeQuest.Data
             //   .WithOne(i => i.Property)
             //   .HasForeignKey(i => i.PropertyId);
 
-           // modelBuilder.Entity<Favorite>().HasKey(sc => new { sc.PropertyId, sc.UserId });
+           modelBuilder.Entity<Favorite>().HasKey(f => new { f.PropertyId, f.UserId });
 
-            // modelBuilder.Entity<Favorite>()
-            //     .HasOne<Property>(sc => sc.Property)
-            //     .WithMany(s => s.Favorite)
-            //     .HasForeignKey(sc => sc.SId);
+            modelBuilder.Entity<Favorite>()
+                .HasOne<Property>(f => f.Property)
+                .WithMany(u => u.Favorites)
+                .HasForeignKey(f => f.PropertyId);
 
 
-            // modelBuilder.Entity<StudentCourse>()
-            //     .HasOne<Course>(sc => sc.Course)
-            //     .WithMany(s => s.StudentCourses)
-            //     .HasForeignKey(sc => sc.CId);
+            modelBuilder.Entity<Favorite>()
+                .HasOne<ApplicationUser>(f => f.User)
+                .WithMany(p => p.Favorites)
+                .HasForeignKey(f => f.UserId);
         }
 
     }

@@ -47,6 +47,8 @@ namespace HomeQuest.Controllers
         public IActionResult Index()
         {
             IEnumerable<Property> propList = db.Properties;
+            var images = db.Images.ToList();
+            ViewBag.imageList = images;
             return View(propList);
         }
 
@@ -101,7 +103,6 @@ namespace HomeQuest.Controllers
         {
             // Fetch property from the DB
             Property property = db.Properties.Where(x => x.Id == Id).FirstOrDefault();
-
             FetchImageUrlListToViewBag(Id);
 
             return View(property);

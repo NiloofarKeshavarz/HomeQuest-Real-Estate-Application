@@ -33,22 +33,30 @@
                         <div fs-cmssort-element="list" fs-cmsfilter-element="list"
                         class="propertise-list-wrapper w-dyn-list">
                             <div role="list" class="properties-wrapper w-dyn-items w-row">
-
+                                @{bool hasPrimaryImage = false;}
                                 @foreach (var item in Model)
                                 {
                                     <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id">
                                         <div role="listitem" class="single-properties w-dyn-item w-col w-col-4">
                                             <div class="single-properties-item">
-                                                <div class="properties-image-block">
-                                                    <img loading="lazy"
-                                                src="https://assets.website-files.com/622596ceb2da993727fc3dbe/6225da2f83ace35bc4f853fd_properties3.jpg"
-                                                alt="Properties Thumbnail Image " class="properties-image" />
-                                                    <div asp-for="Status" class="properties-badge">@item.Status</div>
-                                                    <div class="properties-badge home-type">@item.Type</div>
-                                                </div>
+                                                @foreach (var image in ViewBag.imageList)
+                                                {
+                                                    if (image.PropertyId == item.Id)
+                                                    {
+                                                        if (image.IsPrimaryImage == true)
+                                                        {   
+                                                            @* hasPrimaryImage = true; *@
+                                                            <div class="properties-image-block">
+                                                                <img loading="lazy" src="@image.URL" alt="Properties Thumbnail Image " class="properties-image" width="370px" height="246px"/>
+                                                                    <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                                            </div>
+                                                        }
+
+                                                    }
+                                                }
                                                 <div class="properties-description-content">
                                                     <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id"
-                                                class="properties-title">@item.Title</a>
+                                                            class="properties-title">@item.Title</a>
                                                     <div fs-cmsfilter-field="city" class="properties-location">@item.Address
                                                     </div>
                                                     <div class="properties-added-date-block">
@@ -80,6 +88,9 @@
                                                             @item.GarageCont
                                                         </div>
                                                         <div class="garage-text">Garage</div>
+                                                    </div>
+                                                     <div class="mt-3">
+                                                        <input class="properties-badge" type="checkbox"/>
                                                     </div>
                                                 </div>
                                             </div>

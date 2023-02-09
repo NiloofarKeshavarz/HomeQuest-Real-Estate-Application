@@ -1,3 +1,4 @@
+using HomeQuest.Models;
 using Microsoft.AspNetCore.Identity;
 
 public class ApplicationUser : IdentityUser
@@ -7,4 +8,5 @@ public class ApplicationUser : IdentityUser
     public bool AgentIsApproved { get; set; }
     public DateTime AgentExpirationDate { get; set; }
     public DateTime  CreateDate { get; set; }
+    public ICollection<Favorite> Favorites { get; set; }
 }

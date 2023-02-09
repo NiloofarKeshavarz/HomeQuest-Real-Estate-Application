@@ -51,7 +51,7 @@ namespace HomeQuest.Models
         public ICollection<Image> Images { get; set; }
 
         public ICollection<Offer> Offers { get; set; }
-        public IList<Favorite> Favorites { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
 
 
 

@@ -44,6 +44,8 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         IEnumerable<Property> propList = db.Properties.Take(3);
+        var images = db.Images.ToList();
+            ViewBag.imageList = images;
         return View(propList);
     }
 
