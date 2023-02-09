@@ -11,47 +11,20 @@ namespace HomeQuest.Models
         [Key]
         public int Id { get; set; }
         // TODO: Add sellerId
-        [Required(ErrorMessage = "Required")]
-        [StringLength(100)]
-        public string Title { get; set; }
+       public string Title { get; set; }
+       public string Description { get; set; }
+       public string Address { get; set; }
+       public string PostalCode { get; set; }
 
-        [StringLength(500)]
-        [Required(ErrorMessage = "Required")]
-        [DataType(DataType.MultilineText)]
-        public string Description { get; set; }
-
-        [Required(ErrorMessage = "Required")]
-        public string Address { get; set; }
-
-        [Required(ErrorMessage = "Required")]
-        public string PostalCode { get; set; }
-
-        // [Required(ErrorMessage = "Required")]
-        // [StringLength(50)]
-        //public CityNames City { get; set; }
-
-        [Required(ErrorMessage = "Required")]
-        public decimal? Price { get; set; }
-
-       
-        public byte? Floors { get; set; }
-        [Required(ErrorMessage = "Required")]
-        public byte? BedroomCount { get; set; }
-        [Required(ErrorMessage = "Required")]
-        public byte? BathroomCount { get; set; }
-
-        public byte? GarageCont { get; set; }
-
-        [Required(ErrorMessage = "Required")]
-        public DateTime YearBuilt { get; set; }
-
-        [Required(ErrorMessage = "Required")]
-        public decimal? FloorArea { get; set; }
-
-        [Required(ErrorMessage = "Required")]
-        public decimal? LotArea { get; set; }
-
-        public DateTime CreatedAt { get; set; }
+       public int Price { get; set;}
+       public int Floors { get; set; }
+       public int BedroomCount { get; set; }
+       public int BathroomCount { get; set; }
+       public int GarageCont { get; set; }
+       public DateTime YearBuilt { get; set; }
+       public int FloorArea { get; set; }
+       public int LotArea { get; set; }
+       public DateTime CreatedAt { get; set; }
 
         public enum PropertyStatus
         {
