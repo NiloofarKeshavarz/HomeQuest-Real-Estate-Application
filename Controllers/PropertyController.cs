@@ -77,12 +77,11 @@ namespace HomeQuest.Controllers
         [HttpPost]
         public IActionResult CreateNewProperty()
         {
-            if(ModelState.IsValid){
+            
             db.Properties.Add(Property);
             db.SaveChangesAsync();
             Console.WriteLine("insertion DONE!");
-            }
-             Console.WriteLine("out of model.state");
+            
 
             // }
             return View();

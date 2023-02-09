@@ -11,48 +11,20 @@ namespace HomeQuest.Models
         [Key]
         public int Id { get; set; }
         // TODO: Add sellerId
-        [Required(ErrorMessage = "Title is required.")]
-        [StringLength(100, ErrorMessage = "Title must be maximum 100 characters.")]
-        public string Title { get; set; }
+       public string Title { get; set; }
+       public string Description { get; set; }
+       public string Address { get; set; }
+       public string PostalCode { get; set; }
 
-        [StringLength(500, ErrorMessage = "Description must be maximum 500 characters.")]
-        [Required(ErrorMessage = "Description is required")]
-        [DataType(DataType.MultilineText)]
-        public string Description { get; set; }
-
-        [Required(ErrorMessage = "Address is required.")]
-        public string Address { get; set; }
-
-        [Required(ErrorMessage = "Postal Code is required.")]
-        public string PostalCode { get; set; }
-
-        // [Required(ErrorMessage = "Required")]
-        // [StringLength(50)]
-        //public CityNames City { get; set; }
-
-        [Required(ErrorMessage = "Price is required.")]
-        public decimal? Price { get; set; }
-
-       
-        public int? Floors { get; set; }
-
-        [Required(ErrorMessage = "Number of bedroom is required.")]
-        public int BedroomCount { get; set; }
-        [Required(ErrorMessage = "Number of bathroom is required.")]
-        public int BathroomCount { get; set; }
-
-        public int GarageCont { get; set; }
-
-        [Required(ErrorMessage = "Year built is required.")]
-        public DateTime YearBuilt { get; set; }
-
-        [Required(ErrorMessage = "Floor area  is required.")]
-        public int FloorArea { get; set; }
-
-        [Required(ErrorMessage = "Lot area  is required.")]
-        public int LotArea { get; set; }
-
-        public DateTime CreatedAt { get; set; }
+       public int Price { get; set;}
+       public int Floors { get; set; }
+       public int BedroomCount { get; set; }
+       public int BathroomCount { get; set; }
+       public int GarageCont { get; set; }
+       public DateTime YearBuilt { get; set; }
+       public int FloorArea { get; set; }
+       public int LotArea { get; set; }
+       public DateTime CreatedAt { get; set; }
 
         public enum PropertyStatus
         {
