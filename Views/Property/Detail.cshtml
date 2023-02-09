@@ -190,11 +190,35 @@ ViewData["Title"] = @Model.Title;
                                 });
                         } *@
                     @* </script> *@
-                    @* ------------ *@
-                    @* --leftside content end-- *@
-
+                    @* ------script------ *@
+                    
                 </div>
             </div>
+            @* --leftside content end-- *@
+
+            @* right side *@
+             <div class="properties-sidebar">
+                <div class="sidebar-box rounded sticky-top">
+                    <h3 class="sidebar-heading">Make an Offer? <span class="section-color-shape">.</span></h3>
+                        <div class="">
+                            <form  method="post">
+                                <div class="mb-3">
+                                    <label>Offer Amount</label>
+                                    <input type="number" class="properties-form-field w-input" placeholder="Your offer amount" required="" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Offer Date</label>
+                                    <input type="text" onfocus="(this.type='date')" class="properties-form-field w-input" placeholder="Offer expired date" required="" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Message</label>
+                                    <input type="text" class="properties-form-field w-input" placeholder="Leave your message here." required="" style="height:100px;" />
+                                </div>
+                                <input type="submit" value="Submit your offer" class="button w-button" />
+                            </form>
+                        </div>
+                     </div>
+            @* ---- *@
         </div>
     </div>
 </div>
