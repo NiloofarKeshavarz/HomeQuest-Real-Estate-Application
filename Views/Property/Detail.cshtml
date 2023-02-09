@@ -75,6 +75,21 @@ ViewData["Title"] = @Model.Title;
                         <p class="properties-details-text">@Model.Description</p>
                     </div>
 
+                      <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form" enctype="multipart/form-data">
+                         <input asp-for="Id">@Model.Id</input>
+                         <button class="button mobile-button w-nav-link">Go to Upload image page</button>
+
+                    </form>
+
+                    <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form" enctype="multipart/form-data">
+                         <input hidden asp-for="Id">@Model.Id</input>
+                         <button class="button mobile-button w-nav-link">Update Property</button>
+                    </form>
+                    <form asp-controller="Property" asp-action="Delete" method="post" class="add-properties-form" enctype="multipart/form-data">
+                         <input asp-for="Id">@Model.Id</input>
+                         <button class="button mobile-button w-nav-link">Delete Property</button>
+                    </form>
+
 
                     <div class="property-facilities">
                         <h3 class="properties-facilites-heading">Property Features <span class="section-color-shape">.</span>
