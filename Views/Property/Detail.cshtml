@@ -112,7 +112,7 @@ ViewData["Title"] = @Model.Title;
                         <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form"
                             enctype="multipart/form-data">
                             <input hidden asp-for="Id" value=@Model.Id></input>
-                            <button class="btn btn-link d-flex w-inline-block fs-5" style="color:#01614e">Click to Update Property</button>
+                            <Input type = "submit" value ="Update" class="button w-button" style= "color:white; "/>
                         </form>
                     </div>
                     @* image gallery *@
