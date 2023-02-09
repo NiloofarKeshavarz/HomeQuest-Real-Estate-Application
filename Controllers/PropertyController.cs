@@ -50,6 +50,14 @@ namespace HomeQuest.Controllers
             return View(propList);
         }
 
+
+        [Route("/SearchResult")]
+        public IActionResult SearchResult()
+        {
+            IEnumerable<Property> propList = db.Properties;
+            return View(propList);
+        }
+
         // Redirect to add property page
         [Authorize(Policy = "RequireAgentRole")]
         [Route("/Create")]
@@ -86,6 +94,7 @@ namespace HomeQuest.Controllers
 
         }
 
+        [Route("/Property/{id}")]
         public IActionResult Detail(int Id)
         {
             // Fetch property from the DB
@@ -96,10 +105,8 @@ namespace HomeQuest.Controllers
             return View(property);
         }
 
-
-
-        [Route("/imageManager")]
-        [HttpPost]
+        [Route("/imageManager/{id}")]
+        // [HttpPost]
         public IActionResult imageManager(int Id)
         {
             ViewBag.currentPropertyId = Id;
@@ -114,11 +121,10 @@ namespace HomeQuest.Controllers
             // TO-DO passing a list of images frm db as list
         }
 
-        //Update  aproperty ////////////////////////////////////////////////////////////////
-
-        [Route("/PopulateToUpdate")]
-        [HttpPost]
-        public IActionResult GetPropertyToUpdate(int? Id)
+        //Update  aproperty 
+        [Route("/PopulateToUpdate/{id}")]
+        // [HttpPost]
+        public IActionResult GetPropertyToUpdate(int Id)
         {
             PropertyToEdit = db.Properties.Where(a => a.Id == Id).FirstOrDefault();
             Console.WriteLine("Property ID is :" + PropertyToEdit.Id);
@@ -128,10 +134,10 @@ namespace HomeQuest.Controllers
                 logger.LogWarning("Property not found");
                 return NotFound();
             }
-            return View("~/Views/Property/Update.cshtml", PropertyToEdit);
-
-
+            return View("~/Views/Property/Update.cshtml",PropertyToEdit);
         }
+
+
         [Route("/Update")]
         [HttpPost]
         public IActionResult Update()

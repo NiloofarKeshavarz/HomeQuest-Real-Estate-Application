@@ -21,11 +21,6 @@ body {
   margin-bottom: 60px;
 } */
 
-/* Generated on: Tue Dec 06 2022 04:26:04 GMT+0000 (Coordinated Universal Time) */
-/* ==========================================================================
-   normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css 
-   ========================================================================== */
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
 	font-family: sans-serif;
 	-ms-text-size-adjust: 100%;
@@ -4828,7 +4823,7 @@ blockquote {
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	min-height: 650px;
+	min-height: 500px;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	-ms-flex-align: center;
@@ -4837,7 +4832,7 @@ blockquote {
 
 .breadcrumb-wrapper.another-breadcrumb-section {
 	position: relative;
-	min-height: 515px;
+	min-height: 415px;
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	-ms-flex-pack: center;
@@ -5220,7 +5215,7 @@ blockquote {
 }
 
 .all-properties-section {
-	margin-top: 80px;
+	margin-top: 40px;
 }
 
 .pagination {

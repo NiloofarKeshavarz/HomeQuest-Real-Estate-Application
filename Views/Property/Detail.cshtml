@@ -1,13 +1,14 @@
 @model HomeQuest.Models.Property
 @{
-    ViewData["Title"] = @Model.Title;
+ViewData["Title"] = @Model.Title;
 }
 
 <div class="breadcrumb-section another-breadcrumb-section wf-section">
     <div class="container w-container">
         <div class="breadcrumb-wrapper another-breadcrumb-section">
             <div class="breadcrumb-content another-breadcrumb-section">
-                <div class="breadcrumb-sub-heading another-breadcrumb-section"><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Status</span></div>
+                <div class="breadcrumb-sub-heading another-breadcrumb-section"><span class="p-1 text-white rounded"
+                        style="background-color: #ff6500;">@Model.Status</span></div>
                 <h1 class="breadcrumb-main-heading another-breadcrumb-section">@Model.Title</h1>
                 <p class="breadcrumb-details-content another-details-content">Huge number of propreties availabe here
                     for buy and sell, also you can find here co-living property</p>
@@ -23,126 +24,191 @@
             <div class="propertise-details-side">
                 <div class="properties-details-inner">
                     @* --- leftside content ---- *@
-                    <div class="properties-main-image">
-                        <img alt="Properties Main Image" loading="lazy"
-                            src="https://assets.website-files.com/622596ceb2da993727fc3dbe/623c5a57f92b3fabf5167826_post1.png"
-                            class="properties-details-image" />
+                    @* image carousel *@
+                    @if (ViewBag.urlList != null){
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="active" aria-current="true" aria-label="Slide 3"></button>
+
+                        </div>
+                        <div class="carousel-inner">
+                        @{int i = 0;}
+                        @foreach (var url in ViewBag.urlList)
+                        {   
+                            i++;
+                            var active = i == 1 ? "active":"";
+                            <div class="carousel-item @active">
+                            <img src="@url" class="d-block w-100 rounded" alt="image @i" height="400px">
+                            </div>
+                        }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    }
+                    @* -------------- *@ 
+                    <div class="d-flex justify-content-end mt-2">
+                        <a asp-area="" asp-controller="Property" asp-action="imageManager" asp-route-id="@Model.Id"
+                            class="d-flex w-inline-block">
+                            <div class="link-text fs-5 text-decoration-underline" style="color:#01614e">Add More Images</div>
+                            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/624e60a08c6773d17f4f78bf_arrow-black.svg"
+                                loading="lazy"
+                                style="-webkit-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+                                alt="Arrow Icon" class="arrow-icon" />
+                        </a>
                     </div>
                     <div class="properties-details-top">
-                        <div><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Type</span></div>
-                        <div class="properties-location-address properties-details-page">@Model.Address</div>
+                        <div><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Type</span>
+                        </div>
                         <h2 class="properties-details-title">@Model.Title <span class="section-color-shape">.</span>
                         </h2>
+                        <div class="properties-location-address properties-details-page">@Model.Address</div>
                         <p class="properties-details-text">@Model.Description</p>
                     </div>
 
-                    @* <div class="properties-image-gallery">
-                        <div class="gallery-list-wrapper w-dyn-list">
-                            <div role="list" class="gallery-list w-dyn-items w-row">
-                                <div role="listitem" class="gallery-item w-dyn-item w-dyn-repeater-item w-col w-col-4">
-                                    <h3 class="properties-facilites-heading">Property Gallery <span
-                                            class="section-color-shape">.</span>
-                                    </h3>
-                                    <a href="#" class="gallery-link w-inline-block w-lightbox">
-                                        <img alt="" loading="lazy"
-                                            src="https://assets.website-files.com/622596ceb2da993727fc3dbe/623c5aa7011666306d4233d0_01.png"
-                                            class="gallery-mage" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> *@
-
-
-                    <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form" enctype="multipart/form-data">
-                         <input asp-for="Id">@Model.Id</input>
-                         <button class="button mobile-button w-nav-link">Go to Upload image page</button>
-
-                    </form>
 
                     <div class="property-facilities">
-                        <h3 class="properties-facilites-heading">Property Features <span
-                                class="section-color-shape">.</span>
+                        <h3 class="properties-facilites-heading">Property Features <span class="section-color-shape">.</span>
                         </h3>
                         <div class="properties-facilities-wrapper">
                             <div class="single-facilities">
                                 <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de6c978835bb853f99_cama.svg"
                                     width="30" height="30" alt="bed Icon" class="facilities-icon" />
-                                <div class="facilities-text"><h4 class="section-color-shape">@Model.BedroomCount <span>Bedrooms</span></h4></div>
+                                <div class="facilities-text">
+                                    <h4 class="section-color-shape">@Model.BedroomCount <span>Bedrooms</span></h4>
+                                </div>
                             </div>
                             <div class="single-facilities">
                                 <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de528d2e2aa8bf8e81_ducha.svg"
                                     width="25" height="25" alt="bath Icon" class="facilities-icon" />
-                                <div class="facilities-text"><h4 class="section-color-shape">@Model.BathroomCount <span>Bathrooms</span></h4></div>
+                                <div class="facilities-text">
+                                    <h4 class="section-color-shape">@Model.BathroomCount <span>Bathrooms</span></h4>
+                                </div>
                             </div>
                             <div class="single-facilities">
                                 <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de03e4102bf23c62a0_Car.png"
                                     width="25" height="25" alt="car Icon" class="facilities-icon" />
-                                <div class="facilities-text"><h4 class="section-color-shape">@Model.GarageCont <span>Garages</span></h4></div>
-                            </div>
-                             <div class="single-facilities">
-                                <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de6c9788cef7853f98_anteproyecto.svg"
-                                    width="25" height="25" alt="area Icon" class="facilities-icon" />
-                                <div class="facilities-text"><h4 class="section-color-shape">@Model.FloorArea <span>Sq Feet</span></h4></div>
+                                <div class="facilities-text">
+                                    <h4 class="section-color-shape">@Model.GarageCont <span>Garages</span></h4>
+                                </div>
                             </div>
                             <div class="single-facilities">
                                 <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de6c9788cef7853f98_anteproyecto.svg"
                                     width="25" height="25" alt="area Icon" class="facilities-icon" />
-                                <div class="facilities-text"><h4 class="section-color-shape">Built In  @Model.YearBuilt.Year</h4></div>
+                                <div class="facilities-text">
+                                    <h4 class="section-color-shape">@Model.FloorArea <span>Sq Feet</span></h4>
+                                </div>
+                            </div>
+                            <div class="single-facilities">
+                                <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de6c9788cef7853f98_anteproyecto.svg"
+                                    width="25" height="25" alt="area Icon" class="facilities-icon" />
+                                <div class="facilities-text">
+                                    <h4 class="section-color-shape">Built In @Model.YearBuilt.Year</h4>
+                                </div>
                             </div>
 
                         </div>
                     </div>
-                    <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form" enctype="multipart/form-data">
-                         <input hidden asp-for="Id">@Model.Id</input>
-                         <button class="button mobile-button w-nav-link">Update Property</button>
-                    </form>
-                    <form asp-controller="Property" asp-action="Delete" method="post" class="add-properties-form" enctype="multipart/form-data">
-                         <input asp-for="Id">@Model.Id</input>
-                         <button class="button mobile-button w-nav-link">Delete Property</button>
+                    <div class="d-flex justify-content-end mt-5">
+                        <a asp-controller="Property" asp-action="GetPropertyToUpdate" asp-route-id="@Model.Id"
+                            class="d-flex w-inline-block">
+                            <div class="link-text fs-5 text-decoration-underline" style="color:#01614e">Click to Update Property Detail
+                            </div>
+                            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/624e60a08c6773d17f4f78bf_arrow-black.svg"
+                                loading="lazy"
+                                style="-webkit-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
+                                alt="Arrow Icon" class="arrow-icon" />
+                        </a>
+                    </div>
+                    @* image gallery *@
 
-                    </form>
+                    @* <div class="properties-image-gallery">
+                            <h3 class="properties-facilites-heading">Property Gallery <span
+                                    class="section-color-shape">.</span>
+                            </h3>
+                            <div class="gallery-list-wrapper w-dyn-list">
+                                <div role="list" class="gallery-list w-dyn-items w-row">
+                                    @if (ViewBag.urlList != null){
+                                    @foreach (var url in ViewBag.urlList)
+                                    {
+                                    <div role="listitem" class="gallery-item w-dyn-item w-dyn-repeater-item w-col w-col-4">
+                                        <a href="#" class="gallery-link w-inline-block w-lightbox">
+                                            <img alt="" loading="lazy" src="@url" class="gallery-mage" />
+                                        </a>
+                                    </div>
+                                    }
+                                    }
+                                </div>
+                            </div>
+                        </div> *@
+                    @* ---------- *@
+                    @* ----map----- *@
+                    @* <div class="mb-3">
+                        <h3 class="properties-facilites-heading">Place on Map<span class="section-color-shape">.</span>
+                        </h3>
+                        <div class="floor-plan-wrapper w-dyn-list">
+                            <script
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4j0qdZp-SFab15F-vWwJD8N8MQCrf_Qc&callback=initMap&v=weekly"
+                                defer></script>
+                            <div class=" w-dyn-items">
+                                <div>
+                                    <div class="map-inner w-richtext">
+                                        <figure style="padding-bottom:75%"
+                                            class="w-richtext-align-fullwidth w-richtext-figure-type-video">
+                                            <div id="map">
+                                            </div>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-dyn-hide w-dyn-empty">
+                                <div>No items found.</div>
+                            </div>
+                        </div>
+                    </div> *@
+                    @*
+                    <script> *@
+                        @* // 1.---Initialize and add the map(static API) *@
+                        @* function initMap() {
+                            let geocoder = new google.maps.Geocoder();
+                            let uluru;
+                            geocoder
+                                .geocode({ address: "Montreal" })
+                                .then((result) => {
+                                    const { results } = result;
+                                    if (status == google.maps.GeocoderStatus.OK) {
+                                        uluru = results[0].geometry.location;
+                                    } else {
+                                        //the address is invalid
+                                        uluru = { lat: 45.5019, lng: -73.5674 };
+                                    }
+                                    // The map, centered at Uluru
+                                    const map = new google.maps.Map(document.getElementById("map"), {
+                                        zoom: 15,
+                                        center: uluru,
+                                    });
+                                    // The marker, positioned at Uluru
+                                    const marker = new google.maps.Marker({
+                                        position: uluru,
+                                        map: map,
+                                    });
+                                });
+                        } *@
+                    @* </script> *@
+                    @* ------------ *@
                     @* --leftside content end-- *@
 
-
-                    @* --------------------for image gallery *@
-
-                    <h3>images</h3>
-                        <table>
-                            <tbody>
-                                @if (ViewBag.urlList != null){
-                                        @foreach (var url in ViewBag.urlList)
-                                {
-                                    <tr>
-                                        <img src="@url"/>
-                                        <form asp-controller="Image" asp-action="DeleteImage" method="Post" enctype="multipart/form-data">
-                                                <input type="text" name="urlToDelete" value=@url></input>
-                                                <button type="submit">Delete</button>
-                                        </form>
-                                        
-
-                                    </tr>
-                                }
-                                }else{
-                                    <h1>View bag is null</h1>
-                                }
-                        
-                            </tbody>
-                        </table>
-
-                    @* ---------------------------------- *@
-
                 </div>
             </div>
-            @* ---rightside--- *@
-            <div class="properties-sidebar">
-                <div class="sidebar-box">
-                    @* --- *@
-                    asdfasdfafdfsad
-                    @* --- *@
-                </div>
-            </div>
-            @*---- rightside end---*@
         </div>
     </div>
 </div>
