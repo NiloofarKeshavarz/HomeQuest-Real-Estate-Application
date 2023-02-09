@@ -11,45 +11,46 @@ namespace HomeQuest.Models
         [Key]
         public int Id { get; set; }
         // TODO: Add sellerId
-        [Required(ErrorMessage = "Required")]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Title is required.")]
+        [StringLength(100, ErrorMessage = "Title must be maximum 100 characters.")]
         public string Title { get; set; }
 
-        [StringLength(500)]
-        [Required(ErrorMessage = "Required")]
+        [StringLength(500, ErrorMessage = "Description must be maximum 500 characters.")]
+        [Required(ErrorMessage = "Description is required")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Required")]
+        [Required(ErrorMessage = "Address is required.")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Required")]
+        [Required(ErrorMessage = "Postal Code is required.")]
         public string PostalCode { get; set; }
 
         // [Required(ErrorMessage = "Required")]
         // [StringLength(50)]
         //public CityNames City { get; set; }
 
-        [Required(ErrorMessage = "Required")]
+        [Required(ErrorMessage = "Price is required.")]
         public decimal? Price { get; set; }
 
        
-        public byte? Floors { get; set; }
-        [Required(ErrorMessage = "Required")]
-        public byte? BedroomCount { get; set; }
-        [Required(ErrorMessage = "Required")]
-        public byte? BathroomCount { get; set; }
+        public int? Floors { get; set; }
 
-        public byte? GarageCont { get; set; }
+        [Required(ErrorMessage = "Number of bedroom is required.")]
+        public int BedroomCount { get; set; }
+        [Required(ErrorMessage = "Number of bathroom is required.")]
+        public int BathroomCount { get; set; }
 
-        [Required(ErrorMessage = "Required")]
+        public int GarageCont { get; set; }
+
+        [Required(ErrorMessage = "Year built is required.")]
         public DateTime YearBuilt { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public decimal? FloorArea { get; set; }
+        [Required(ErrorMessage = "Floor area  is required.")]
+        public int FloorArea { get; set; }
 
-        [Required(ErrorMessage = "Required")]
-        public decimal? LotArea { get; set; }
+        [Required(ErrorMessage = "Lot area  is required.")]
+        public int LotArea { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
@@ -64,14 +65,14 @@ namespace HomeQuest.Models
         //     Boucherville = 6, Candiac = 7, DollardDesOrmeaux = 8, LaPrairie = 9, Kirkland =10
         // }
 
-        [Required(ErrorMessage = "Required")]
+        [Required(ErrorMessage = "Status is required.")]
         public PropertyStatus Status { get; set; }
 
         public enum PropertyType
         {
             House = 0, Apartment = 1, Duplex = 2, TownHouse = 3, Condor = 4
         }
-        [Required(ErrorMessage = "Required")]
+        [Required(ErrorMessage = "Type is required.")]
         public PropertyType Type { get; set; }
 
 

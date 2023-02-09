@@ -80,6 +80,7 @@ namespace HomeQuest.Controllers
             db.SaveChangesAsync();
             Console.WriteLine("insertion DONE!");
             }
+             Console.WriteLine("out of model.state");
 
             // }
             return View();
