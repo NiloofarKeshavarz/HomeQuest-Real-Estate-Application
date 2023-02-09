@@ -26,14 +26,7 @@ ViewData["Title"] = @Model.Title;
                     @* --- leftside content ---- *@
                     @* image carousel *@
                     @if (ViewBag.urlList != null){
-                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="active" aria-current="true" aria-label="Slide 3"></button>
-
-                        </div>
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                         @{int i = 0;}
                         @foreach (var url in ViewBag.urlList)
@@ -45,26 +38,30 @@ ViewData["Title"] = @Model.Title;
                             </div>
                         }
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
                     }
                     @* -------------- *@ 
+                    <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form"
+                        enctype="multipart/form-data">
+                        <input asp-for="Id">@Model.Id</input>
+                        <button class="button mobile-button w-nav-link">Go to Upload image page</button>
+                    </form>
                     <div class="d-flex justify-content-end mt-2">
-                        <a asp-area="" asp-controller="Property" asp-action="imageManager" asp-route-id="@Model.Id"
-                            class="d-flex w-inline-block">
-                            <div class="link-text fs-5 text-decoration-underline" style="color:#01614e">Add More Images</div>
-                            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/624e60a08c6773d17f4f78bf_arrow-black.svg"
-                                loading="lazy"
-                                style="-webkit-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
-                                alt="Arrow Icon" class="arrow-icon" />
-                        </a>
+                        <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form"
+                            enctype="multipart/form-data">
+                            <input asp-for="Id" hidden value=@Model.Id></input>
+                            <button class="btn btn-link d-flex w-inline-block fs-5" style="color:#01614e">
+                                Add More Images
+                            </button>
+                        </form>
                     </div>
                     <div class="properties-details-top">
                         <div><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Type</span>
@@ -74,22 +71,6 @@ ViewData["Title"] = @Model.Title;
                         <div class="properties-location-address properties-details-page">@Model.Address</div>
                         <p class="properties-details-text">@Model.Description</p>
                     </div>
-
-                      <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form" enctype="multipart/form-data">
-                         <input asp-for="Id">@Model.Id</input>
-                         <button class="button mobile-button w-nav-link">Go to Upload image page</button>
-
-                    </form>
-
-                    <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form" enctype="multipart/form-data">
-                         <input hidden asp-for="Id">@Model.Id</input>
-                         <button class="button mobile-button w-nav-link">Update Property</button>
-                    </form>
-                    <form asp-controller="Property" asp-action="Delete" method="post" class="add-properties-form" enctype="multipart/form-data">
-                         <input asp-for="Id">@Model.Id</input>
-                         <button class="button mobile-button w-nav-link">Delete Property</button>
-                    </form>
-
 
                     <div class="property-facilities">
                         <h3 class="properties-facilites-heading">Property Features <span class="section-color-shape">.</span>
@@ -130,19 +111,14 @@ ViewData["Title"] = @Model.Title;
                                     <h4 class="section-color-shape">Built In @Model.YearBuilt.Year</h4>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-5">
-                        <a asp-controller="Property" asp-action="GetPropertyToUpdate" asp-route-id="@Model.Id"
-                            class="d-flex w-inline-block">
-                            <div class="link-text fs-5 text-decoration-underline" style="color:#01614e">Click to Update Property Detail
-                            </div>
-                            <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/624e60a08c6773d17f4f78bf_arrow-black.svg"
-                                loading="lazy"
-                                style="-webkit-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0px, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)"
-                                alt="Arrow Icon" class="arrow-icon" />
-                        </a>
+                        <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form"
+                            enctype="multipart/form-data">
+                            <input hidden asp-for="Id" value=@Model.Id></input>
+                            <button class="btn btn-link d-flex w-inline-block fs-5" style="color:#01614e">Click to Update Property</button>
+                        </form>
                     </div>
                     @* image gallery *@
 
@@ -227,3 +203,21 @@ ViewData["Title"] = @Model.Title;
         </div>
     </div>
 </div>
+
+@* 
+<form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form"
+    enctype="multipart/form-data">
+    <input asp-for="Id">@Model.Id</input>
+    <button class="button mobile-button w-nav-link">Go to Upload image page</button>
+</form> *@
+
+@* <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form"
+    enctype="multipart/form-data">
+    <input hidden asp-for="Id">@Model.Id</input>
+    <button class="button mobile-button w-nav-link">Update Property</button>
+    </form>
+    <form asp-controller="Property" asp-action="Delete" method="post" class="add-properties-form"
+    enctype="multipart/form-data">
+    <input asp-for="Id">@Model.Id</input>
+    <button class="button mobile-button w-nav-link">Delete Property</button>
+    </form>*@

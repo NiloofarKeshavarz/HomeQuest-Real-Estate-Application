@@ -72,7 +72,9 @@ namespace HomeQuest.Controllers
             return View();
         }
 
+
         [Route("/CreateNewProperty")]
+        [HttpPost]
         public IActionResult CreateNewProperty()
         {
             if(ModelState.IsValid){
