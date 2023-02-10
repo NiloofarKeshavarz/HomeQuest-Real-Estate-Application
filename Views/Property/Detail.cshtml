@@ -50,26 +50,24 @@ ViewData["Title"] = @Model.Title;
                     }
                     @* -------------- *@ 
                     <div class="d-flex justify-content-end mt-2">
-                        <form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form"
+                        <form asp-controller="Property" asp-action="image" method="post" class="add-properties-form"
                             enctype="multipart/form-data">
-                            <input asp-for="Id" hidden value=@Model.Id></input>
+                            <input asp-for="Id" value=@Model.Id></input>
                             <button class="btn btn-link d-flex w-inline-block fs-5" style="color:#01614e">
-                                Add More Images
+                                Image Gallery
                             </button>
                         </form>
                     </div>
                     <div class="properties-details-top">
                         <div><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Type</span>
                         </div>
-                        <h2 class="properties-details-title">@Model.Title <span class="section-color-shape">.</span>
-                        </h2>
+                        <h2 class="properties-details-title">@Model.Title</h2>
                         <div class="properties-location-address properties-details-page">@Model.Address</div>
                         <p class="properties-details-text">@Model.Description</p>
                     </div>
 
                     <div class="property-facilities">
-                        <h3 class="properties-facilites-heading">Property Features <span class="section-color-shape">.</span>
-                        </h3>
+                        <h3 class="properties-facilites-heading">Property Features</h3>
                         <div class="properties-facilities-wrapper">
                             <div class="single-facilities">
                                 <img src="https://assets.website-files.com/5d2360eb6156a611684e0077/5d2603de6c978835bb853f99_cama.svg"

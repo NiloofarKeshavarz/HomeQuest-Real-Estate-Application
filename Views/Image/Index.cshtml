@@ -10,7 +10,7 @@
             <div class="breadcrumb-wrapper another-breadcrumb-section">
                 <div class="breadcrumb-content another-breadcrumb-section">
                     <h1 class="breadcrumb-main-heading another-breadcrumb-section">
-                        <span class="breadcrumb-span-text another-breadcrumb-section">Edit Property Images</span>
+                        <span class="breadcrumb-span-text another-breadcrumb-section">Property Gallery</span>
                     </h1>
                 </div>
             </div>
@@ -21,8 +21,7 @@
     <div class="container w-container">
         <div class="add-properties-wrapper">
             <div class="properties-image-gallery">
-                <h3 class="properties-facilites-heading">Property Gallery <span class="section-color-shape">.</span>
-                </h3>
+                <h3 class="properties-facilites-heading">Property ID: @ViewBag.currentPropertyId </h3>
                 <div class="gallery-list-wrapper w-dyn-list">
                     <div role="list" class="gallery-list w-dyn-items w-row mb-3">
                         @if (ViewBag.urlList != null)
@@ -40,12 +39,14 @@
                                         <form asp-controller="Image" asp-action="SetAsPrimary" method="post"
                                     enctype="multipart/form-data">
                                             <input type="text" name="SetAsPrimary" value=@url hidden></input>
+                                            <input type="text" name="propertyId" value=@ViewBag.currentPropertyId hidden></input>
                                             <button class="btn btn-link p-0" type="submit" style="color:#01614e">Set As Primary</button>
                                         </form>
 
                                         <form asp-controller="Image" asp-action="DeleteImage" method="Post"
                                     enctype="multipart/form-data">
                                             <input type="text" name="urlToDelete" value=@url hidden></input>
+                                            <input type="text" name="propertyId" value=@ViewBag.currentPropertyId hidden></input>
                                             <button type="submit" class="btn btn-link p-0" style="color:#ff6500">Delete</button>
                                         </form>
                                     </div>
@@ -54,18 +55,17 @@
                         }
                     </div>
                     <div role="list" class="gallery-list w-dyn-items w-row">
-                        <h3 class="properties-facilites-heading">Add Images<span class="section-color-shape">.</span>
-                        </h3>
+                        <h3 class="properties-facilites-heading">Add Images</h3>
                         <div class="input-box">
                             <form asp-controller="Image" asp-action="UploadFiles" method="Post"
                                 enctype="multipart/form-data" class="d-flex justify-content-center">
                                 <div class="mb-3" style="width:80%">
                                     <input class="form-control" type="file" name="files" id="formFile" multiple>
-                                    <input type="text" name="propertyId" value=@ViewBag.currentPropertyId
-                                        hidden></input>
+                                    <input type="text" name="propertyId" value=@ViewBag.currentPropertyId hidden></input>
                                 </div>
                                 <button type="submit" class="button mx-3">Upload Images</button>
                             </form>
+
                         </div>
                     </div>
 

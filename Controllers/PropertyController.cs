@@ -68,11 +68,11 @@ namespace HomeQuest.Controllers
             return View();
         }
 
-        [Route("/imageUploadDownload")]
-        public IActionResult imageUploadDownload()
-        {
-            return View();
-        }
+        // [Route("/imageUploadDownload")]
+        // public IActionResult imageUploadDownload()
+        // {
+        //     return View();
+        // }
 
 
         [Route("/CreateNewProperty")]
@@ -109,9 +109,9 @@ namespace HomeQuest.Controllers
         }
 
         // [Route("/imageManager/{id}")]
-        [Route("/imageManager")]
+        [Route("/image")]
         [HttpPost]
-        public IActionResult imageManager(int Id)
+        public IActionResult image(int Id)
         {
             ViewBag.currentPropertyId = Id;
             Console.WriteLine("going to image page with id:" + Id);
@@ -120,7 +120,7 @@ namespace HomeQuest.Controllers
             FetchImageUrlListToViewBag(Id);
 
 
-            return View("~/Views/Image/ImageManager.cshtml");
+            return View("~/Views/Image/Index.cshtml");
 
             // TO-DO passing a list of images frm db as list
         }

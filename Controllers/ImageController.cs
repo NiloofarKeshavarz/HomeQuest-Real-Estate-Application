@@ -28,7 +28,7 @@ namespace HomeQuest.Controllers
     [Route("[controller]")]
     public class ImageController : Controller
     {
-        int currentPropertyId = 0;
+        public int currentPropertyId = 0;
         string connectionString = "DefaultEndpointsProtocol=https;AccountName=blobstorageaccount2;AccountKey=LR02zvaUeLULuzrbJwMFyL7BeD1JHiQI1wJq41++ROBVRUWGpBH+6q5p71l4Fo6bTmTCqjB5g+A5+ASt04OcGg==;EndpointSuffix=core.windows.net";
         private readonly ILogger<ImageController> logger;
         private IWebHostEnvironment environment;
@@ -50,11 +50,15 @@ namespace HomeQuest.Controllers
 
 
 
-        // [HttpGet]
-        // public IActionResult Index()
-        // {
-        //     return View();
-        // }
+        public void ReloadViewBagWithImageUrlList(int currentPropertyId)
+        {
+            var imageUrls = db.Images
+                .Where(i => i.PropertyId == currentPropertyId)
+                .Select(i => i.URL)
+                .ToList();
+                ViewBag.urlList = imageUrls;
+                ViewBag.currentPropertyId = currentPropertyId;
+        }
 
         [Route("/UploadFiles")]
         [HttpPost]
@@ -67,8 +71,6 @@ namespace HomeQuest.Controllers
         {
 
             Console.WriteLine("connecting to azure blob...");
-
-            
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("homequest");
@@ -104,23 +106,29 @@ namespace HomeQuest.Controllers
                 Console.WriteLine("insertion new image DONE!");
                 Console.WriteLine("View bag captured with the value: " + currentPropertyId);
 
-                var imageUrls = db.Images
-                .Where(i => i.PropertyId == currentPropertyId)
-                .Select(i => i.URL)
-                .ToList();
-                ViewBag.urlList = imageUrls;
+        
 
 
             }
+            ReloadViewBagWithImageUrlList(currentPropertyId);
 
-            return View("imageManager");
+            return View("~/Views/Image/Index.cshtml");
         }
+
+
+
+
+
+
+
+
+
 
         [Route("DeleteImage")]
         [HttpPost]
         public ActionResult DeleteImage(string urlToDelete, int propertyId){
 
-            Console.WriteLine("Deleting image url: " + urlToDelete);
+            Console.WriteLine("Deleting image for property id" + propertyId + "| url: " + urlToDelete);
 
             // Delete from the db
             // Image image = db.Images.SingleOrDefault(i => i.URL == urlToDelete);
@@ -157,26 +165,41 @@ namespace HomeQuest.Controllers
 
 
             // Delete the blob
-            // blockBlob.DeleteAsync();
-        //      if (container.Properties.GetValueOrDefault(BlobContainerPublicAccessType.Blob).HasFlag(BlobContainerPublicAccessType.SoftDelete))
+             blockBlob.DeleteAsync();
+            //  if (container.Properties.GetValueOrDefault(BlobContainerPublicAccessType.Blob).HasFlag(BlobContainerPublicAccessType.SoftDelete))
         // {
-        //     // Delete the blob and its previous versions if soft delete is enabled
+            // Delete the blob and its previous versions if soft delete is enabled
         //     blobClient.DeleteBlobIfExists(container.GetBlockBlobReference(blobName), true, AccessCondition.GenerateEmptyCondition(), new BlobRequestOptions(), new OperationContext());
         // }
         // else
         // {
-        //     // Delete the blob
-        //     blockBlob.DeleteAsync().Wait();
+            // Delete the blob
+            //blockBlob.DeleteAsync();
         // }
 
+            //     var imageUrls = db.Images
+            //         .Where(i => i.PropertyId == propertyId)
+            //         .Select(i => i.URL)
+            //         .ToList();
+            //     ViewBag.urlList = imageUrls;
 
+            //     Console.WriteLine("id =" + propertyId);
 
-            return View("imageManager");
+            // return View("~/Views/Image/Index.cshtml");
+            ReloadViewBagWithImageUrlList(propertyId);
+
+            return View("~/Views/Image/Index.cshtml");
         }
+
+
+
+
+
+
 
         [Route("SetAsPrimary")]
         [HttpPost]
-        public IActionResult SetAsPrimary(string SetAsPrimary){
+        public IActionResult SetAsPrimary(string SetAsPrimary, int propertyId){
             Image image = db.Images.Where(i => i.URL == SetAsPrimary).FirstOrDefault();
             Console.WriteLine("This is Image Id"+  image.Id);
             Console.WriteLine("This is Image Id"+  image.IsPrimaryImage);
@@ -193,7 +216,11 @@ namespace HomeQuest.Controllers
             db.SaveChanges();
             Console.WriteLine("This is Image Id"+  image.IsPrimaryImage);
 
-            return View("imageManager");
+            
+            ReloadViewBagWithImageUrlList(propertyId);
+
+            return View("~/Views/Image/Index.cshtml");
+
         }
 
 
