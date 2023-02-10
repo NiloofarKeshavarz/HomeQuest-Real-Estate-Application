@@ -58,6 +58,9 @@ namespace HomeQuest.Areas.Identity.Pages.Account
         /// </summary>
         public string ReturnUrl { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string UserType { get; set; } = "User";
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -97,8 +100,11 @@ namespace HomeQuest.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        }
 
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string LicenseNumber { get; set; }
+        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -108,11 +114,35 @@ namespace HomeQuest.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            if (UserType != "User")
+            {
+                if (Input.FirstName == null)
+                {
+                    ModelState.AddModelError("Input.FirstName", "First Name is required!");
+                }
+                if (Input.LastName == null)
+                {
+                    ModelState.AddModelError("Input.LastName", "Last Name is required!");
+                }
+                if (Input.LicenseNumber == null)
+                {
+                    ModelState.AddModelError("Input.LicenseNumber", "License Number is required!");
+                }
+            }
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+
                 var user = CreateUser();
+
+                if (UserType != "User")
+                {
+                    // Additional code to handle the FirstName, LastName and LicenseNumber properties in the InputModel
+                    user.FirstName = Input.FirstName;
+                    user.LastName = Input.LastName;
+                    user.LicenseNumber = Input.LicenseNumber;
+                }
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

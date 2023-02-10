@@ -4,6 +4,7 @@ using HomeQuest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeQuest.Migrations
 {
     [DbContext(typeof(HomeQuestDbContext))]
-    partial class HomeQuestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230210045436_AddUserLicenseNumber")]
+    partial class AddUserLicenseNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,12 +54,15 @@ namespace HomeQuest.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LicenseNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -433,7 +439,7 @@ namespace HomeQuest.Migrations
 
             modelBuilder.Entity("HomeQuest.Models.Offer", b =>
                 {
-                    b.HasOne("HomeQuest.Models.Property", null)
+                    b.HasOne("HomeQuest.Models.Property", "Property")
                         .WithMany("Offers")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -444,6 +450,8 @@ namespace HomeQuest.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Property");
 
                     b.Navigation("User");
                 });

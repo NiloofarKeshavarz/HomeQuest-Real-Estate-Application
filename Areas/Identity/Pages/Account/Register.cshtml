@@ -21,118 +21,117 @@
     <div>
         <div class="container w-container">
             <div class="login-wrapper">
-                @* buyer *@
-                <div class="login-left-side" id="buyer-register">
-                    <div class="login-top">
-                        <h2 class="login-title">Create Account <span class="section-color-shape">.</span>
-                        </h2>
-                        <p class="login-details">Huge number of propreties availabe here for buy, sell and Rent. Also
-                            you
-                            find here co-living property, lots opportunity you have to choose here and enjoy huge
-                            discount
-                            you can get. <br />
-                        </p>
-                    </div>
-                    <div class="login-form-block">
-                        <div class="form-block w-form">
-                            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"
-                                class="login-form">
-                                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                                <input asp-for="Input.Email" type="email" aria-required="true" class="form-field width-full
-                                login-form w-input" maxlength="256" autocomplete="username"
-                                    placeholder="Email: name@example.com" />
-                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                @if (Model.UserType == "User") 
+                {
+                    @* buyer *@
+                    <div class="login-left-side" id="buyer-register">
+                        <div class="login-top">
+                            <h2 class="login-title">Create Account <span class="section-color-shape">.</span>
+                            </h2>
+                            <p class="login-details">Huge number of propreties availabe here for buy, sell and Rent. Also
+                                you
+                                find here co-living property, lots opportunity you have to choose here and enjoy huge
+                                discount
+                                you can get. <br />
+                            </p>
+                        </div>
+                        <div class="login-form-block">
+                            <div class="form-block w-form">
+                                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"
+                                    class="login-form">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                                    <input asp-for="Input.Email" type="email" aria-required="true" class="form-field width-full
+                                    login-form w-input" maxlength="256" autocomplete="username"
+                                        placeholder="Email: name@example.com" />
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
 
-                                <input asp-for="Input.Password" type="password" class="form-field width-full login-form
-                                w-input" maxlength="256" placeholder="Password" aria-required="true"
-                                    autocomplete="new-password" />
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    <input asp-for="Input.Password" type="password" class="form-field width-full login-form
+                                    w-input" maxlength="256" placeholder="Password" aria-required="true"
+                                        autocomplete="new-password" />
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
 
-                                <input asp-for="Input.ConfirmPassword" type="password" aria-required="true"
-                                    class="form-field width-full login-form w-input" maxlength="256"
-                                    placeholder="Conform Password" />
-                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                    <input asp-for="Input.ConfirmPassword" type="password" aria-required="true"
+                                        class="form-field width-full login-form w-input" maxlength="256"
+                                        placeholder="Conform Password" />
+                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
 
-                                <div class="button-block register-block">
-                                    <input type="submit" id="registerSubmit" class="button login-button w-button" />
-                                    <div class="already-account">Already have an Account?</div>
-                                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="register-link
-                                register-block">Login</a>
-                                </div>
-                                <div class="button-block register-block">
-                                    <a class="btn btn-link p-0" id="btn-agent">Register as an Agent ?</a>
-                                </div>
-                            </form>
+                                    <div class="button-block register-block">
+                                        <input type="submit" id="registerSubmit" class="button login-button w-button" />
+                                        <div class="already-account">Already have an Account?</div>
+                                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="register-link
+                                    register-block">Login</a>
+                                    </div>
+                                    <div class="button-block register-block">
+                                        <a class="btn btn-link p-0" id="btn-agent" asp-page="Register" asp-route-userType="Agent">Register as an Agent ?</a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    @* agent *@
+                    <div class="login-left-side" id="agent-register">
+                        <div class="login-top">
+                            <h2 class="login-title">Be An Agent <span class="section-color-shape">.</span>
+                            </h2>
+                            <p class="login-details">Huge number of propreties availabe here for buy, sell and Rent. Also
+                                you
+                                find here co-living property, lots opportunity you have to choose here and enjoy huge
+                                discount
+                                you can get. <br />
+                            </p>
+                        </div>
+                        <div class="login-form-block" >
+                            <div class="form-block w-form">
+                                <form id="registerForm" asp-route-userType="@Model.UserType" asp-route-returnUrl="@Model.ReturnUrl" method="post"
+                                    class="login-form">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                                    <input asp-for="Input.Email" type="email" aria-required="true" class="form-field width-full
+                                    login-form w-input" maxlength="256" autocomplete="username"
+                                        placeholder="Email: name@example.com" />
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
 
-                @* agent *@
-                <div class="login-left-side" id="agent-register">
-                    <div class="login-top">
-                        <h2 class="login-title">Be An Agent <span class="section-color-shape">.</span>
-                        </h2>
-                        <p class="login-details">Huge number of propreties availabe here for buy, sell and Rent. Also
-                            you
-                            find here co-living property, lots opportunity you have to choose here and enjoy huge
-                            discount
-                            you can get. <br />
-                        </p>
-                    </div>
-                    <div class="login-form-block" >
-                        <div class="form-block w-form">
-                            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"
-                                class="login-form">
-                                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                                <input asp-for="Input.Email" type="email" aria-required="true" class="form-field width-full
-                                login-form w-input" maxlength="256" autocomplete="username"
-                                    placeholder="Email: name@example.com" />
-                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    <input asp-for="Input.FirstName" type="text" aria-required="true" class="form-field width-full
+                                    login-form w-input" maxlength="256" autocomplete="given-name"
+                                        placeholder="First Name" />
+                                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
 
-                                <input type="text" aria-required="true" class="form-field width-full
-                                login-form w-input" maxlength="256" autocomplete="username"
-                                    placeholder="First Name" />
-                                <span class="text-danger"></span>
+                                    <input asp-for="Input.LastName" type="text" aria-required="true" class="form-field width-full
+                                    login-form w-input" maxlength="256" autocomplete="family-name"
+                                        placeholder="Last Name" />
+                                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
 
-                                <input type="text" aria-required="true" class="form-field width-full
-                                login-form w-input" maxlength="256" autocomplete="username"
-                                    placeholder="Last Name" />
-                                <span class="text-danger"></span>
+                                    <input asp-for="Input.LicenseNumber" type="text" aria-required="true" class="form-field width-full
+                                    login-form w-input" maxlength="256"
+                                        placeholder="License Number" />
+                                    <span asp-validation-for="Input.LicenseNumber" class="text-danger"></span>
 
-                                <input type="text" aria-required="true" class="form-field width-full
-                                login-form w-input" maxlength="256"
-                                    placeholder="License Number" />
-                                <span class="text-danger"></span>
+                                    <input asp-for="Input.Password" type="password" class="form-field width-full login-form
+                                    w-input" maxlength="256" placeholder="Password" aria-required="true"
+                                        autocomplete="new-password" />
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
 
-                                <input type="text" aria-required="true" class="form-field width-full
-                                login-form w-input" maxlength="256" onfocus="(this.type='date')"
-                                    placeholder="License Expire Date" />
-                                <span class="text-danger"></span>
+                                    <input asp-for="Input.ConfirmPassword" type="password" aria-required="true"
+                                        class="form-field width-full login-form w-input" maxlength="256"
+                                        placeholder="Conform Password" />
+                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
 
-                                <input asp-for="Input.Password" type="password" class="form-field width-full login-form
-                                w-input" maxlength="256" placeholder="Password" aria-required="true"
-                                    autocomplete="new-password" />
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-
-                                <input asp-for="Input.ConfirmPassword" type="password" aria-required="true"
-                                    class="form-field width-full login-form w-input" maxlength="256"
-                                    placeholder="Conform Password" />
-                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-
-                                <div class="button-block register-block">
-                                    <input type="submit" id="registerSubmit" class="button login-button w-button" />
-                                    <div class="already-account">Already have an Account?</div>
-                                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="register-link
-                                register-block">Login</a>
-                                </div>
-                                <div class="button-block register-block">
-                                    <a class="btn btn-link p-0" id="btn-buyer">Register as a Buyer ?</a>
-                                </div>
-                            </form>
+                                    <div class="button-block register-block">
+                                        <input type="submit" id="registerSubmit" class="button login-button w-button" />
+                                        <div class="already-account">Already have an Account?</div>
+                                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="register-link
+                                    register-block">Login</a>
+                                    </div>
+                                    <div class="button-block register-block">
+                                        <a class="btn btn-link p-0" id="btn-buyer" asp-page="Register">Register as a Buyer ?</a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-
+                }
                 <div class="login-right-side">
                     <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/623be93102def05b04fea5cd_image2.png"
                         loading="lazy" alt="Register Image" class="login-image" />
@@ -140,23 +139,6 @@
             </div>
         </div>
     </div>
-
-    @* for agent-register *@
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#agent-register").hide();
-            $("#btn-agent").click(function(){
-                $("#buyer-register").hide();
-                $("#agent-register").show();
-            });
-            $("#btn-buyer").click(function(){
-                $("#agent-register").hide();
-                $("#buyer-register").show();
-            });
-        });
-    </script>
-
 
 
     @* <h1>@ViewData["Title"]</h1>
