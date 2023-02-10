@@ -255,4 +255,15 @@
 3. Need assistance / figure things out
 - 
 
-================================================================
+===================================================================
+2023/02/10 Niloofar
+1. Done / not done since last scrum:
+- Debugging complete for image and property
+- Email Implemented 
+- Email testing and dugging , still working on that
+- Search not debugged yet
+- Added autocomplete for Address
+2. To do until next Scrum:
+- work on Flash messages for functions
+- Email shoud be implemented completely and tested
+3. Need assistance / figure things out

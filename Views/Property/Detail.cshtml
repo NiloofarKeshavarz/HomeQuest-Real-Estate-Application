@@ -52,7 +52,7 @@ ViewData["Title"] = @Model.Title;
                     <div class="d-flex justify-content-end mt-2">
                         <form asp-controller="Property" asp-action="image" method="post" class="add-properties-form"
                             enctype="multipart/form-data">
-                            <input asp-for="Id" value=@Model.Id></input>
+                            <input asp-for="Id" value=@Model.Id hidden></input>
                             <button class="btn btn-link d-flex w-inline-block fs-5" style="color:#01614e">
                                 Image Gallery
                             </button>
@@ -196,7 +196,7 @@ ViewData["Title"] = @Model.Title;
 
             @* right side *@
              <div class="properties-sidebar">
-                <div class="sidebar-box rounded sticky-top">
+                <div class="sidebar-box rounded">
                     <h3 class="sidebar-heading">Make an Offer? <span class="section-color-shape">.</span></h3>
                         <div class="">
                             <form  method="post">
