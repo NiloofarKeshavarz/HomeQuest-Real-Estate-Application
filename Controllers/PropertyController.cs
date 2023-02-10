@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 using HomeQuest.Data;
 using HomeQuest.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace HomeQuest.Controllers
 {
     [Route("[controller]")]
@@ -21,11 +24,14 @@ namespace HomeQuest.Controllers
         private IWebHostEnvironment environment;
         private HomeQuestDbContext db;
 
-        public PropertyController(HomeQuestDbContext db, ILogger<PropertyController> logger, IWebHostEnvironment environment)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public PropertyController(HomeQuestDbContext db, ILogger<PropertyController> logger, IWebHostEnvironment environment,UserManager<ApplicationUser> userManager)
         {
             this.logger = logger;
             this.db = db;
             this.environment = environment;
+            this.userManager = userManager;
         }
 
         [BindProperty]
@@ -48,8 +54,42 @@ namespace HomeQuest.Controllers
         {
             IEnumerable<Property> propList = db.Properties;
             var images = db.Images.ToList();
+            var currentUserId = userManager.GetUserId(User);
+            var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList(); 
+            ViewBag.favoritePropertyList = favoritePropertyList;
             ViewBag.imageList = images;
             return View(propList);
+        }
+
+
+        [HttpPost]
+        public IActionResult AddFavoriteProperty(int favoritePropertyId, string favoriteButton)
+        {
+            var currentUserId = userManager.GetUserId(User);
+            if (favoriteButton == "Add To Favorite")
+            {
+                var propertyId = favoritePropertyId;
+
+
+                Favorite favorite = new Favorite();
+                favorite.PropertyId = propertyId;
+                favorite.UserId = currentUserId;
+                db.Favorites.Add(favorite);
+            }
+            if (favoriteButton == "Remove From Favorite")
+            {
+                var property = db.Properties.Include(x => x.Favorites).FirstOrDefault(x => x.Id == favoritePropertyId);
+                var favorite = property.Favorites.FirstOrDefault(x => x.UserId == currentUserId);
+                if (favorite != null)
+                {
+                    property.Favorites.Remove(favorite);
+                }
+            }
+
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
 
 
