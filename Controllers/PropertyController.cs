@@ -170,6 +170,9 @@ namespace HomeQuest.Controllers
 
             db.Properties.Update(UpdatedProperty);
             db.SaveChanges();
+  
+            FetchImageUrlListToViewBag(PropertyToEdit.Id);
+
             return View("~/Views/Property/Detail.cshtml", UpdatedProperty);
         }
 
