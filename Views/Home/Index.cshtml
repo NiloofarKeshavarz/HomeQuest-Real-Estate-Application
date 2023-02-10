@@ -151,6 +151,20 @@
                                             </div>
                                             <div class="garage-text">Garage</div>
                                         </div>
+                                        @{bool isFavorite = false;}
+                                        @foreach(var property in ViewBag.favoritePropertyList){
+                                            if(property.PropertyId == @item.Id){
+                                                isFavorite = true;
+                                            }
+                                        }
+                                        <form asp-controller="Home" asp-action="AddFavoriteProperty" method="post" id="favorite-form">
+                                            <input type="hidden" value=@item.Id name="favoritePropertyId" id="favoritePropertyId">
+                                            @if(isFavorite == true){
+                                                <input type="submit" class="btn btn-outline-warning" style="color:#ff6500" name="favoriteButton" value="Remove From Favorite">  
+                                            }else{
+                                                <input type="submit" class="btn btn-outline-warning" style="color:#ff6500" name="favoriteButton" value="Add To Favorite">
+                                            }
+                                        </form>
                                     </div>
                                 </div>
                             </div>
