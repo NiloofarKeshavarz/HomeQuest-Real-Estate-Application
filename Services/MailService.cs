@@ -22,13 +22,13 @@ namespace HomeQuest.Services
         {
             _mailSettings = mailSettings.Value;
         }
-        
+
         public async Task SendEmailAsync(MailRequest mailRequest)
         {
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
-            email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
-            email.Subject = mailRequest.Subject;
+            email.To.Add(MailboxAddress.Parse(mailRequest.UserEmail));
+            email.Subject = mailRequest.OfferAmount;
 
             var builder = new BodyBuilder();
             if (mailRequest.Attachments != null )
@@ -47,7 +47,7 @@ namespace HomeQuest.Services
                     }
                 }
             }
-            builder.HtmlBody = mailRequest.Body;
+            builder.HtmlBody = mailRequest.OfferMessage;
             email.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
             smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
