@@ -214,6 +214,14 @@
 - modify upload image page
 3. Need assistance / figure things out
 - 
+
+2023/02/08 Shiva
+1. Done / not done since last scrum:
+- worked on the online payment
+2. To do until next Scrum:
+-  implement payment
+3. Need assistance / figure things out
+- 
 ================================================================
 2023/02/09 Niloofar
 1. Done / not done since last scrum:
@@ -237,3 +245,25 @@
 - profile page for buyer
 3. Need assistance / figure things out
 - 
+2023/02/09 Shiva
+1. Done / not done since last scrum:
+- online payment
+- Agent registration 
+- prepare list of todos
+2. To do until next Scrum:
+- email config
+3. Need assistance / figure things out
+- 
+
+===================================================================
+2023/02/10 Niloofar
+1. Done / not done since last scrum:
+- Debugging complete for image and property
+- Email Implemented 
+- Email testing and dugging , still working on that
+- Search not debugged yet
+- Added autocomplete for Address
+2. To do until next Scrum:
+- work on Flash messages for functions
+- Email shoud be implemented completely and tested
+3. Need assistance / figure things out

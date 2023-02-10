@@ -18,7 +18,7 @@ namespace HomeQuest.Data
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public virtual DbSet<ApplicationUser> ApplicationUser {get; set;}
-
+     
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

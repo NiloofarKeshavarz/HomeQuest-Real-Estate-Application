@@ -135,7 +135,7 @@ namespace HomeQuest.Areas.Identity.Pages.Account
             {
 
                 var user = CreateUser();
-
+                user.CreateDate = DateTime.UtcNow;
                 if (UserType != "User")
                 {
                     // Additional code to handle the FirstName, LastName and LicenseNumber properties in the InputModel

@@ -2,9 +2,29 @@ using HomeQuest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using HomeQuest.Services;
+using HomeQuest.Models.Settings;
+using System.Configuration;
+using MailKit;
+using MimeKit;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -17,6 +37,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>
                 .AddDefaultTokenProviders()
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<HomeQuestDbContext>();
+
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<HomeQuest.Services.IMailService, HomeQuest.Services.MailService>();
 
 //add new authorization policies
 builder.Services.AddAuthorization(options =>
