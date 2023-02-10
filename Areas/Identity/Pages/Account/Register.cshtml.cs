@@ -150,6 +150,10 @@ namespace HomeQuest.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if (UserType != "User")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Agent");
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
