@@ -5,9 +5,21 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
+@* <h3>@ViewData["Title"]</h3> *@
+
+<div class="breadcrumb-section another-breadcrumb-section wf-section">
+    <div class="container w-container">
+        <div class="breadcrumb-wrapper another-breadcrumb-section">
+            <div class="breadcrumb-content another-breadcrumb-section">
+                <div class="breadcrumb-sub-heading another-breadcrumb-section"><span class="p-1 text-white rounded"
+                        style="background-color: #ff6500;">Profile</span></div>
+                <h1 class="breadcrumb-main-heading another-breadcrumb-section">Profile Name</h1>
+            </div>
+        </div>
+    </div>
+</div>
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
+@* <div class="row">
     <div class="col-md-6">
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
@@ -23,7 +35,7 @@
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
     </div>
-</div>
+</div> *@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

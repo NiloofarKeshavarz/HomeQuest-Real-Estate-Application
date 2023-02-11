@@ -103,21 +103,31 @@
                         <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id">
                             <div role="listitem" class="single-properties w-dyn-item w-col w-col-4">
                                 <div class="single-properties-item">
-                                    @foreach (var image in ViewBag.imageList)
-                                    {
-                                        if (image.PropertyId == item.Id)
+                                    @if(item.Images.Count() != 0){
+                                        bool hasPrimaryImage = false;
+                                        @foreach (var image in item.Images)
                                         {
-                                            if (image.IsPrimaryImage == true)
-                                            {
+                                            @if (image.IsPrimaryImage == true){
+                                                hasPrimaryImage = true;
                                                     <div class="properties-image-block">
-                                                        <img src="@image.URL"
-                                            alt="Properties Thumbnail Image " class="properties-image" width="370px" height="246px"/>
-                                                        <div asp-for="Status" class="properties-badge">@item.Status</div>
-                                                        <div class="properties-badge home-type">@item.Type</div>
-                                                    </div>
-                                            }
+                                                    <img loading="lazy" src="@image.URL" alt="Properties Thumbnail Image " class="properties-image" width="370px" height="246px"/>
+                                                    <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                                </div>
+                                            }  
                                         }
-                                    }
+                                        @if(hasPrimaryImage == false){
+                                            <div class="properties-image-block">
+                                                <img loading="lazy" src="@item.Images.ElementAt(0).URL" alt="Properties Thumbnail Image " class="properties-image" width="370px" height="246px"/>
+                                                <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                            </div>
+                                        }
+                                        
+                                    }else{
+                                        <div class="properties-image-block">
+                                            <img loading="lazy" src="https://assets.website-files.com/622596ceb2da993727fc3dbe/6225dd4eb2da993199fe0d98_properties7.jpg" alt="Properties Thumbnail Image " class="properties-image" width="370px" height="246px"/>
+                                            <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                        </div>
+                                    } 
                                     <div class="properties-description-content">
                                         <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id"
                                         class="properties-title">@item.Title</a>

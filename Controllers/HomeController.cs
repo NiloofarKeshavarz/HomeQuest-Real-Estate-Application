@@ -48,11 +48,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        IEnumerable<Property> propList = db.Properties.Take(3);
-        var images = db.Images.ToList();
+        IEnumerable<Property> propList = db.Properties.Include(p => p.Images).ToList().Take(3);
         var currentUserId = userManager.GetUserId(User);
         var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList(); 
-        ViewBag.imageList = images;
         ViewBag.favoritePropertyList = favoritePropertyList;
         return View(propList);
     }

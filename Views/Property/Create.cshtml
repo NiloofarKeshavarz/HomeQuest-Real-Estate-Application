@@ -27,125 +27,141 @@
         <div class="add-properties-wrapper">
             <div class="add-properties-form-wrapper w-form">
 
-                 <div id="strict-bounds-selector" class="pac-controls">
-          <input type="checkbox" id="use-location-bias" value="" checked />
-          <label for="use-location-bias">Bias to map viewport</label>
+                @* <div id="strict-bounds-selector" class="pac-controls">
+                    <input type="checkbox" id="use-location-bias" value="" checked />
+                    <label for="use-location-bias">Bias to map viewport</label>
 
-          <input type="checkbox" id="use-strict-bounds" value="" />
-          <label for="use-strict-bounds">Strict bounds</label>
-        </div>
-      </div>
-      <div id="pac-container">
-        <input id="pac-input" type="text" placeholder="Enter a location" />
-      </div>
-    </div>
-    <div id="map"></div>
-    <div id="infowindow-content">
-      <span id="place-name" class="title"></span><br />
-      <span id="place-address"></span>
-    </div>
-                <form asp-controller="Property" asp-action="CreateNewProperty" enctype="multipart/form-data" method="post" class="add-properties-form">
-                    
+                    <input type="checkbox" id="use-strict-bounds" value="" />
+                    <label for="use-strict-bounds">Strict bounds</label>
+                    </div>
+                    </div>
+                    <div id="pac-container">
+                    <input id="pac-input" type="text" placeholder="Enter a location" />
+                    </div>
+                    </div>
+                    <div id="map"></div>
+                    <div id="infowindow-content">
+                    <span id="place-name" class="title"></span><br />
+                    <span id="place-address"></span>
+                    </div> *@
+                <div id="map"></div>
+                <form asp-controller="Property" asp-action="CreateNewProperty" enctype="multipart/form-data"
+                    method="post" class="add-properties-form">
                     <div class="form-wrapper">
                         <div class="single-form width-50">
                             <label asp-for="Title" class="properties-label">Property Title</label>
                             <input asp-for="Title" type="text" class="properties-form-field w-input"
-                                 placeholder="Property Title" required/>
-                                <span asp-validation-for="Title" class="section-color-shape d-flex justify-content-end" ></span>
+                                placeholder="Property Title" required />
+                            <span asp-validation-for="Title"
+                                class="section-color-shape d-flex justify-content-end"></span>
 
-                            <label asp-for="Price"  class="properties-label">Price</label>
-                            <input asp-for="Price"  type="number" class="properties-form-field w-input"
-                                 placeholder="Price" required/>
-                                 <span asp-validation-for="Price" class="section-color-shape d-flex justify-content-end"  ></span>
+                            <label asp-for="Price" class="properties-label">Price</label>
+                            <input asp-for="Price" type="number" class="properties-form-field w-input"
+                                placeholder="Price" required />
+                            <span asp-validation-for="Price"
+                                class="section-color-shape d-flex justify-content-end"></span>
 
-                            <label asp-for="Address"  for="Address-line" class="properties-label">Address</label>
-                            <input asp-for="Address"  type="text" class="properties-form-field w-input" maxlength="256"
-                                 data-name="Address line 1" placeholder="Address" id="Address-line"
-                                required/>
-                                <span asp-validation-for="Address" ></span>
+                            <label asp-for="Address" for="Address-line" class="properties-label">Address</label>
+                            <input asp-for="Address" type="text" class="properties-form-field w-input" maxlength="256"
+                                data-name="Address line 1" placeholder="Address" id="location-input" required />
+                            <span asp-validation-for="Address"></span>
 
 
 
                             <label asp-for="PostalCode" for="Postal-Code" class="properties-label">Postal Code</label>
-                            <input asp-for="PostalCode" type="text" class="properties-form-field w-input" 
-                                 placeholder="Postal Code" required/>
-                                <span asp-validation-for="PostalCode"class="section-color-shape d-flex justify-content-end"  ></span>
+                            <input asp-for="PostalCode" type="text" class="properties-form-field w-input"
+                                id="postal_code-input" placeholder="Postal Code" required />
+                            <span asp-validation-for="PostalCode"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
 
                         <div class="single-form width-50">
                             <label asp-for="Description" class="properties-label">Property Description</label>
-                            <textarea asp-for="Description" placeholder="Write Your Description Here" 
-                             class="properties-form-field textarea w-input" style="height: 390px;" required></textarea>
-                                <span asp-validation-for="Description" class="section-color-shape d-flex justify-content-end"  ></span>
+                            <textarea asp-for="Description" placeholder="Write Your Description Here"
+                                class="properties-form-field textarea w-input" style="height: 390px;"
+                                required></textarea>
+                            <span asp-validation-for="Description"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
 
                         <div class="single-form width-50">
                             <label asp-for="Type" class="properties-label">Property Type <br />
                             </label>
-                            <select asp-for="Type"
-                                class="properties-form-field w-select" required>
+                            <select asp-for="Type" class="properties-form-field w-select" required>
                                 <option value="0">House</option>
                                 <option value="1">Apartment</option>
                                 <option value="2">Duplex</option>
                                 <option value="3">TownHouse</option>
                                 <option value="4">Condo</option>
                             </select>
-                            <span asp-validation-for="Type" class="section-color-shape d-flex justify-content-end" ></span>
+                            <span asp-validation-for="Type"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
                         <div class="single-form width-50">
-                            <label asp-for="Status"  class="properties-label">Property Status</label>
-                            <select  asp-for="Status" class="properties-form-field w-select" required>
+                            <label asp-for="Status" class="properties-label">Property Status</label>
+                            <select asp-for="Status" class="properties-form-field w-select" required>
                                 <option value="0">Pending</option>
                                 <option value="1">Sold</option>
                                 <option value="2">For Sale</option>
                             </select>
-                            <span asp-validation-for="Type" class="section-color-shape d-flex justify-content-end" ></span>
+                            <span asp-validation-for="Type"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
                         <div class="single-form width-50">
                             <label asp-for="Floors" class="properties-label">Floors</label>
-                            <input asp-for="Floors" type="number" class="properties-form-field w-input" placeholder="Floors" required/>
-                            <span asp-validation-for="Floors" class="section-color-shape d-flex justify-content-end"></span>
+                            <input asp-for="Floors" type="number" class="properties-form-field w-input"
+                                placeholder="Floors" required />
+                            <span asp-validation-for="Floors"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
                         <div class="single-form width-50">
                             <label asp-for="FloorArea" class="properties-label">Floor Area</label>
-                            <input asp-for="FloorArea" type="number" class="properties-form-field w-input" placeholder="Floor Area (Sqft)" required/>
-                            <span asp-validation-for="FloorArea" class="section-color-shape d-flex justify-content-end" ></span>
+                            <input asp-for="FloorArea" type="number" class="properties-form-field w-input"
+                                placeholder="Floor Area (Sqft)" required />
+                            <span asp-validation-for="FloorArea"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
                         <div class="single-form width-50">
                             <label asp-for="LotArea" class="properties-label">Lot Area</label>
-                            <input asp-for="LotArea" type="number" class="properties-form-field w-input" placeholder="Lot Area (Sqft)" required
-                             />
-                            <span asp-validation-for="LotArea" class="section-color-shape d-flex justify-content-end" ></span>
+                            <input asp-for="LotArea" type="number" class="properties-form-field w-input"
+                                placeholder="Lot Area (Sqft)" required />
+                            <span asp-validation-for="LotArea"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
                         <div class="single-form width-50">
                             <label asp-for="BedroomCount" class="properties-label">Number of Bedroom</label>
                             <input asp-for="BedroomCount" type="text" class="properties-form-field w-input"
                                 placeholder="Number of Bedroom" />
-                                 <span asp-validation-for="BedroomCount" class="section-color-shape d-flex justify-content-end" ></span>
+                            <span asp-validation-for="BedroomCount"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
                         <div class="single-form width-50">
                             <label asp-for="BathroomCount" class="properties-label">Number of Bathroom</label>
                             <input asp-for="BathroomCount" type="text" class="properties-form-field w-input"
                                 placeholder="Number of Bathroom" required />
-                            <span asp-validation-for="BathroomCount" class="section-color-shape d-flex justify-content-end"></span>
+                            <span asp-validation-for="BathroomCount"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
                         <div class="single-form width-50">
                             <label asp-for="GarageCont" class="properties-label">Number of Garage</label>
                             <input asp-for="GarageCont" type="text" class="properties-form-field w-input"
-                                placeholder="Number of Garage"  required/>
-                            <span asp-validation-for="GarageCont" class="section-color-shape d-flex justify-content-end" ></span>
+                                placeholder="Number of Garage" required />
+                            <span asp-validation-for="GarageCont"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
                         <div class="single-form width-50">
                             <label asp-for="YearBuilt" class="properties-label">Year Built</label>
-                            <input asp-for="YearBuilt" type="date" class="properties-form-field w-input" placeholder="Year Built" required
-                             />
-                            <span asp-validation-for="YearBuilt" class="section-color-shape d-flex justify-content-end" ></span>
+                            <input asp-for="YearBuilt" type="date" class="properties-form-field w-input"
+                                placeholder="Year Built" required />
+                            <span asp-validation-for="YearBuilt"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
-                         <div class="single-form width-50">
+                        <div class="single-form width-50">
                             <label asp-for="CreatedAt" class="properties-label">CreatedAt</label>
                             <input asp-for="CreatedAt" type="date" class="properties-form-field w-input"
-                                 placeholder="Created At" required/>
-                            <span asp-validation-for="CreatedAt" class="section-color-shape d-flex justify-content-end"></span>
+                                placeholder="Created At" required />
+                            <span asp-validation-for="CreatedAt"
+                                class="section-color-shape d-flex justify-content-end"></span>
                         </div>
                     </div>
                     <input type="submit" value="Add Property"
@@ -156,5 +172,5 @@
     </div>
 </div>
 @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+<partial name="_ValidationScriptsPartial" />
+}

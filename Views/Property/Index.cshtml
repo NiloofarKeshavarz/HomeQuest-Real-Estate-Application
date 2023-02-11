@@ -26,34 +26,43 @@
 <div class="all-properties-section wf-section">
     <div class="container w-container">
         <div fs-cmsfilter-element="filters" class="filter-wrapper-form w-form">
-            <form method="get" class="filter-inner-form">
                 @if (Model.Count() > 0)
                 {
                     <div class="all-properties-wrapper">
                         <div fs-cmssort-element="list" fs-cmsfilter-element="list"
                         class="propertise-list-wrapper w-dyn-list">
                             <div role="list" class="properties-wrapper w-dyn-items w-row">
-                                @{bool hasPrimaryImage = false;}
+                                
                                 @foreach (var item in Model)
                                 {
                                     <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id">
                                         <div role="listitem" class="single-properties w-dyn-item w-col w-col-4">
                                             <div class="single-properties-item">
-                                                @foreach (var image in ViewBag.imageList)
-                                                {
-                                                    if (image.PropertyId == item.Id)
+                                                @if(item.Images.Count() != 0){
+                                                    bool hasPrimaryImage = false;
+                                                    @foreach (var image in item.Images)
                                                     {
-                                                        if (image.IsPrimaryImage == true)
-                                                        {   
-                                                            @* hasPrimaryImage = true; *@
-                                                            <div class="properties-image-block">
+                                                        @if (image.IsPrimaryImage == true){
+                                                            hasPrimaryImage = true;
+                                                             <div class="properties-image-block">
                                                                 <img loading="lazy" src="@image.URL" alt="Properties Thumbnail Image " class="properties-image" width="370px" height="246px"/>
-                                                                    <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                                                <div asp-for="Status" class="properties-badge">@item.Status</div>
                                                             </div>
-                                                        }
-
+                                                        }  
                                                     }
-                                                }
+                                                    @if(hasPrimaryImage == false){
+                                                        <div class="properties-image-block">
+                                                            <img loading="lazy" src="@item.Images.ElementAt(0).URL" alt="Properties Thumbnail Image " class="properties-image" width="370px" height="246px"/>
+                                                            <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                                        </div>
+                                                    }
+                                                    
+                                                }else{
+                                                    <div class="properties-image-block">
+                                                        <img loading="lazy" src="https://assets.website-files.com/622596ceb2da993727fc3dbe/6225dd4eb2da993199fe0d98_properties7.jpg" alt="Properties Thumbnail Image " class="properties-image" width="370px" height="246px"/>
+                                                        <div asp-for="Status" class="properties-badge">@item.Status</div>
+                                                    </div>
+                                                } 
                                                 <div class="properties-description-content">
                                                     <a asp-area="" asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id"
                                                             class="properties-title">@item.Title</a>
@@ -126,7 +135,6 @@
                         <div class="filter-image-text">No properties found.</div>
                     </div>
                 }
-            </form>
 
             <form asp-controller="Property" asp-action="FilterProperty" method="Post" enctype="multipart/form-data">
 
