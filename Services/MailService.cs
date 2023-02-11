@@ -28,7 +28,7 @@ namespace HomeQuest.Services
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
             email.To.Add(MailboxAddress.Parse(mailRequest.UserEmail));
-            email.Subject = mailRequest.OfferAmount;
+            email.Subject = mailRequest.OfferAmount.ToString();
 
             var builder = new BodyBuilder();
             if (mailRequest.Attachments != null )

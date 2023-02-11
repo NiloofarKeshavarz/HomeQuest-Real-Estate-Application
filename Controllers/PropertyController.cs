@@ -8,12 +8,12 @@ using Microsoft.Extensions.Logging;
 using HomeQuest.Data;
 using HomeQuest.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using HomeQuest.Data;
-using HomeQuest.Models;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using HomeQuest.Services;
+using System.Net.Mail;
 
 namespace HomeQuest.Controllers
 {
@@ -26,12 +26,16 @@ namespace HomeQuest.Controllers
 
         private readonly UserManager<ApplicationUser> userManager;
 
-        public PropertyController(HomeQuestDbContext db, ILogger<PropertyController> logger, IWebHostEnvironment environment,UserManager<ApplicationUser> userManager)
+        private readonly IMailService mailService;
+
+
+        public PropertyController(HomeQuestDbContext db, ILogger<PropertyController> logger, IWebHostEnvironment environment, UserManager<ApplicationUser> userManager, IMailService mailService)
         {
             this.logger = logger;
             this.db = db;
             this.environment = environment;
             this.userManager = userManager;
+            this.mailService = mailService;
         }
 
         [BindProperty]
@@ -45,9 +49,12 @@ namespace HomeQuest.Controllers
 
         [BindProperty]
         public IFormFile Upload { get; set; }
+
         [BindProperty]
         public Property? PropertyToEdit { get; set; }
 
+        [BindProperty]
+        public Offer? Offer { get; set; }
 
         [Route("/Index")]
         public IActionResult Index()
@@ -55,7 +62,7 @@ namespace HomeQuest.Controllers
             IEnumerable<Property> propList = db.Properties;
             var images = db.Images.ToList();
             var currentUserId = userManager.GetUserId(User);
-            var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList(); 
+            var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList();
             ViewBag.favoritePropertyList = favoritePropertyList;
             ViewBag.imageList = images;
             return View(propList);
@@ -119,11 +126,11 @@ namespace HomeQuest.Controllers
         [HttpPost]
         public IActionResult CreateNewProperty()
         {
-            
+
             db.Properties.Add(Property);
             db.SaveChangesAsync();
             Console.WriteLine("insertion DONE!");
-            
+
 
             // }
             return View();
@@ -179,7 +186,7 @@ namespace HomeQuest.Controllers
                 logger.LogWarning("Property not found");
                 return NotFound();
             }
-            return View("~/Views/Property/Update.cshtml",PropertyToEdit);
+            return View("~/Views/Property/Update.cshtml", PropertyToEdit);
         }
 
 
@@ -210,7 +217,7 @@ namespace HomeQuest.Controllers
 
             db.Properties.Update(UpdatedProperty);
             db.SaveChanges();
-  
+
             FetchImageUrlListToViewBag(PropertyToEdit.Id);
 
             return View("~/Views/Property/Detail.cshtml", UpdatedProperty);
@@ -283,12 +290,79 @@ namespace HomeQuest.Controllers
 
 
 
-           
+
             return View("~/Views/Property/Index.cshtml", filteredList);
+
+        }
+
+
+
+
+
+        // //////////   Offer form to email handler/controller  Module      ///////////// 
+        [Route("SendOffer")]
+        [HttpPost]
+        public async Task<IActionResult> SendOffer(int OfferAmount, string OfferMessage, int PropertyId, int Id, DateTime OfferDate)
+        {
+
+            var currentUserId = userManager.GetUserId(User);
+
+            // IEnumerable<Offer> offerList = db.Offers;
+
+            // // from different Model in the same view
+            // db.Offers.Add(Offer);
+            // db.SaveChanges();
+
+
+            Console.WriteLine("Sending new Offer ...");
+            Console.WriteLine("new offer PropertyId " + PropertyId);
+            Console.WriteLine("new offer OfferAmount: " + OfferAmount);
+            Console.WriteLine("new offer expiry date: " + OfferDate);
+            Console.WriteLine("new offer OfferMessage " + OfferMessage);
+            Console.WriteLine("new offer UserId: " + currentUserId);
+            Console.WriteLine("new offer user email: " + userManager.GetUserName(User));
+
+
+            // making offer object 
+            var newOffer = new Offer();
+            newOffer.OfferAmount = OfferAmount;
+            newOffer.OfferDate = DateTime.Now;
+            newOffer.OfferMessage = OfferMessage;
+            newOffer.PropertyId = PropertyId;
+            //System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            // Console.WriteLine("This is currentUser: " + currentUser.ToString());
+
+            var user = await userManager.GetUserAsync(User);
+            user.Email = "a@a.com ";
+            // making MailRequet object
+            MailRequest newMailRequest = new MailRequest();
+            newMailRequest.UserEmail = userManager.GetUserName(User);
+            newMailRequest.OfferAmount = OfferAmount;
+            newMailRequest.OfferMessage = OfferMessage;
+
+            Console.WriteLine(newMailRequest.UserEmail + "/// " + newMailRequest.OfferAmount + "/// " + newMailRequest.OfferMessage);
+
+
+
+            // call and send "request obj" to the email api mail controller with post method : /api/mail
+            try
+            {
+                Console.WriteLine("sending Request Email ...");
+                await mailService.SendEmailAsync(newMailRequest);
+                Console.WriteLine("sending Request Email was successful");
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+
+            }
             
         }
 
-       
+
+
 
     }
 }

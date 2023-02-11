@@ -192,25 +192,27 @@ ViewData["Title"] = @Model.Title;
                     
                 </div>
             </div>
-            @* --leftside content end-- *@
+            @* --leftside content ends-- *@
 
             @* right side *@
              <div class="properties-sidebar">
                 <div class="sidebar-box rounded">
                     <h3 class="sidebar-heading">Make an Offer? <span class="section-color-shape">.</span></h3>
                         <div class="">
-                            <form  method="post">
+                            <form  asp-controller="Property" asp-action="SendOffer" method="post">
                                 <div class="mb-3">
-                                    <label>Offer Amount</label>
-                                    <input type="number" class="properties-form-field w-input" placeholder="Your offer amount" required="" />
+                                    <label >Offer Amount</label>
+                                    <input  type="int" class="properties-form-field w-input" placeholder="Offer Amount" required name="OfferAmount"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label>Offer Date</label>
-                                    <input type="text" onfocus="(this.type='date')" class="properties-form-field w-input" placeholder="Offer expired date" required="" />
+                                    <label >Offer Date</label>
+                                    <input type="datetime" onfocus="(this.type='date')" class="properties-form-field w-input" name="OfferDate" placeholder="Offer expired date"  />
                                 </div>
                                 <div class="mb-3">
-                                    <label>Message</label>
-                                    <input type="text" class="properties-form-field w-input" placeholder="Leave your message here." required="" style="height:100px;" />
+                                    <label >Message</label>
+                                    <input  type="text" class="properties-form-field w-input" placeholder="Leave your message here." name="OfferMessage" style="height:100px;" />
+                                 <input  type="number" hidden  name="PropertyId" value="@Model.Id" />
+                                  <input  type="number" hidden name="UserId" value="@Model.Id" />
                                 </div>
                                 <input type="submit" value="Submit your offer" class="button w-button" />
                             </form>
@@ -221,20 +223,3 @@ ViewData["Title"] = @Model.Title;
     </div>
 </div>
 
-@* 
-<form asp-controller="Property" asp-action="imageManager" method="post" class="add-properties-form"
-    enctype="multipart/form-data">
-    <input asp-for="Id">@Model.Id</input>
-    <button class="button mobile-button w-nav-link">Go to Upload image page</button>
-</form> *@
-
-@* <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form"
-    enctype="multipart/form-data">
-    <input hidden asp-for="Id">@Model.Id</input>
-    <button class="button mobile-button w-nav-link">Update Property</button>
-    </form>
-    <form asp-controller="Property" asp-action="Delete" method="post" class="add-properties-form"
-    enctype="multipart/form-data">
-    <input asp-for="Id">@Model.Id</input>
-    <button class="button mobile-button w-nav-link">Delete Property</button>
-    </form>*@

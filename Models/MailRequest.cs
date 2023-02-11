@@ -10,8 +10,8 @@ namespace HomeQuest.Models
         //public string ToEmail { get; set; }
         public string UserEmail{get; set; }
 
-        public string OfferAmount { get; set; }
+        public int OfferAmount { get; set; }
         public string OfferMessage { get; set; }
-        public List<IFormFile> Attachments { get; set; }
+        public List<IFormFile>? Attachments { get; set; }
     }
 }
