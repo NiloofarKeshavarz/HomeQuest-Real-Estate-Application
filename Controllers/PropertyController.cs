@@ -52,12 +52,11 @@ namespace HomeQuest.Controllers
         [Route("/Index")]
         public IActionResult Index()
         {
-            IEnumerable<Property> propList = db.Properties;
-            var images = db.Images.ToList();
+            IEnumerable<Property> propList = db.Properties.Include(p => p.Images).ToList();
             var currentUserId = userManager.GetUserId(User);
             var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList(); 
             ViewBag.favoritePropertyList = favoritePropertyList;
-            ViewBag.imageList = images;
+            // ViewBag.imageList = images;
             return View(propList);
         }
 
