@@ -38,16 +38,16 @@
                                     <div class="d-flex justify-content-between">
                                         <form asp-controller="Image" asp-action="SetAsPrimary" method="post"
                                     enctype="multipart/form-data">
-                                            <input type="text" name="SetAsPrimary" value=@url hidden></input>
-                                            <input type="text" name="propertyId" value=@ViewBag.currentPropertyId hidden></input>
-                                            <button class="btn btn-link p-0" type="submit" style="color:#01614e">Set As Primary</button>
+                                            <input  type="text" name="SetAsPrimary" value=@url hidden/>
+                                            <input type="text" name="propertyId" value=@ViewBag.currentPropertyId hidden/>
+                                            <button class="button mx-3" type="submit" >Set As Primary</button>
                                         </form>
 
                                         <form asp-controller="Image" asp-action="DeleteImage" method="Post"
                                     enctype="multipart/form-data">
                                             <input type="text" name="urlToDelete" value=@url hidden></input>
                                             <input type="text" name="propertyId" value=@ViewBag.currentPropertyId hidden></input>
-                                            <button type="submit" class="btn btn-link p-0" style="color:#ff6500">Delete</button>
+                                            <button type="submit" class="button mx-3" >Delete</button>
                                         </form>
                                     </div>
                                 </div>
@@ -65,8 +65,9 @@
                                 </div>
                                 <button type="submit" class="button mx-3">Upload Images</button>
                             </form>
-
-                        </div>
+                           
+                      </div>
+                       <a class="button mx-3" asp-controller="Image" asp-action="ReturnToPropertyDetailPage" style=" margin-Top:5px;" >Property Page</a>
                     </div>
 
                 </div>

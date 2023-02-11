@@ -223,7 +223,12 @@ namespace HomeQuest.Controllers
 
         }
 
+        [Route("ReturnToDetail")]
+        public IActionResult ReturnToPropertyDetailPage(){
+            
+            return View("~/Views/Property/Detail.cshtml");
 
+        }
 
 
 
