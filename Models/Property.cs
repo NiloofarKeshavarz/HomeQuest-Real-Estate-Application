@@ -11,17 +11,27 @@ namespace HomeQuest.Models
         [Key]
         public int Id { get; set; }
         // TODO: Add sellerId
+       [Required(ErrorMessage = "Field is required.")] 
        public string Title { get; set; }
+       [Required(ErrorMessage = "Field is required.")] 
        public string Description { get; set; }
+       [Required(ErrorMessage = "Field is required.")] 
        public string Address { get; set; }
+       [Required(ErrorMessage = "Field is required.")] 
        public string PostalCode { get; set; }
 
+       [Required(ErrorMessage = "Field is required.")] 
        public int Price { get; set;}
+
        public int Floors { get; set; }
+       [Required(ErrorMessage = "Field is required.")] 
        public int BedroomCount { get; set; }
+       [Required(ErrorMessage = "Field is required.")] 
        public int BathroomCount { get; set; }
        public int GarageCont { get; set; }
+       [Required(ErrorMessage = "Field is required.")] 
        public DateTime YearBuilt { get; set; }
+       
        public int FloorArea { get; set; }
        public int LotArea { get; set; }
        public DateTime CreatedAt { get; set; }
@@ -47,11 +57,11 @@ namespace HomeQuest.Models
         [Required(ErrorMessage = "Type is required.")]
         public PropertyType Type { get; set; }
 
-
+        public ApplicationUser Agent { get; set; }
         public ICollection<Image> Images { get; set; }
 
         public ICollection<Offer> Offers { get; set; }
-        public ICollection<Favorite> Favorites { get; set; }
+       // public ICollection<Favorite> Favorites { get; set; }
 
 
 

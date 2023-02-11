@@ -11,8 +11,7 @@ namespace HomeQuest.Models
         public int OfferAmount { get; set; }
         public DateTime OfferDate { get; set; }
         public string OfferMessage { get; set; }
-        public ApplicationUser User { get; set; }
-        
+        //public ApplicationUser User { get; set; }
         public int PropertyId { get; set; }
         public Property Property { get; set; }
 

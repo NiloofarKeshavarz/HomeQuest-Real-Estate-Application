@@ -27,26 +27,32 @@ namespace HomeQuest.Data
             modelBuilder.Entity<Property>()
                .HasMany(p => p.Images)
                .WithOne(i => i.Property)
-               .HasForeignKey(i => i.PropertyId);
+               .HasForeignKey(i => i.PropertyId)
+               .OnDelete(DeleteBehavior.ClientSetNull);
 
 
-            // modelBuilder.Entity<Property>()
-            //   .HasMany(p => p.Offers)
-            //   .WithOne(i => i.Property)
-            //   .HasForeignKey(i => i.PropertyId);
+            modelBuilder.Entity<Property>()
+              .HasMany(p => p.Offers)
+              .WithOne(i => i.Property)
+              .HasForeignKey(i => i.PropertyId);
 
-           modelBuilder.Entity<Favorite>().HasKey(f => new { f.PropertyId, f.UserId });
+        //       modelBuilder.Entity<Favorite>()
+            
+        //       .HasOne(i => i.Property)
+        //       .Wit(i => i.PropertyId);
 
-            modelBuilder.Entity<Favorite>()
-                .HasOne<Property>(f => f.Property)
-                .WithMany(u => u.Favorites)
-                .HasForeignKey(f => f.PropertyId);
+        //    modelBuilder.Entity<Favorite>().HasKey(f => new { f.PropertyId, f.UserId });
+
+        //     modelBuilder.Entity<Favorite>()
+        //         .HasOne<Property>(f => f.Property)
+        //         .WithMany(u => u.Favorites)
+        //         .HasForeignKey(f => f.PropertyId);
 
 
-            modelBuilder.Entity<Favorite>()
-                .HasOne<ApplicationUser>(f => f.User)
-                .WithMany(p => p.Favorites)
-                .HasForeignKey(f => f.UserId);
+        //     modelBuilder.Entity<Favorite>()
+        //         .HasOne<ApplicationUser>(f => f.User)
+        //         .WithMany(p => p.Favorites)
+        //         .HasForeignKey(f => f.UserId);
         }
 
     }
