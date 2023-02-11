@@ -29,22 +29,32 @@ namespace HomeQuest.Data
                .WithOne(i => i.Property)
                .HasForeignKey(i => i.PropertyId);
 
+            modelBuilder.Entity<Property>()
+                .HasOne(p => p.User)
+                .WithMany(u => u.Properties)
+                .HasForeignKey(p => p.UserId)
+                .IsRequired(false);
 
-            // modelBuilder.Entity<Property>()
-            //   .HasMany(p => p.Offers)
-            //   .WithOne(i => i.Property)
-            //   .HasForeignKey(i => i.PropertyId);
+            modelBuilder.Entity<Offer>()
+                .HasOne(o => o.User)
+                .WithMany(u => u.Offers)
+                .HasForeignKey(o => o.UserId);
 
-           modelBuilder.Entity<Favorite>().HasKey(f => new { f.PropertyId, f.UserId });
+            modelBuilder.Entity<Offer>()
+                .HasOne(o => o.Property)
+                .WithMany(p => p.Offers)
+                .HasForeignKey(o => o.PropertyId);
+
+            modelBuilder.Entity<Favorite>().HasKey(f => new { f.PropertyId, f.UserId });
 
             modelBuilder.Entity<Favorite>()
-                .HasOne<Property>(f => f.Property)
+                .HasOne(f => f.Property)
                 .WithMany(u => u.Favorites)
                 .HasForeignKey(f => f.PropertyId);
 
 
             modelBuilder.Entity<Favorite>()
-                .HasOne<ApplicationUser>(f => f.User)
+                .HasOne(f => f.User)
                 .WithMany(p => p.Favorites)
                 .HasForeignKey(f => f.UserId);
         }

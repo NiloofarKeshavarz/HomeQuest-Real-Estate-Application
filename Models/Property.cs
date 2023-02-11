@@ -10,7 +10,8 @@ namespace HomeQuest.Models
     {
         [Key]
         public int Id { get; set; }
-        // TODO: Add sellerId
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
        public string Title { get; set; }
        public string Description { get; set; }
        public string Address { get; set; }
