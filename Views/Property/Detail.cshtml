@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
 @model HomeQuest.Models.Property
 @{
 ViewData["Title"] = @Model.Title;
@@ -52,11 +54,18 @@ ViewData["Title"] = @Model.Title;
                     <div class="d-flex justify-content-end mt-2">
                         <form asp-controller="Property" asp-action="image" method="post" class="add-properties-form"
                             enctype="multipart/form-data">
-                            <input asp-for="Id" value=@Model.Id hidden></input>
-                            <button class="btn btn-link d-flex w-inline-block fs-5" style="color:#01614e">
+                            <input asp-for="Id" value=@Model.Id hidden/>
+                            <button class="button w-button" style="margin-right:5px;">
                                 Image Gallery
                             </button>
                         </form>
+                         @if (signInManager.IsSignedIn(User)){
+                         <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form"
+                            enctype="multipart/form-data">
+                            <input hidden asp-for="Id" value=@Model.Id></input>
+                            <Input type = "submit" value ="Update" class="button w-button" style= "color:white; "/>
+                        </form>
+                         }
                     </div>
                     <div class="properties-details-top">
                         <div><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Type</span>
@@ -107,11 +116,7 @@ ViewData["Title"] = @Model.Title;
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-5">
-                        <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form"
-                            enctype="multipart/form-data">
-                            <input hidden asp-for="Id" value=@Model.Id></input>
-                            <Input type = "submit" value ="Update" class="button w-button" style= "color:white; "/>
-                        </form>
+                       @* here was the update button *@
                     </div>
                     @* image gallery *@
 
@@ -195,6 +200,7 @@ ViewData["Title"] = @Model.Title;
             @* --leftside content ends-- *@
 
             @* right side *@
+            @if (signInManager.IsSignedIn(User)){
              <div class="properties-sidebar">
                 <div class="sidebar-box rounded">
                     <h3 class="sidebar-heading">Make an Offer? <span class="section-color-shape">.</span></h3>
@@ -220,6 +226,7 @@ ViewData["Title"] = @Model.Title;
                      </div>
             @* ---- *@
         </div>
+            }
     </div>
 </div>
 
