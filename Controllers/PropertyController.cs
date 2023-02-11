@@ -56,7 +56,6 @@ namespace HomeQuest.Controllers
             var currentUserId = userManager.GetUserId(User);
             var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList(); 
             ViewBag.favoritePropertyList = favoritePropertyList;
-            // ViewBag.imageList = images;
             return View(propList);
         }
 
