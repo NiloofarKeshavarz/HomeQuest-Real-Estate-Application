@@ -146,7 +146,6 @@ namespace HomeQuest.Controllers
         }
 
         //Update  aproperty 
-        // [Route("/PopulateToUpdate/{id}")]
         [Route("/PopulateToUpdate")]
         [HttpPost]
         public IActionResult GetPropertyToUpdate(int? Id)

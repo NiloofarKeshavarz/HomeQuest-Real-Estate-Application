@@ -28,9 +28,9 @@
     <div class="container w-container">
         <div class="add-properties-wrapper">
             <div class="add-properties-form-wrapper w-form">
+                <div id="map"></div>
                 <form asp-controller="Property" asp-action="Update" enctype="multipart/form-data" method="post"
                     class="add-properties-form">
-
                     <div class="form-wrapper">
                         <div class="single-form width-50">
                             <input asp-for="AgentId"  value="@UserManager.GetUserId(User)" hidden>
@@ -39,7 +39,7 @@
 
                             <label asp-for="Title" class="properties-label">Property Title</label>
                             <input asp-for="Title" type="text" class="properties-form-field w-input" 
-                                placeholder="Property Title" id="Title" required />
+                                placeholder="Property Title" id="Title" value="@Model.Title" required />
                             <span class="section-color-shape d-flex justify-content-end"
                                 asp-validation-for="Title"></span>
 
@@ -51,15 +51,15 @@
 
                             <label asp-for="Address" for="Address-line" class="properties-label">Address</label>
                             <input asp-for="Address" type="text" class="properties-form-field w-input"
-                                placeholder="Address" id="Address-line" required />
+                                placeholder="Address" id="location-input" required />
                             <span class="section-color-shape d-flex justify-content-end"
-                                asp-validation-for="Address"></span>
+                                asp-validation-for="Address" value="@Model.Address"></span>
 
                             <label asp-for="PostalCode" for="Postal-Code" class="properties-label">Postal Code</label>
                             <input asp-for="PostalCode" type="text" class="properties-form-field w-input"
-                                placeholder="Postal Code" id="Postal-Code" required />
+                                placeholder="Postal Code" id="postal_code-input" required />
                             <span class="section-color-shape d-flex justify-content-end"
-                                asp-validation-for="PostalCode"></span>
+                                asp-validation-for="PostalCode" value="@Model.PostalCode"></span>
                         </div>
 
                         <div class="single-form width-50">
@@ -153,14 +153,14 @@
                                 asp-validation-for="CreatedAt"></span>
                         </div>
 
-                    </div>
-                    <input type="submit" value="Save Changes" data-wait="Please wait..."
+                    </div>  
+                        <input type="submit" value="Save Changes" data-wait="Please wait..."
                         class="button agency-creat-button add-property-button w-button mt-5" />
                 </form>
                 <form asp-controller="Property" asp-action="Delete" method="post" class="add-properties-form"
                     enctype="multipart/form-data">
                     <input hidden asp-for="Id"></input>
-                    <button class="button agency-creat-buttonw-button mt-5">Delete Property</button>
+                    <button class="button agency-creat-buttonw-button mt-5" style="background-color: #ff6500;">Delete Property</button>
                 </form>
 
             </div>
