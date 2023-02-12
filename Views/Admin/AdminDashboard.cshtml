@@ -1,0 +1,99 @@
+@model Tuple<List<ApplicationUser>, List<ApplicationUser>>
+@{
+	ViewData["Title"] = "Admin Dashboard";
+}
+		<div class="container d-flex flex-column" style="width:70%; margin: 0 auto;">
+			<h2>Users</h2>
+			<table class="table table-bordered">
+				<thead class="thead-light">
+					<tr>
+						<th>Email</th>
+						<th>Email Confirmed</th>
+						<th>Create Date</th>
+						<th>Active</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var user in Model.Item1)
+					{
+						<tr>
+							<td>@user.Email</td>
+							<td>@user.EmailConfirmed</td>
+							<td>@user.CreateDate</td>
+						<td>
+						@if (user.LockoutEnd == null)
+						{
+								<a asp-controller="Admin" asp-action="DeactivateUser" asp-route-id="@user.Id">
+									<i class="fas fa-toggle-on fa-2x"></i>
+								</a>
+						}
+						else
+						{
+								<a asp-controller="Admin" asp-action="ActivateUser" asp-route-id="@user.Id">
+									<i class="fas fa-toggle-off fa-2x"></i>                                       
+								</a>
+						}
+							</td>
+						</tr>
+					}
+				</tbody>
+
+		
+			</table>
+				<h2>Agents</h2>
+				<table class="table table-bordered">
+					<thead class="thead-light">
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+							<th>Email Confirmed</th>
+							<th>Create Date</th>
+							<th>License Number</th>
+							<th>Approved</th>
+							<th>Active</th>
+						</tr>
+					</thead>
+				   <tbody>
+				@foreach (var user in Model.Item2)
+				{
+					<tr>
+						<td>@user.FirstName</td>                
+						<td>@user.LastName</td>
+						<td>@user.Email</td>
+						<td>@user.EmailConfirmed</td>
+						<td>@user.CreateDate</td>
+						<td>@user.LicenseNumber</td>
+						<td>
+					@if (!user.AgentIsApproved)
+					{
+						<a asp-controller="Admin" asp-action="ApproveAgent" asp-route-id="@user.Id">
+							<i class="fas fa-toggle-off fa-2x"></i>
+						</a>                    
+					}
+					else
+					{
+						<a asp-controller="Admin" asp-action="DisapproveAgent" asp-route-id="@user.Id">
+							<i class="fas fa-toggle-on fa-2x"></i>                            
+						</a>
+					}
+						</td>
+				<td>
+					@if (user.LockoutEnd == null)
+					{
+						<a asp-controller="Admin" asp-action="DeactivateUser" asp-route-id="@user.Id">
+							<i class="fas fa-toggle-on fa-2x"></i>
+						</a>
+					}
+					else
+					{
+						<a asp-controller="Admin" asp-action="ActivateUser" asp-route-id="@user.Id">
+							<i class="fas fa-toggle-off fa-2x"></i>                                       
+						</a>
+					}
+						</td>
+					</tr>
+				}
+				</tbody>
+		</table>
+	</div>

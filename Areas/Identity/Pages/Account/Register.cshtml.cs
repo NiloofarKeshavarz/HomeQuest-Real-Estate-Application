@@ -114,7 +114,11 @@ namespace HomeQuest.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            if (UserType != "User")
+            if (UserType != "User" && UserType != "Agent")
+            {
+                return BadRequest();
+            }
+            if (UserType == "Agent")
             {
                 if (Input.FirstName == null)
                 {
@@ -136,7 +140,7 @@ namespace HomeQuest.Areas.Identity.Pages.Account
 
                 var user = CreateUser();
                 user.CreateDate = DateTime.UtcNow;
-                if (UserType != "User")
+                if (UserType == "Agent")
                 {
                     // Additional code to handle the FirstName, LastName and LicenseNumber properties in the InputModel
                     user.FirstName = Input.FirstName;
@@ -150,11 +154,14 @@ namespace HomeQuest.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    
                     if (UserType != "User")
                     {
                         await _userManager.AddToRoleAsync(user, "Agent");
                     }
-                    
+
+                    await _userManager.AddToRoleAsync(user, UserType);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
