@@ -19,8 +19,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
-
+using Stripe;
+using HomeQuest.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +40,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>
 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddTransient<HomeQuest.Services.IMailService, HomeQuest.Services.MailService>();
+
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
 //add new authorization policies
 builder.Services.AddAuthorization(options =>

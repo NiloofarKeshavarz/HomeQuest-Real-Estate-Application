@@ -17,80 +17,127 @@
     <div class="container w-container"></div>
 </div>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 text-center">
-            <h3 class="mb-3">Pricing to make your Work Effective</h3>
-            <h6 class="subtitle"> Want to get more clients through our website? Pay a monthly/yearly
-                subscription fee!</h6>
+    @if ((bool) ViewData["IsActive"])
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center mt-5">
+                @if (ViewData["SessionId"] != null)
+                {
+                    <h3 class="text-secondary">Thanks for subscribing!</h3>
+                    <p class="text-secondary">Your subscription is now active!</p>
+                }
+                else
+                {
+                    <h3 class="text-secondary">Your subscription is active!</h3>
+                }
+                <p class="text-secondary">Expiration Date: <strong class="text-success">@(((DateTime)ViewData["ExpirationDate"]).ToString("D"))</strong>.</p>
+                <a class="btn btn-success bg-gradient font-14 border-0 text-white p-3 btn-block mt-5"
+                   asp-action="StripePortal">Manage your Subscription</a>
+            </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <div class="card card-shadow border-0 mb-4 bg-success bg-opacity-10">
-                <div class="card-body p-4 ">
-                    <div class="d-flex align-items-center">
-                        <h5 class="font-weight-medium mb-0">Basic Plan</h5>
-                        <div class="ml-auto"><span class="badge  rounded-pill bg-danger">Popular</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-5 text-center">
-                            <div class="price-box my-3">
-                                <sup>CAD$</sup><span class="text-dark display-5">100</span>
-                                <h6 class="font-weight-light">MONTHLY</h6>
-                                <a class="btn btn-success bg-gradient font-14 border-0 text-white p-3 btn-block mt-3"
-                                    href="#">CHOOSE PLAN </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 align-self-center">
-                            <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>6 Days a Week </span>
-                                </li>
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Dedicated
-                                        Trainer</span></li>
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Diet Plan Included
-                                    </span></li>
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Morning and Evening
-                                        Batches</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+    }
+    else
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h3 class="mb-3">Pricing to make your Work Effective</h3>
+                <h6 class="subtitle">
+                    Want to get more clients through our website? Pay a monthly/yearly
+                    subscription fee!
+                </h6>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card card-shadow border-0 mb-4 bg-success bg-opacity-10">
-                <div class="card-body p-4 ">
-                    <div class="d-flex align-items-center">
-                        <h5 class="font-weight-medium mb-0">Advance Plan</h5>
-                        <div class="ml-auto"><span class="badge badge-danger p-2"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-5 text-center">
-                            <div class="price-box my-3">
-                                <sup>CAD$</sup><span class="text-dark display-5">1000</span>
-                                <h6 class="font-weight-light">YEARLY</h6>
-                                <a class="btn btn-success bg-gradient font-14 border-0 text-white p-3 btn-block mt-3"
-                                    href="#">CHOOSE PLAN </a>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card card-shadow border-0 mb-4 bg-success bg-opacity-10">
+                    <div class="card-body p-4 ">
+                        <div class="d-flex align-items-center">
+                            <h5 class="font-weight-medium mb-0">Basic Plan</h5>
+                            <div class="ml-auto">
+                                <span class="badge  rounded-pill bg-danger">Popular</span>
                             </div>
                         </div>
-                        <div class="col-lg-7 align-self-center">
-                            <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>6 Days a Week </span>
-                                </li>
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Dedicated
-                                        Trainer</span></li>
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Diet Plan Included
-                                    </span></li>
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Morning and Evening
-                                        Batches</span></li>
-                            </ul>
+                        <div class="row">
+                            <div class="col-lg-5 text-center">
+                                <div class="price-box my-3">
+                                    <sup>CAD$</sup><span class="text-dark display-5">100</span>
+                                    <h6 class="font-weight-light">MONTHLY</h6>
+                                    <a class="btn btn-success bg-gradient font-14 border-0 text-white p-3 btn-block mt-3"
+                                       asp-action="Subscribe" asp-route-priceId="@ViewData["MonthlyPriceId"]">CHOOSE PLAN</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                                <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
+                                    <li class="py-2">
+                                        <i class="icon-check text-info mr-2"></i> <span>6 Days a Week </span>
+                                    </li>
+                                    <li class="py-2">
+                                        <i class="icon-check text-info mr-2"></i> <span>
+                                            Dedicated Trainer
+                                        </span>
+                                    </li>
+                                    <li class="py-2">
+                                        <i class="icon-check text-info mr-2"></i> <span>
+                                            Diet Plan Included
+                                        </span>
+                                    </li>
+                                    <li class="py-2">
+                                        <i class="icon-check text-info mr-2"></i> <span>
+                                            Morning and Evening Batches
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card card-shadow border-0 mb-4 bg-success bg-opacity-10">
+                    <div class="card-body p-4 ">
+                        <div class="d-flex align-items-center">
+                            <h5 class="font-weight-medium mb-0">Advance Plan</h5>
+                            <div class="ml-auto">
+                                <span class="badge badge-danger p-2"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 text-center">
+                                <div class="price-box my-3">
+                                    <sup>CAD$</sup><span class="text-dark display-5">1000</span>
+                                    <h6 class="font-weight-light">YEARLY</h6>
+                                    <a class="btn btn-success bg-gradient font-14 border-0 text-white p-3 btn-block mt-3"
+                                       asp-action="Subscribe" asp-route-priceId="@ViewData["YearlyPriceId"]">CHOOSE PLAN</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                                <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
+                                    <li class="py-2">
+                                        <i class="icon-check text-info mr-2"></i> <span>6 Days a Week </span>
+                                    </li>
+                                    <li class="py-2">
+                                        <i class="icon-check text-info mr-2"></i> <span>
+                                            Dedicated Trainer
+                                        </span>
+                                    </li>
+                                    <li class="py-2">
+                                        <i class="icon-check text-info mr-2"></i> <span>
+                                            Diet Plan Included
+                                        </span>
+                                    </li>
+                                    <li class="py-2">
+                                        <i class="icon-check text-info mr-2"></i> <span>
+                                            Morning and Evening Batches
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 </div>
