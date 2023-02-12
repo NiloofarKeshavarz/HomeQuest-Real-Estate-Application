@@ -329,6 +329,32 @@ namespace HomeQuest.Controllers
 
 			db.Offers.Add(offer);
 			await db.SaveChangesAsync();
+             var user = await userManager.GetUserAsync(User);
+            user.Email = "a@a.com ";
+            // making MailRequet object
+            MailRequest newMailRequest = new MailRequest();
+            newMailRequest.UserEmail = userManager.GetUserName(User);
+            newMailRequest.OfferAmount = OfferAmount;
+            newMailRequest.OfferMessage = OfferMessage;
+
+            Console.WriteLine(newMailRequest.UserEmail + "/// " + newMailRequest.OfferAmount + "/// " + newMailRequest.OfferMessage);
+
+
+
+            // call and send "request obj" to the email api mail controller with post method : /api/mail
+            try
+            {
+                Console.WriteLine("sending Request Email ...");
+                await mailService.SendEmailAsync(newMailRequest);
+                Console.WriteLine("sending Request Email was successful");
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+
+            }
 
             TempData["message"] = "Offer submitted successfully";
 
@@ -351,10 +377,6 @@ namespace HomeQuest.Controllers
             // // from different Model in the same view
             // db.Offers.Add(Offer);
             // db.SaveChanges();
-
-
-
-
 
             // making offer object 
             var newOffer = new Offer();
@@ -391,6 +413,7 @@ namespace HomeQuest.Controllers
                 return View("~/Views/Shared/Error.cshtml");
 
             }
+            
             
         }
 
