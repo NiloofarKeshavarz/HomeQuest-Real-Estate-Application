@@ -56,15 +56,15 @@ namespace HomeQuest.Controllers
         [BindProperty]
         public Offer? Offer { get; set; }
 
-       // [Route("/Index")]
-        // public IActionResult Index()
-        // {
-        //     IEnumerable<Property> propList = db.Properties.Include(p => p.Images).ToList();
-        //     var currentUserId = userManager.GetUserId(User);
-        //     var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList();
-        //     ViewBag.favoritePropertyList = favoritePropertyList;
-        //     return View(propList);
-        // }
+       [Route("/Index")]
+        public IActionResult Index()
+        {
+            IEnumerable<Property> propList = db.Properties.Include(p => p.Images).ToList();
+            // var currentUserId = userManager.GetUserId(User);
+            // var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList();
+            // ViewBag.favoritePropertyList = favoritePropertyList;
+            return View(propList);
+        }
 
 
         // [HttpPost]

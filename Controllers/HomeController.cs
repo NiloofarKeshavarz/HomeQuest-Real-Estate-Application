@@ -46,14 +46,14 @@ public class HomeController : Controller
     public PropertyStatus Status { get; set; }
     public PropertyType Type { get; set; }
 
-    // public IActionResult Index()
-    // {
-    //     IEnumerable<Property> propList = db.Properties.Include(p => p.Images).ToList().Take(3);
-    //     var currentUserId = userManager.GetUserId(User);
-    //     var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList(); 
-    //     ViewBag.favoritePropertyList = favoritePropertyList;
-    //     return View(propList);
-    // }
+    public IActionResult Index()
+    {
+        IEnumerable<Property> propList = db.Properties.Include(p => p.Images).ToList().Take(3);
+        // var currentUserId = userManager.GetUserId(User);
+        // var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList(); 
+        // ViewBag.favoritePropertyList = favoritePropertyList;
+        return View(propList);
+    }
 
     // [HttpPost]
     // public IActionResult AddFavoriteProperty(int favoritePropertyId, string favoriteButton){
