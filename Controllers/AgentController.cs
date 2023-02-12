@@ -145,7 +145,7 @@ namespace HomeQuest.Controllers
             return Ok();
         }
 
-        public async Task<IActionResult> StripePortal()
+        public async Task<IActionResult> Billing()
         {
             var user = await _userManager.GetUserAsync(User);
             var customer = (await new CustomerService(_client).ListAsync(new CustomerListOptions { Email = user.Email })).FirstOrDefault();
@@ -157,10 +157,10 @@ namespace HomeQuest.Controllers
 
             // This is the URL to which your customer will return after
             // they are done managing billing in the Customer Portal.
-            string? returnUrl = _linkGenerator.GetUriByAction(HttpContext, "Subscription", "Agent");
+            string? returnUrl = _linkGenerator.GetUriByAction(HttpContext, "Index", "Home"); // TODO: Agent Dashboard
             if (Request.Headers.ContainsKey("Referer"))
             {
-                Request.Headers["Referer"].ToString();
+                returnUrl = Request.Headers["Referer"].ToString();
             }
 
             var options = new Stripe.BillingPortal.SessionCreateOptions
