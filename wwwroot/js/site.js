@@ -192,7 +192,7 @@
             return '';
         };
         getFormInputElement('location').value = getAddressComp('street_number') + ' '
-            + getAddressComp('route');
+            + getAddressComp('route')+ ', ' +getAddressComp('locality') + ', '+ getAddressComp('administrative_area_level_1') + ', ' +getAddressComp('country');
         for (const component of componentForm) {
             // Location field is handled separately above as it has different logic.
             if (component !== 'location') {

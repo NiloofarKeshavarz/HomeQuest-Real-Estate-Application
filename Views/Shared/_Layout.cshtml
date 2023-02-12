@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> userManager;
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +59,7 @@
                         <partial name="_LoginPartial"/>
                     </div>
                 </div>
-                @if (signInManager.IsSignedIn(User)){
+                @if (signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")){
                 <a class="button mobile-button w-nav-link" asp-area="" asp-controller="Property" asp-action="Create">Add a New Property</a>
                 }
             </nav>
@@ -98,19 +99,10 @@
                 <div class="footer-link-block">
                     <ul role="list" class="footer-link-inner w-list-unstyled">
                         <li class="single-footer">
-                            <a href="/about" class="single-footer-link">About us</a>
-                        </li>
-                        <li class="single-footer">
-                            <a href="/properties" class="single-footer-link">Properties</a>
+                            <a asp-controller="Property" asp-action="Index" class="single-footer-link">Properties</a>
                         </li>
                         <li class="single-footer">
                             <a href="/contact" class="single-footer-link">Contact Us</a>
-                        </li>
-                        <li class="single-footer">
-                            <a href="/city" class="single-footer-link">Cities</a>
-                        </li>
-                        <li class="single-footer">
-                            <a href="/blog" class="single-footer-link">Blog Post</a>
                         </li>
                     </ul>
                 </div>
@@ -126,16 +118,7 @@
                             <a href="/service" class="single-footer-link">Services</a>
                         </li>
                         <li class="single-footer">
-                            <a href="/create-agency" class="single-footer-link">Create Agency</a>
-                        </li>
-                        <li class="single-footer">
-                            <a href="/style-guide" class="single-footer-link">Style Guide</a>
-                        </li>
-                        <li class="single-footer">
-                            <a href="/license" class="single-footer-link">License</a>
-                        </li>
-                        <li class="single-footer">
-                            <a href="/changelog" class="single-footer-link">Changelog</a>
+                            <a asp-page="/Account/Register" class="single-footer-link">Create Agency</a>
                         </li>
                     </ul>
                 </div>
