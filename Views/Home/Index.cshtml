@@ -8,34 +8,58 @@
      @* search bar *@
     <section class="search-sec">
         <div class="container">
-            <form asp-controller="Property" asp-action="SearchResult" method="post" novalidate="novalidate">
+            <form asp-controller="Property" asp-action="FilterProperty" method="Post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-5 col-md-5 col-sm-12 p-0">
-                                <input type="text" class="form-control search-slt location-icon left-radius"
-                                    placeholder="Search By City, Address">
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                                <select class="form-select form-control search-slt">
-                                    <option selected>City</option>
-                                    <option value="0">Montreal</option>
-                                    <option value="1">Laval</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                                <select class="form-select form-control search-slt ">
-                                    <option selected>Property Type</option>
-                                    <option value="0">House</option>
-                                    <option value="1">Apartment</option>
-                                    <option value="2">Duplex</option>
-                                    <option value="3">TownHouse</option>
-                                    <option value="4">Condo</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                <a type="button" class="btn wrn-btn right-radius" asp-controller="Property" asp-action="SearchResult">Search</a>
-                            </div>
+                                    <input type="text" class="form-control search-slt location-icon left-radius"
+                                        value="Search By Address" name="PropertyAddress" aria-required="false">
+                                </div>
+                                @* <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                    <select class="form-select form-control search-slt">
+                                        <option selected>City</option>
+                                        <option value="0">Montreal</option>
+                                        <option value="1">Laval</option>
+                                    </select>
+                                </div> *@
+                                <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                    <select type="number" id="PropertyTypeFilter" name="PropertyTypeFilter" class="form-select form-control search-slt">
+                                        <option>Property Type</option>
+                                        <option value="0">All</option>
+                                        <option value="10">House</option>
+                                        <option value="20">Apartment</option>
+                                        <option value="30">Duplex</option>
+                                        <option value="40">TownHouse</option>
+                                        <option value="50">Condo</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                                    <button value="Price" class="wrn-btn dropdown-toggle p-0 rounded" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
+                                    style="background-color: #ffffff; color:#707579; border:1px solid #ccc; font-size:1rem;">
+                                        <span>Price</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <div class="container">
+                                            <div class="mb-3">
+                                                <h4 for="PropertyTypeFilter">Price Range</h4>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span for="PropertyMinPriceFilter" class="input-group-text" id="inputGroup-sizing-default">Min Price</span>
+                                                <input type="number" name="PropertyMinPriceFilter" min="10000" class="form-control" aria-label="Sizing example input"
+                                                    aria-describedby="inputGroup-sizing-default">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span for="PropertyMaxPriceFilter" class="input-group-text" id="inputGroup-sizing-default">Max Price</span>
+                                                <input type="number" name="PropertyMaxPriceFilter" min="100000000" type="text" class="form-control" aria-label="Sizing example input"
+                                                    aria-describedby="inputGroup-sizing-default">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <input type="submit" class="btn wrn-btn right-radius" value="Search">
+                                </div>
                         </div>
                     </div>
                 </div>

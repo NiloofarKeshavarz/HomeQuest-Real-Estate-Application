@@ -250,7 +250,7 @@ namespace HomeQuest.Controllers
 
         [Route("/FilterProperty")]
         [HttpPost]
-        public IActionResult FilterProperty(int PropertyMinPriceFilter, int PropertyMaxPriceFilter, string PropertyPostalCodeFilter, int PropertyTypeFilter)
+        public IActionResult FilterProperty(string PropertyAddress, int PropertyMinPriceFilter, int PropertyMaxPriceFilter, string PropertyPostalCodeFilter, int PropertyTypeFilter)
         {
             Console.WriteLine("Start Filtering index with:");
             Console.WriteLine("min price:" + PropertyMinPriceFilter);
@@ -259,6 +259,11 @@ namespace HomeQuest.Controllers
             Console.WriteLine("type:" + PropertyTypeFilter);
 
             IEnumerable<Property> filteredList = db.Properties;
+
+            if(PropertyAddress != "Search By Address" ){
+                filteredList = filteredList.Where(p => p.Address.Contains(PropertyAddress, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+            
 
             // 1st filter: all min price filters are acceptable and logical
             filteredList = filteredList.Where(p => p.Price >= PropertyMinPriceFilter);
@@ -293,7 +298,7 @@ namespace HomeQuest.Controllers
 
 
 
-            return View("~/Views/Property/Index.cshtml", filteredList);
+            return View("~/Views/Property/SearchResult.cshtml", filteredList);
 
         }
 
