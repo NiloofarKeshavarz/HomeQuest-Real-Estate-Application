@@ -53,6 +53,7 @@ ViewData["Title"] = @Model.Title;
                     }
                     @* -------------- *@ 
                     <div class="d-flex justify-content-end mt-2">
+                         @if (signInManager.IsSignedIn(User) && userManager.GetUserId(User).Equals(Model.AgentId)){
                         <form asp-controller="Property" asp-action="image" method="post" class="add-properties-form"
                             enctype="multipart/form-data">
                             <input asp-for="Id" value=@Model.Id hidden/>
@@ -60,7 +61,7 @@ ViewData["Title"] = @Model.Title;
                                 Upload Image
                             </button>
                         </form>
-                         @if (signInManager.IsSignedIn(User)){
+
                          <form asp-controller="Property" asp-action="GetPropertyToUpdate" method="post" class="add-properties-form"
                             enctype="multipart/form-data">
                             <input hidden asp-for="Id" value=@Model.Id></input>
