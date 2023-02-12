@@ -64,6 +64,8 @@ namespace HomeQuest.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            public string FirstName {get; set;}
+            public string LastName{get;set;}
         }
 
         public string FirstName { get; set; }
@@ -74,6 +76,7 @@ namespace HomeQuest.Areas.Identity.Pages.Account.Manage
         public string LicenseNumber {get; set;}
         public List<Property> propertyList {get; set;} = new List<Property>();
         public List<Property> favoriteList {get; set;} = new List<Property>();
+        public List<Offer> offerList {get; set;} = new List<Offer>();
 
         private async Task LoadAsync(ApplicationUser user)
         {
@@ -95,11 +98,14 @@ namespace HomeQuest.Areas.Identity.Pages.Account.Manage
             LicenseNumber = licenseNumber;
             propertyList = db.Properties.Where(p => p.AgentId == userId).ToList();
             favoriteList = db.Properties.Include(p => p.Favorites).ToList();
+            offerList = db.Offers.Where(o => o.UserId.Equals(userId)).ToList();
 
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = firstName,
+                LastName = lastName
             };
         }
 
@@ -129,15 +135,25 @@ namespace HomeQuest.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            // var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+            // if (Input.PhoneNumber != phoneNumber)
+            // {
+            //     var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+            //     if (!setPhoneResult.Succeeded)
+            //     {
+            //         StatusMessage = "Unexpected error when trying to set phone number.";
+            //         return RedirectToPage();
+            //     }
+            // }
+             if (Input.FirstName != firstName || Input.LastName != lastName)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                db.ApplicationUser.Update(user);
+                db.SaveChanges();
+                return RedirectToPage();
             }
 
             await _signInManager.RefreshSignInAsync(user);

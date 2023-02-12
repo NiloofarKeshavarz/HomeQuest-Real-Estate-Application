@@ -5,9 +5,16 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
+    if(this.User.IsInRole("Agent") || this.User.IsInRole("User")){
     <a id="manage" class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
         Hello @UserManager.GetUserName(User)!
     </a>
+    }
+    if(this.User.IsInRole("Admin")){
+    <a id="manage" class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Admindashboard" title="Manage">
+        Admin Dashboard
+    </a>
+    }
 
     var user = await UserManager.GetUserAsync(User);
     if (user.AgentExpirationDate > DateTime.MinValue)

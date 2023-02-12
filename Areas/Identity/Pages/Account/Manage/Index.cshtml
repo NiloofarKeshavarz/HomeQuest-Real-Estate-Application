@@ -24,26 +24,47 @@
 </div>
 
 <div class="container mt-5">
-        <div class="row" >
-            <div class="col-4 d-flex justify-content-center">
+        <div class="row my-5" >
+            <div class="col-4 ms-1 d-flex justify-content-center">
                 <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/623be93102def05b04fea5cd_image2.png"
-                    loading="lazy" alt="Register Image" class="login-image rounded" width="50%" height="40%" />
+                    loading="lazy" alt="Register Image" class="login-image rounded"/>
             </div>
-            <div class="col-8">
-                <div><b>Username:</b> @Model.Username</div>
-                <div><b>UserId:</b> @Model.UserId</div>
+            <div class="col-7 position-relative ps-3" style="height: 450px;">
+                <h1 style="color:#01614e;">Profile</h1>
+                <form id="profile-form" method="post">
+                
+                <div class="mb-2"><b>Username:</b> @Model.Username</div>
+                <div class="mb-2"><b>UserId:</b> @Model.UserId</div>
+                <div class="mb-2"><b>License Number:</b> @Model.LicenseNumber</div>
+                <div class="mb-2"><b>Agent Expire Date:</b> @Model.ExpireDate</div>
+                <div class="mb-2"><b>Agent is Accepted:</b> @Model.IsApproved</div>
                  @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")){
-                <div><b>Name:</b> @Model.FirstName , @Model.LastName</div>
-                <div><b>License Number:</b> @Model.LicenseNumber</div>
-                <div><b>Agent Expire Date:</b> @Model.ExpireDate</div>
-                <div><b>Agent is Accepted:</b> @Model.IsApproved</div>
+                <div class="row form-group mb-2">
+                    <label class="col-2">First Name:</label> 
+                    <div class="col-4">
+                        <input asp-for="Input.FirstName" class="form-control " placeholder="Please enter your First Name." value=" @Model.FirstName"/>
+                    </div>
+                </div>
+                <div class="row form-group mb-2">
+                    <label class="col-2">Last Name:</label> 
+                    <div class="col-4">
+                        <input asp-for="Input.LastName" class="form-control col-4" placeholder="Please enter your First Name." value=" @Model.LastName"/>
+                    </div>
+                </div>
+                <div class="row position-absolute bottom-0 start-10 mt-3">
+                    <button id="update-profile-button" type="submit" class="button" style="background-color: #ff6500;">Save</button>
+                </div>
+               
                  }
+                <div class="position-absolute bottom-0 start-50 mt-3"><a class="button nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a></div>
+                    
+                </form>
             </div>
         </div>
         @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")){
         @* Agent *@
         <div class="row mt-5 d-flex justify-content-center">
-            <h3>Properties</h3>
+            <h3>My Properties</h3>
             <table class="table table-hover rounded">
                 <thead>
                     <tr class="rounded" style="background-color: #01614e; color: #f5f9f8;">
@@ -67,6 +88,43 @@
                             <td>@item.Status</td>
                             <td>@item.CreatedAt</td>
                             <td><a asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id">Details</a></td>
+                        </tr>
+                    
+                    }   
+                </tbody>
+            </table> 
+        </div>
+        @* agent offer  *@
+        <div class="row mt-5 d-flex justify-content-center">
+            <h3>My Offer</h3>
+            <table class="table table-hover rounded">
+                <thead>
+                    <tr class="rounded" style="background-color: #01614e; color: #f5f9f8;">
+                        <th>#Offer</th>
+                        <th>Id</th>
+                        <th>Property Title</th>
+                        <th>Offer Amount</th>
+                        <th>Offer Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int k=0;}
+                    @foreach (var offer in Model.offerList)
+                    {
+                        k++;
+                        <tr onclick="window.location ='@Url.Action("Detail","Property", new {id = @offer.PropertyId})'">
+                            <td>@k</td>
+                            <td>@offer.Id</td>
+                            @foreach (var item in Model.propertyList)
+                            {
+                                if(item.Id == offer.PropertyId){
+                                    <td>@item.Title</td>
+                                }
+                            }
+                            <td>@offer.OfferAmount</td>
+                            <td>@offer.OfferDate</td>
+                            <td><a asp-controller="Property" asp-action="Detail" asp-route-id="@offer.PropertyId">Details</a></td>
                         </tr>
                     
                     }   
@@ -114,6 +172,44 @@
                 </tbody>
             </table> 
         </div>
+        @* agent offer  *@
+        <div class="row mt-5 d-flex justify-content-center">
+            <h3>My Offer</h3>
+            <table class="table table-hover rounded">
+                <thead>
+                    <tr class="rounded" style="background-color: #01614e; color: #f5f9f8;">
+                        <th>#Offer</th>
+                        <th>Id</th>
+                        <th>Property Title</th>
+                        <th>Offer Amount</th>
+                        <th>Offer Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int p=0;}
+                    @foreach (var offer in Model.offerList)
+                    {
+                        p++;
+                        <tr onclick="window.location ='@Url.Action("Detail","Property", new {id = @offer.PropertyId})'">
+                            <td>@p</td>
+                            <td>@offer.Id</td>
+                            @foreach (var item in Model.propertyList)
+                            {
+                                if(item.Id == offer.PropertyId){
+                                    <td>@item.Title</td>
+                                }
+                            }
+                            <td>@offer.OfferAmount</td>
+                            <td>@offer.OfferDate</td>
+                            <td><a asp-controller="Property" asp-action="Detail" asp-route-id="@offer.PropertyId">Details</a></td>
+                        </tr>
+                    
+                    }   
+                </tbody>
+            </table> 
+        </div>
+                  
                     }
 </div>
 @* ----------------- *@
