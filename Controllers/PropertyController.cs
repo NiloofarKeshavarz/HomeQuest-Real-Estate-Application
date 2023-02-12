@@ -70,39 +70,7 @@ namespace HomeQuest.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult AddFavoriteProperty(int favoritePropertyId, string favoriteButton)
-        {
-            var currentUserId = userManager.GetUserId(User);
-            if (favoriteButton == "Add To Favorite")
-            {
-                var propertyId = favoritePropertyId;
-
-
-                Favorite favorite = new Favorite();
-                favorite.PropertyId = propertyId;
-                favorite.UserId = currentUserId;
-                db.Favorites.Add(favorite);
-            }
-            if (favoriteButton == "Remove From Favorite")
-            {
-                // var property = db.Properties.Include(x => x.Favorites).FirstOrDefault(x => x.Id == favoritePropertyId);
-                // var favorite = property.Favorites.FirstOrDefault(x => x.UserId == currentUserId);
-                // if (favorite != null)
-                // {
-                //     property.Favorites.Remove(favorite);
-                // }
-                var favoriteProperty = db.Favorites.Where(f => f.PropertyId == favoritePropertyId).Where(f => f.UserId == currentUserId).FirstOrDefault();
-                if(favoriteProperty != null){
-                    db.Favorites.Remove(favoriteProperty);
-                }
-            }
-
-
-            db.SaveChanges();
-            return RedirectToAction("Index");
-
-        }
+       
 
 
         [Route("/SearchResult")]
@@ -304,7 +272,67 @@ namespace HomeQuest.Controllers
             return View("~/Views/Property/SearchResult.cshtml", filteredList);
 
         }
+/*        [HttpPost]
+        public IActionResult AddFavoriteProperty(int favoritePropertyId, string favoriteButton)
 
+        {
+            var currentUserId = userManager.GetUserId(User);
+            if (favoriteButton == "Add To Favorite")
+            {
+                var propertyId = favoritePropertyId;
+
+
+                Favorite favorite = new Favorite();
+                favorite.PropertyId = propertyId;
+                favorite.UserId = currentUserId;
+                db.Favorites.Add(favorite);
+            }
+            if (favoriteButton == "Remove From Favorite")
+            {
+                // var property = db.Properties.Include(x => x.Favorites).FirstOrDefault(x => x.Id == favoritePropertyId);
+                // var favorite = property.Favorites.FirstOrDefault(x => x.UserId == currentUserId);
+                // if (favorite != null)
+                // {
+                //     property.Favorites.Remove(favorite);
+                // }
+                var favoriteProperty = db.Favorites.Where(f => f.PropertyId == favoritePropertyId).Where(f => f.UserId == currentUserId).FirstOrDefault();
+                if (favoriteProperty != null)
+                {
+                    db.Favorites.Remove(favoriteProperty);
+                }
+            }
+
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+*/
+
+        [HttpPost]
+        public async Task<IActionResult> SendOfferToAgent(int OfferAmount, string OfferMessage, int PropertyId, string UserId, int actionType)
+        {
+            var currentUser = await userManager.GetUserAsync(User);
+			var property = db.Properties.FirstOrDefault(p => p.Id == PropertyId);
+			var agent = db.Users.FirstOrDefault(a => a.Id == property.AgentId);
+
+			Offer offer = new Offer
+			{
+				OfferAmount = OfferAmount,
+				OfferMessage = OfferMessage,
+				OfferDate = DateTime.Now,
+				PropertyId = property.Id,
+				UserId = currentUser.Id,
+				AgentId = agent.Id
+			};
+
+			db.Offers.Add(offer);
+			await db.SaveChangesAsync();
+
+            TempData["message"] = "Offer submitted successfully";
+
+            return Redirect("/Property/" + property.Id);
+        }
 
 
 
@@ -312,7 +340,7 @@ namespace HomeQuest.Controllers
         // //////////   Offer form to email handler/controller  Module      ///////////// 
         [Route("SendOffer")]
         [HttpPost]
-        public async Task<IActionResult> SendOffer(int OfferAmount, string OfferMessage, int PropertyId, int Id, DateTime OfferDate)
+        public async Task<IActionResult> SendOffer(int OfferAmount, string OfferMessage, int PropertyId, int Id)
         {
 
             var currentUserId = userManager.GetUserId(User);
@@ -324,13 +352,7 @@ namespace HomeQuest.Controllers
             // db.SaveChanges();
 
 
-            Console.WriteLine("Sending new Offer ...");
-            Console.WriteLine("new offer PropertyId " + PropertyId);
-            Console.WriteLine("new offer OfferAmount: " + OfferAmount);
-            Console.WriteLine("new offer expiry date: " + OfferDate);
-            Console.WriteLine("new offer OfferMessage " + OfferMessage);
-            Console.WriteLine("new offer UserId: " + currentUserId);
-            Console.WriteLine("new offer user email: " + userManager.GetUserName(User));
+
 
 
             // making offer object 
