@@ -41,6 +41,9 @@ namespace HomeQuest.Controllers
         [BindProperty]
         public Property? Property { get; set; }
 
+        [BindProperty]
+        public DateTime Today{get; set;} = DateTime.Today;
+
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
 

@@ -118,28 +118,6 @@ ViewData["Title"] = @Model.Title;
                     <div class="d-flex justify-content-end mt-5">
                        @* here was the update button *@
                     </div>
-                    @* image gallery *@
-
-                    @* <div class="properties-image-gallery">
-                            <h3 class="properties-facilites-heading">Property Gallery <span
-                                    class="section-color-shape">.</span>
-                            </h3>
-                            <div class="gallery-list-wrapper w-dyn-list">
-                                <div role="list" class="gallery-list w-dyn-items w-row">
-                                    @if (ViewBag.urlList != null){
-                                    @foreach (var url in ViewBag.urlList)
-                                    {
-                                    <div role="listitem" class="gallery-item w-dyn-item w-dyn-repeater-item w-col w-col-4">
-                                        <a href="#" class="gallery-link w-inline-block w-lightbox">
-                                            <img alt="" loading="lazy" src="@url" class="gallery-mage" />
-                                        </a>
-                                    </div>
-                                    }
-                                    }
-                                </div>
-                            </div>
-                        </div> *@
-                    @* ---------- *@
                     @* ----map----- *@
                     @* <div class="mb-3">
                         <h3 class="properties-facilites-heading">Place on Map<span class="section-color-shape">.</span>
@@ -200,7 +178,7 @@ ViewData["Title"] = @Model.Title;
             @* --leftside content ends-- *@
 
             @* right side *@
-            @if (signInManager.IsSignedIn(User)){
+            @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")==false && this.User.IsInRole("Administer")==false){
              <div class="properties-sidebar">
                 <div class="sidebar-box rounded">
                     <h3 class="sidebar-heading">Make an Offer? <span class="section-color-shape">.</span></h3>
