@@ -36,10 +36,11 @@ namespace HomeQuest.Data
               .WithOne(i => i.Property)
               .HasForeignKey(i => i.PropertyId);
 
-        //       modelBuilder.Entity<Favorite>()
-            
-        //       .HasOne(i => i.Property)
-        //       .Wit(i => i.PropertyId);
+
+            // modelBuilder.Entity<Property>()
+            //   .HasMany(p => p.Offers)
+            //   .WithOne(i => i.Property)
+            //   .HasForeignKey(i => i.PropertyId);
 
         //    modelBuilder.Entity<Favorite>().HasKey(f => new { f.PropertyId, f.UserId });
 
