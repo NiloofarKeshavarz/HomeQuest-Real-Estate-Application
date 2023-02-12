@@ -165,7 +165,7 @@
                                                     </div>
                                                     @* favorite icon *@
                                                     @{bool isFavorite = false;}
-                                                    @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")==false && this.User.IsInRole("Administer")==false){
+                                                    @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")==false && this.User.IsInRole("Admin")==false){
                                                         @foreach(var property in ViewBag.favoritePropertyList){
                                                             if(property.PropertyId == @item.Id){
                                                                 isFavorite = true;
