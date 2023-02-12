@@ -272,7 +272,9 @@ namespace HomeQuest.Controllers
             return View("~/Views/Property/SearchResult.cshtml", filteredList);
 
         }
-/*        [HttpPost]
+
+        [Route("/AddFavorite")]
+        [HttpPost]
         public IActionResult AddFavoriteProperty(int favoritePropertyId, string favoriteButton)
 
         {
@@ -307,8 +309,8 @@ namespace HomeQuest.Controllers
             return RedirectToAction("Index");
 
         }
-*/
 
+        [Route("/SendOfferToAgent")]
         [HttpPost]
         public async Task<IActionResult> SendOfferToAgent(int OfferAmount, string OfferMessage, int PropertyId, string UserId, int actionType)
         {
