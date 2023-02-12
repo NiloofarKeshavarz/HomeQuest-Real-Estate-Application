@@ -123,6 +123,11 @@ namespace HomeQuest.Controllers
         {
             // Fetch property from the DB
             Property property = db.Properties.Where(x => x.Id == Id).FirstOrDefault();
+            var currentUserId = userManager.GetUserId(User);
+            var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList();
+            var propertyId = Id;
+            ViewBag.favoritePropertyList = favoritePropertyList;
+            ViewBag.propertyId = propertyId;
             FetchImageUrlListToViewBag(Id);
 
             return View(property);
@@ -290,12 +295,6 @@ namespace HomeQuest.Controllers
             }
             if (favoriteButton == "Remove From Favorite")
             {
-                // var property = db.Properties.Include(x => x.Favorites).FirstOrDefault(x => x.Id == favoritePropertyId);
-                // var favorite = property.Favorites.FirstOrDefault(x => x.UserId == currentUserId);
-                // if (favorite != null)
-                // {
-                //     property.Favorites.Remove(favorite);
-                // }
                 var favoriteProperty = db.Favorites.Where(f => f.PropertyId == favoritePropertyId).Where(f => f.UserId == currentUserId).FirstOrDefault();
                 if (favoriteProperty != null)
                 {
@@ -306,6 +305,34 @@ namespace HomeQuest.Controllers
 
             db.SaveChanges();
             return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        public IActionResult AddFavoritePropertyOnDetail(int favoritePropertyId, string favoriteButton)
+
+        {
+            var currentUserId = userManager.GetUserId(User);
+            var propertyId = favoritePropertyId;
+            if (favoriteButton == "Add To Favorite")
+            {
+
+                Favorite favorite = new Favorite();
+                favorite.PropertyId = propertyId;
+                favorite.UserId = currentUserId;
+                db.Favorites.Add(favorite);
+            }
+            if (favoriteButton == "Remove From Favorite")
+            {
+                var favoriteProperty = db.Favorites.Where(f => f.PropertyId == favoritePropertyId).Where(f => f.UserId == currentUserId).FirstOrDefault();
+                if (favoriteProperty != null)
+                {
+                    db.Favorites.Remove(favoriteProperty);
+                }
+            }
+
+            db.SaveChanges();
+            return Redirect("/Property/" + favoritePropertyId);
 
         }
 
