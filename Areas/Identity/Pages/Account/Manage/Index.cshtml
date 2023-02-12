@@ -1,4 +1,7 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> userManager;
 @model IndexModel
 @{
     ViewData["Title"] = "Profile";
@@ -6,6 +9,7 @@
 }
 
 @* <h3>@ViewData["Title"]</h3> *@
+<partial name="_StatusMessage" for="StatusMessage" />
 
 <div class="breadcrumb-section another-breadcrumb-section wf-section">
     <div class="container w-container">
@@ -13,12 +17,106 @@
             <div class="breadcrumb-content another-breadcrumb-section">
                 <div class="breadcrumb-sub-heading another-breadcrumb-section"><span class="p-1 text-white rounded"
                         style="background-color: #ff6500;">Profile</span></div>
-                <h1 class="breadcrumb-main-heading another-breadcrumb-section">Profile Name</h1>
+                <h1 class="breadcrumb-main-heading another-breadcrumb-section">Welcome, @Model.Username</h1>
             </div>
         </div>
     </div>
 </div>
-<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="container mt-5">
+        <div class="row" >
+            <div class="col-4 d-flex justify-content-center">
+                <img src="https://assets.website-files.com/6224513e7396e88bd7269d7b/623be93102def05b04fea5cd_image2.png"
+                    loading="lazy" alt="Register Image" class="login-image rounded" width="50%" height="40%" />
+            </div>
+            <div class="col-8">
+                <div><b>Username:</b> @Model.Username</div>
+                <div><b>UserId:</b> @Model.UserId</div>
+                 @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")){
+                <div><b>Name:</b> @Model.FirstName , @Model.LastName</div>
+                <div><b>License Number:</b> @Model.LicenseNumber</div>
+                <div><b>Agent Expire Date:</b> @Model.ExpireDate</div>
+                <div><b>Agent is Accepted:</b> @Model.IsApproved</div>
+                 }
+            </div>
+        </div>
+        @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")){
+        @* Agent *@
+        <div class="row mt-5 d-flex justify-content-center">
+            <h3>Properties</h3>
+            <table class="table table-hover rounded">
+                <thead>
+                    <tr class="rounded" style="background-color: #01614e; color: #f5f9f8;">
+                        <th>#Property</th>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Create Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i=0;}
+                    @foreach (var item in Model.propertyList)
+                    {
+                        i++;
+                        <tr onclick="window.location ='@Url.Action("Detail","Property", new {id = @item.Id})'">
+                            <td>@i</td>
+                            <td>@item.Id</td>
+                            <td>@item.Title</td>
+                            <td>@item.Status</td>
+                            <td>@item.CreatedAt</td>
+                            <td><a asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id">Details</a></td>
+                        </tr>
+                    
+                    }   
+                </tbody>
+            </table> 
+        </div>
+                    }
+
+        @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")==false && this.User.IsInRole("Administer")==false){
+        @* buyer *@
+         <div class="row mt-5 d-flex justify-content-center">
+            <h3>My Favorites</h3>
+            <table class="table table-hover rounded">
+                <thead>
+                    <tr class="rounded" style="background-color: #01614e; color: #f5f9f8;">
+                        <th>#Property</th>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Create Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int j=0;}
+                    @foreach (var item in Model.favoriteList)
+                    {
+                        @foreach (var favorite in item.Favorites)
+                        {
+                            @if(favorite.UserId == @Model.UserId){
+                                j++;
+                                <tr onclick="window.location ='@Url.Action("Detail","Property", new {id = @item.Id})'">
+                                    <td>@j</td>
+                                    <td>@item.Id</td>
+                                    <td>@item.Title</td>
+                                    <td>@item.Status</td>
+                                    <td>@item.CreatedAt</td>
+                                    <td><a asp-controller="Property" asp-action="Detail" asp-route-id="@item.Id">Details</a></td>
+                                </tr>
+                            }
+                        }
+                        
+                    
+                    }   
+                </tbody>
+            </table> 
+        </div>
+                    }
+</div>
+@* ----------------- *@
 @* <div class="row">
     <div class="col-md-6">
         <form id="profile-form" method="post">

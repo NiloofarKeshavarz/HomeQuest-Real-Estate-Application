@@ -1,3 +1,6 @@
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> userManager;
 @model IEnumerable<HomeQuest.Models.Property>
 
 @{
@@ -161,21 +164,22 @@
                                                         <div class="garage-text">Garage</div>
                                                     </div>
                                                     @* favorite icon *@
-                                                   <a href=#favorite></a>
                                                     @{bool isFavorite = false;}
-                                                    @foreach(var property in ViewBag.favoritePropertyList){
-                                                        if(property.PropertyId == @item.Id){
-                                                            isFavorite = true;
+                                                    @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")==false && this.User.IsInRole("Administer")==false){
+                                                        @foreach(var property in ViewBag.favoritePropertyList){
+                                                            if(property.PropertyId == @item.Id){
+                                                                isFavorite = true;
+                                                            }
                                                         }
+                                                        <form asp-controller="Property" asp-action="AddFavoriteProperty" method="post" id="favorite-form">
+                                                            <input type="hidden" value=@item.Id name="favoritePropertyId" id="favoritePropertyId">
+                                                            @if(isFavorite == true){
+                                                                <input type="submit" class="btn btn-outline-warning" style="color:#ff6500" name="favoriteButton" value="Remove From Favorite">  
+                                                            }else{
+                                                                <input type="submit" class="btn btn-outline-warning" style="color:#ff6500" name="favoriteButton" value="Add To Favorite">
+                                                            }
+                                                        </form>
                                                     }
-                                                    <form asp-controller="Property" asp-action="AddFavoriteProperty" method="post" id="favorite-form">
-                                                        <input type="hidden" value=@item.Id name="favoritePropertyId" id="favoritePropertyId">
-                                                        @if(isFavorite == true){
-                                                            <input type="submit" class="btn btn-outline-warning" style="color:#ff6500" name="favoriteButton" value="Remove From Favorite">  
-                                                        }else{
-                                                            <input type="submit" class="btn btn-outline-warning" style="color:#ff6500" name="favoriteButton" value="Add To Favorite">
-                                                        }
-                                                    </form>
                                                     @* -------------- *@
                                                 </div>
                                             </div>
@@ -197,36 +201,6 @@
                         <div class="filter-image-text">No properties found.</div>
                     </div>
                 }
-
-            <form asp-controller="Property" asp-action="FilterProperty" method="Post" enctype="multipart/form-data">
-
-                <label for="PropertyMinPriceFilter">min price</label>
-                <input type="number" name="PropertyMinPriceFilter" min="0"></input>
-
-                <label for="PropertyMaxPriceFilter">max price</label>
-                <input type="number" name="PropertyMaxPriceFilter" min="0"></input>
-
-                <label for="PropertyPostalCodeFilter">postal code</label>
-                <input type="text" name="PropertyPostalCodeFilter"></input>
-
-                <label for="PropertyTypeFilter">property type</label>
-                <select type="number" id="PropertyTypeFilter" name="PropertyTypeFilter">
-                    <option value="0">All</option>
-                    <option value="10">House</option>
-                    <option value="20">Apartment</option>
-                    <option value="30">Duplex</option>
-                    <option value="40">TownHouse</option>
-                    <option value="50">Condo</option>
-                </select>
-
-                <br/>
-                <button type="submit">show filter</button>
-            </form>
-
-            @* test this UI *@
-            
-
-
         </div>
     </div>
 </div>

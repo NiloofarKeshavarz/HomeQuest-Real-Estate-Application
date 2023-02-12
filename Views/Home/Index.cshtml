@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<HomeQuest.Models.Property>
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> userManager;
 
 @{
     ViewData["Title"] = "HomeQuest";
@@ -186,6 +189,7 @@
                                             <div class="garage-text">Garage</div>
                                         </div>
                                         @{bool isFavorite = false;}
+                                        @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")==false && this.User.IsInRole("Administer")==false){
                                         @foreach(var property in ViewBag.favoritePropertyList){
                                             if(property.PropertyId == @item.Id){
                                                 isFavorite = true;
@@ -199,6 +203,7 @@
                                                 <input type="submit" class="btn btn-outline-warning" style="color:#ff6500" name="favoriteButton" value="Add To Favorite">
                                             }
                                         </form>
+                                        }
                                     </div>
                                 </div>
                             </div>

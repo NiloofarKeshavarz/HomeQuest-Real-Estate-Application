@@ -6,9 +6,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using HomeQuest.Data;
+using HomeQuest.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace HomeQuest.Areas.Identity.Pages.Account.Manage
 {
@@ -16,13 +19,16 @@ namespace HomeQuest.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly HomeQuestDbContext db;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+             HomeQuestDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.db = db;
         }
 
         /// <summary>
@@ -60,12 +66,36 @@ namespace HomeQuest.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
         }
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime ExpireDate { get; set;}
+        public string UserId {get; set;}
+        public bool IsApproved {get; set;}
+        public string LicenseNumber {get; set;}
+        public List<Property> propertyList {get; set;} = new List<Property>();
+        public List<Property> favoriteList {get; set;} = new List<Property>();
+
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+            var userId = user.Id;
+            var expireDate = user.AgentExpirationDate;
+            var isApproved = user.AgentIsApproved;
+            var licenseNumber = user.LicenseNumber;
 
             Username = userName;
+            FirstName = firstName;
+            LastName = lastName;
+            UserId = userId;
+            ExpireDate = expireDate;
+            IsApproved = isApproved;
+            LicenseNumber = licenseNumber;
+            propertyList = db.Properties.Where(p => p.AgentId == userId).ToList();
+            favoriteList = db.Properties.Include(p => p.Favorites).ToList();
+
 
             Input = new InputModel
             {
