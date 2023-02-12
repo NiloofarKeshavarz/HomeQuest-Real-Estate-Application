@@ -70,9 +70,33 @@ ViewData["Title"] = @Model.Title;
                          }
                     </div>
                     <div class="properties-details-top">
-                        <div><span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Type</span>
-                        </div>
-                        <h2 class="properties-details-title">@Model.Title</h2>
+                        <div class="d-flex">
+
+                        
+                            <span class="p-1 text-white rounded" style="background-color: #ff6500;">@Model.Type</span>
+                            <div class="ms-auto">
+                                 @* favorite icon *@
+                                @{bool isFavorite = false;}
+                                @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")==false && this.User.IsInRole("Admin")==false){
+                                    @foreach(var property in ViewBag.favoritePropertyList){
+                                        if(property.PropertyId == Model.Id){
+                                            isFavorite = true;
+                                        }
+                                    }
+                                    <form asp-controller="Property" asp-action="AddFavoritePropertyOnDetail" method="post" id="favorite-form">
+                                        <input type="hidden" value=@ViewBag.propertyId name="favoritePropertyId" id="favoritePropertyId">
+                                        @if(isFavorite == true){
+                                            <input type="submit" class="btn btn-outline-warning" style="color:#ff6500" name="favoriteButton" value="Remove From Favorite">  
+                                        }else{
+                                            <input type="submit" class="btn btn-outline-warning" style="color:#ff6500" name="favoriteButton" value="Add To Favorite">
+                                        }
+                                    </form>
+                                }
+                                @* -------------- *@
+                            </div>
+                            </div>
+                            <h2 class="properties-details-title" style="margin-bottom: 15px;">@Model.Title</h2>
+                           
                         <div class="properties-location-address properties-details-page">@Model.Address, @Model.PostalCode</div>
                         <p class="properties-details-text">@Model.Description</p>
                     </div>
