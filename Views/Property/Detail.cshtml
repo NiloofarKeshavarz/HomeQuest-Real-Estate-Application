@@ -184,7 +184,7 @@ ViewData["Title"] = @Model.Title;
             {
                      <h3 class="mb-3">@TempData["message"].ToString()</h3>
             }
-            else if (signInManager.IsSignedIn(User))
+            @if (signInManager.IsSignedIn(User) && (this.User.IsInRole("User") || this.User.IsInRole("Agent")))
             {
              <div class="properties-sidebar">
                 <div class="sidebar-box rounded">
