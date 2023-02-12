@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeQuest.Migrations
 {
     [DbContext(typeof(HomeQuestDbContext))]
-    [Migration("20230211225112_Init")]
-    partial class Init
+    [Migration("20230212050822_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,17 +116,18 @@ namespace HomeQuest.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("PropertyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Favorites");
                 });
@@ -166,7 +167,8 @@ namespace HomeQuest.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
+                    b.Property<string>("AgentId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("OfferAmount")
@@ -182,11 +184,17 @@ namespace HomeQuest.Migrations
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("AgentId");
 
                     b.HasIndex("PropertyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Offers");
                 });
@@ -419,17 +427,21 @@ namespace HomeQuest.Migrations
 
             modelBuilder.Entity("HomeQuest.Models.Favorite", b =>
                 {
-                    b.HasOne("ApplicationUser", null)
-                        .WithMany("Favorites")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("HomeQuest.Models.Property", "Property")
-                        .WithMany()
+                        .WithMany("Favorites")
                         .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ApplicationUser", "User")
+                        .WithMany("Favorites")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Property");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HomeQuest.Models.Image", b =>
@@ -437,6 +449,7 @@ namespace HomeQuest.Migrations
                     b.HasOne("HomeQuest.Models.Property", "Property")
                         .WithMany("Images")
                         .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Property");
@@ -444,17 +457,29 @@ namespace HomeQuest.Migrations
 
             modelBuilder.Entity("HomeQuest.Models.Offer", b =>
                 {
-                    b.HasOne("ApplicationUser", null)
-                        .WithMany("Offers")
-                        .HasForeignKey("ApplicationUserId");
+                    b.HasOne("ApplicationUser", "Agent")
+                        .WithMany("AgentOffers")
+                        .HasForeignKey("AgentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("HomeQuest.Models.Property", "Property")
                         .WithMany("Offers")
                         .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ApplicationUser", "User")
+                        .WithMany("UserOffers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Agent");
+
                     b.Navigation("Property");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HomeQuest.Models.Payment", b =>
@@ -471,7 +496,7 @@ namespace HomeQuest.Migrations
             modelBuilder.Entity("HomeQuest.Models.Property", b =>
                 {
                     b.HasOne("ApplicationUser", "Agent")
-                        .WithMany()
+                        .WithMany("Properties")
                         .HasForeignKey("AgentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -532,13 +557,19 @@ namespace HomeQuest.Migrations
 
             modelBuilder.Entity("ApplicationUser", b =>
                 {
+                    b.Navigation("AgentOffers");
+
                     b.Navigation("Favorites");
 
-                    b.Navigation("Offers");
+                    b.Navigation("Properties");
+
+                    b.Navigation("UserOffers");
                 });
 
             modelBuilder.Entity("HomeQuest.Models.Property", b =>
                 {
+                    b.Navigation("Favorites");
+
                     b.Navigation("Images");
 
                     b.Navigation("Offers");

@@ -10,7 +10,7 @@ namespace HomeQuest.Models
          public int Id { get; set; } //FIXME : remember to delete this when you set the DbContect for the relationship
         public int PropertyId{get; set; }
         public Property Property { get; set; }
-        //public string UserId{get; set; }
-        //public ApplicationUser User { get; set; }
+        public string UserId{get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

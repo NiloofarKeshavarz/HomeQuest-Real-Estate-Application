@@ -57,11 +57,12 @@ namespace HomeQuest.Models
         [Required(ErrorMessage = "Type is required.")]
         public PropertyType Type { get; set; }
 
-        public ApplicationUser Agent { get; set; }
+        public string  AgentId {get; set;}
+        public ApplicationUser Agent{get; set;}
         public ICollection<Image> Images { get; set; }
 
         public ICollection<Offer> Offers { get; set; }
-       // public ICollection<Favorite> Favorites { get; set; }
+       public ICollection<Favorite> Favorites { get; set; }
 
 
 

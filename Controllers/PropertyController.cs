@@ -60,42 +60,46 @@ namespace HomeQuest.Controllers
         public IActionResult Index()
         {
             IEnumerable<Property> propList = db.Properties.Include(p => p.Images).ToList();
-            // var currentUserId = userManager.GetUserId(User);
-            // var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList();
-            // ViewBag.favoritePropertyList = favoritePropertyList;
+            var currentUserId = userManager.GetUserId(User);
+            var favoritePropertyList = db.Favorites.Where(f => f.UserId == currentUserId).ToList();
+            ViewBag.favoritePropertyList = favoritePropertyList;
             return View(propList);
         }
 
 
-        // [HttpPost]
-        // public IActionResult AddFavoriteProperty(int favoritePropertyId, string favoriteButton)
-        // {
-        //     var currentUserId = userManager.GetUserId(User);
-        //     if (favoriteButton == "Add To Favorite")
-        //     {
-        //         var propertyId = favoritePropertyId;
+        [HttpPost]
+        public IActionResult AddFavoriteProperty(int favoritePropertyId, string favoriteButton)
+        {
+            var currentUserId = userManager.GetUserId(User);
+            if (favoriteButton == "Add To Favorite")
+            {
+                var propertyId = favoritePropertyId;
 
 
-        //         Favorite favorite = new Favorite();
-        //         favorite.PropertyId = propertyId;
-        //         favorite.UserId = currentUserId;
-        //         db.Favorites.Add(favorite);
-        //     }
-        //     if (favoriteButton == "Remove From Favorite")
-        //     {
-        //         var property = db.Properties.Include(x => x.Favorites).FirstOrDefault(x => x.Id == favoritePropertyId);
-        //         var favorite = property.Favorites.FirstOrDefault(x => x.UserId == currentUserId);
-        //         if (favorite != null)
-        //         {
-        //             property.Favorites.Remove(favorite);
-        //         }
-        //     }
+                Favorite favorite = new Favorite();
+                favorite.PropertyId = propertyId;
+                favorite.UserId = currentUserId;
+                db.Favorites.Add(favorite);
+            }
+            if (favoriteButton == "Remove From Favorite")
+            {
+                // var property = db.Properties.Include(x => x.Favorites).FirstOrDefault(x => x.Id == favoritePropertyId);
+                // var favorite = property.Favorites.FirstOrDefault(x => x.UserId == currentUserId);
+                // if (favorite != null)
+                // {
+                //     property.Favorites.Remove(favorite);
+                // }
+                var favoriteProperty = db.Favorites.Where(f => f.PropertyId == favoritePropertyId).Where(f => f.UserId == currentUserId).FirstOrDefault();
+                if(favoriteProperty != null){
+                    db.Favorites.Remove(favoriteProperty);
+                }
+            }
 
 
-        //     db.SaveChanges();
-        //     return RedirectToAction("Index");
+            db.SaveChanges();
+            return RedirectToAction("Index");
 
-        // }
+        }
 
 
         [Route("/SearchResult")]

@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Identity
 @model HomeQuest.Models.Property
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Create";
 }
@@ -49,6 +51,7 @@
                     method="post" class="add-properties-form">
                     <div class="form-wrapper">
                         <div class="single-form width-50">
+                            <input asp-for="AgentId"  value="@UserManager.GetUserId(User)" hidden>
                             <label asp-for="Title" class="properties-label">Property Title</label>
                             <input asp-for="Title" type="text" class="properties-form-field w-input"
                                 placeholder="Property Title" required />

@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Identity
 @model HomeQuest.Models.Property
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Update";
 }
@@ -31,6 +33,7 @@
 
                     <div class="form-wrapper">
                         <div class="single-form width-50">
+                            <input asp-for="AgentId"  value="@UserManager.GetUserId(User)" hidden>
                             <input asp-for="Id" type="text" class="properties-form-field w-input" id="id" required
                                 hidden value="@Model.Id" />
 

@@ -10,5 +10,8 @@ public class ApplicationUser : IdentityUser
     public DateTime  CreateDate { get; set; }
     public string? LicenseNumber { get; set; }
    public ICollection<Favorite> Favorites { get; set; }
-   public ICollection<Offer> Offers { get; set; }
+    public ICollection<Property> Properties {get; set;}
+    public ICollection<Offer> AgentOffers {get; set;}
+
+    public ICollection<Offer> UserOffers {get; set;}
 }
