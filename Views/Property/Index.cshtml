@@ -201,9 +201,12 @@
                         <div class="filter-image-text">No properties found.</div>
                     </div>
                 }
+            <div id="map"></div>
+</div>
+                
         </div>
     </div>
-</div>
+    
 
 
 
@@ -266,3 +269,30 @@
     <p>No property exist.</p>
     }
     </div> *@
+    <style>
+        #map {
+            margin-top: 50px;
+            height: 400px; /* The height is 400 pixels */
+            width: 100%; /* The width is the width of the web page */
+}
+
+    </style>
+      <script async>
+        function initMap() {
+        // The location of Uluru
+        const uluru = { lat: 45.630, lng: -73.519 };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+        });
+      }
+      </script>
+       <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR1JWn8JXkS7IEZsilDAml6D3rEyyiOAQ&callback=initMap">
+    </script>
