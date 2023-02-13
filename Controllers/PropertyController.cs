@@ -42,7 +42,7 @@ namespace HomeQuest.Controllers
         public Property? Property { get; set; }
 
         [BindProperty]
-        public DateTime Today{get; set;} = DateTime.Today;
+        public DateTime Today { get; set; } = DateTime.Today;
 
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
@@ -59,7 +59,7 @@ namespace HomeQuest.Controllers
         [BindProperty]
         public Offer? Offer { get; set; }
 
-       [Route("/Index")]
+        [Route("/Index")]
         public IActionResult Index()
         {
             IEnumerable<Property> propList = db.Properties.Include(p => p.Images).ToList();
@@ -70,7 +70,7 @@ namespace HomeQuest.Controllers
         }
 
 
-       
+
 
 
         [Route("/SearchResult")]
@@ -235,10 +235,11 @@ namespace HomeQuest.Controllers
 
             IEnumerable<Property> filteredList = db.Properties;
 
-            if(PropertyAddress != "Search By Address" ){
+            if (PropertyAddress != "Search By Address")
+            {
                 filteredList = filteredList.Where(p => p.Address.Contains(PropertyAddress, StringComparison.InvariantCultureIgnoreCase)).ToList();
             }
-            
+
 
             // 1st filter: all min price filters are acceptable and logical
             filteredList = filteredList.Where(p => p.Price >= PropertyMinPriceFilter);
@@ -341,22 +342,22 @@ namespace HomeQuest.Controllers
         public async Task<IActionResult> SendOfferToAgent(int OfferAmount, string OfferMessage, int PropertyId, string UserId, int actionType)
         {
             var currentUser = await userManager.GetUserAsync(User);
-			var property = db.Properties.FirstOrDefault(p => p.Id == PropertyId);
-			var agent = db.Users.FirstOrDefault(a => a.Id == property.AgentId);
+            var property = db.Properties.FirstOrDefault(p => p.Id == PropertyId);
+            var agent = db.Users.FirstOrDefault(a => a.Id == property.AgentId);
 
-			Offer offer = new Offer
-			{
-				OfferAmount = OfferAmount,
-				OfferMessage = OfferMessage,
-				OfferDate = DateTime.Now,
-				PropertyId = property.Id,
-				UserId = currentUser.Id,
-				AgentId = agent.Id
-			};
+            Offer offer = new Offer
+            {
+                OfferAmount = OfferAmount,
+                OfferMessage = OfferMessage,
+                OfferDate = DateTime.Now,
+                PropertyId = property.Id,
+                UserId = currentUser.Id,
+                AgentId = agent.Id
+            };
 
-			db.Offers.Add(offer);
-			await db.SaveChangesAsync();
-             var user = await userManager.GetUserAsync(User);
+            db.Offers.Add(offer);
+            await db.SaveChangesAsync();
+            var user = await userManager.GetUserAsync(User);
             user.Email = "a@a.com ";
             // making MailRequet object
             MailRequest newMailRequest = new MailRequest();
@@ -440,8 +441,8 @@ namespace HomeQuest.Controllers
                 return View("~/Views/Shared/Error.cshtml");
 
             }
-            
-            
+
+
         }
 
 
