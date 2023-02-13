@@ -97,15 +97,12 @@ namespace HomeQuest.Controllers
 
         [Route("/CreateNewProperty")]
         [HttpPost]
-        public IActionResult CreateNewProperty()
+        public async Task<IActionResult> CreateNewProperty()
         {
 
             db.Properties.Add(Property);
-            db.SaveChangesAsync();
+            await db.SaveChangesAsync();
             Console.WriteLine("insertion DONE!");
-
-
-            // }
             return View();
         }
         // Show images of each property////////////////////////////////////////////////////
