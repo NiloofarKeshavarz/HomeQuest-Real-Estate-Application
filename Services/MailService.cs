@@ -8,52 +8,80 @@ using HomeQuest.Services;
 using Microsoft.Extensions.Options;
 using MailKit.Net.Smtp;
 using MailKit.Security;
-using Microsoft.Extensions.Options;
 using MimeKit;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace HomeQuest.Services
 {
-    public class MailService : IMailService
+    public class MailService : IMailService, IEmailSender
     {
-        private readonly MailSettings _mailSettings;
-        public MailService(IOptions<MailSettings> mailSettings)
+        private readonly MailSettings _settings;
+        private readonly ILogger<MailService> _logger;
+
+        public MailService(IOptions<MailSettings> settings, ILogger<MailService> logger)
         {
-            _mailSettings = mailSettings.Value;
+            _settings = settings.Value;
+            _logger = logger;
         }
 
         public async Task SendEmailAsync(MailRequest mailRequest)
         {
-            var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
-            email.To.Add(MailboxAddress.Parse(mailRequest.UserEmail));
-            email.Subject = mailRequest.OfferAmount.ToString();
+            await SendAsync(new MailData(
+                to: mailRequest.UserEmail,
+                subject: mailRequest.OfferAmount.ToString(),
+                body: mailRequest.OfferMessage));
+        }
 
-            var builder = new BodyBuilder();
-            if (mailRequest.Attachments != null )
+        // used by the Identity framework
+        public async Task SendEmailAsync(string to, string subject, string body)
+        {
+            await SendAsync(new MailData(to, subject, body));
+        }
+
+        public async Task SendAsync(MailData mailData)
+        {
+            try
             {
-                byte[] fileBytes;
-                foreach (var file in mailRequest.Attachments)
+                var mail = new MimeMessage();
+                mail.Sender = new MailboxAddress(_settings.DisplayName, _settings.From);
+                mail.To.Add(MailboxAddress.Parse(mailData.To));
+                mail.Subject = mailData.Subject;
+
+                var body = new BodyBuilder();
+                body.HtmlBody = mailData.Body;
+                if (mailData.Attachments != null)
                 {
-                    if (file.Length > 0)
+                    byte[] attachmentFileByteArray;
+                    foreach (var attachment in mailData.Attachments)
                     {
-                        using (var ms = new MemoryStream())
+                        if (attachment.Length > 0)
                         {
-                            file.CopyTo(ms);
-                            fileBytes = ms.ToArray();
+                            using (var memoryStream = new MemoryStream())
+                            {
+                                attachment.CopyTo(memoryStream);
+                                attachmentFileByteArray = memoryStream.ToArray();
+                            }
+                            body.Attachments.Add(attachment.FileName, attachmentFileByteArray, ContentType.Parse(attachment.ContentType));
                         }
-                        builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
                     }
                 }
+                mail.Body = body.ToMessageBody();
+
+                using var smtp = new SmtpClient();
+                await smtp.ConnectAsync(_settings.Host, _settings.Port, SecureSocketOptions.StartTls);
+                await smtp.AuthenticateAsync(_settings.UserName, _settings.Password);
+                await smtp.SendAsync(mail);
+                await smtp.DisconnectAsync(true);
+
+                _logger.LogInformation($"Email sent to {mailData.To} successfully.");
             }
-            builder.HtmlBody = mailRequest.OfferMessage;
-            email.Body = builder.ToMessageBody();
-            using var smtp = new SmtpClient();
-            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
-            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
-            await smtp.SendAsync(email);
-            smtp.Disconnect(true);
+            catch (Exception ex)
+            {
+                _logger.LogError($"Email sent to {mailData.To} failed.");
+                throw ex;
+            }
         }
 
         public async Task SendWelcomeEmailAsync(WelcomeRequest request)
@@ -63,18 +91,10 @@ namespace HomeQuest.Services
             string MailText = str.ReadToEnd();
             str.Close();
             MailText = MailText.Replace("[username]", request.UserName).Replace("[email]", request.ToEmail);
-            var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
-            email.To.Add(MailboxAddress.Parse(request.ToEmail));
-            email.Subject = $"Welcome {request.UserName}";
-            var builder = new BodyBuilder();
-            builder.HtmlBody = MailText;
-            email.Body = builder.ToMessageBody();
-            using var smtp = new SmtpClient();
-            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
-            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
-            await smtp.SendAsync(email);
-            smtp.Disconnect(true);
+            await SendAsync(new MailData(
+                to: request.ToEmail,
+                subject: $"Welcome {request.UserName}",
+                body: MailText));
         }
     }
 }

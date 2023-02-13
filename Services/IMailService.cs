@@ -13,6 +13,6 @@ namespace HomeQuest.Services
     public interface IMailService
     {
             Task SendEmailAsync(MailRequest mailRequest);
-
+            Task SendAsync(MailData mailData);
     }
 }
