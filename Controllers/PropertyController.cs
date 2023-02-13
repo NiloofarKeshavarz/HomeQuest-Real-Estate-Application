@@ -217,7 +217,7 @@ namespace HomeQuest.Controllers
             IEnumerable<Image> ImageListToDelete = db.Images.Where(x => x.PropertyId == Id).ToList();
             db.Images.RemoveRange(ImageListToDelete);
 
-            return RedirectToAction("Index");
+            return View("~/Views/Property/DeleteConfirmation.cshtml");
         }
 
 
