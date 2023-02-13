@@ -52,7 +52,7 @@ ViewData["Title"] = @Model.Title;
                     </div>
                     }
                     @* -------------- *@ 
-                    <div class="d-flex justify-content-end mt-2">
+                    <div class="d-flex justify-content-end mt-3">
                          @if (signInManager.IsSignedIn(User) && userManager.GetUserId(User).Equals(Model.AgentId)){
                         <form asp-controller="Property" asp-action="image" method="post" class="add-properties-form"
                             enctype="multipart/form-data">
@@ -145,7 +145,7 @@ ViewData["Title"] = @Model.Title;
                        @* here was the update button *@
                     </div>
                     @* ----map----- *@
-                    @* <div class="mb-3">
+                    <div class="mb-3">
                         <h3 class="properties-facilites-heading">Place on Map<span class="section-color-shape">.</span>
                         </h3>
                         <div class="floor-plan-wrapper w-dyn-list">
@@ -167,15 +167,15 @@ ViewData["Title"] = @Model.Title;
                                 <div>No items found.</div>
                             </div>
                         </div>
-                    </div> *@
-                    @*
-                    <script> *@
+                    </div>
+                    
+                    <script>
                         @* // 1.---Initialize and add the map(static API) *@
-                        @* function initMap() {
+                        function initMap() {
                             let geocoder = new google.maps.Geocoder();
                             let uluru;
                             geocoder
-                                .geocode({ address: "Montreal" })
+                                .geocode({ address: "@Model.Address" })
                                 .then((result) => {
                                     const { results } = result;
                                     if (status == google.maps.GeocoderStatus.OK) {
@@ -195,8 +195,8 @@ ViewData["Title"] = @Model.Title;
                                         map: map,
                                     });
                                 });
-                        } *@
-                    @* </script> *@
+                        }
+                    </script>
                     @* ------script------ *@
                     
                 </div>

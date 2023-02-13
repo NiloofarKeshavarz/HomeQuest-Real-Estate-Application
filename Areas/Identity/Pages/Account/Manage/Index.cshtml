@@ -64,6 +64,19 @@
         @if(signInManager.IsSignedIn(User) && this.User.IsInRole("Agent")){
         @* Agent *@
         <div class="row mt-5 d-flex justify-content-center">
+            <h3>Subscribe Our Plan</h3>
+            <table class="table table-hover rounded">
+                <thead>
+                    <tr class="rounded" style="background-color: #01614e; color: #f5f9f8;">
+                        <th class="d-flex justify-content-center">Subscribe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <td class="d-flex justify-content-center"><a asp-controller="Agent" asp-action="Subscription" asp-area=""><u>Click Here to make a subscription!</u></a></td> 
+                </tbody>
+            </table> 
+        </div>
+        <div class="row mt-5 d-flex justify-content-center">
             <h3>My Properties</h3>
             <table class="table table-hover rounded">
                 <thead>
