@@ -47,8 +47,8 @@
                             <label asp-for="Title" class="properties-label">Property Title</label>
                             <input asp-for="Title" type="text" class="properties-form-field w-input" 
                                 placeholder="Property Title" id="Title" value="@Model.Title" required />
-                            <span class="section-color-shape d-flex justify-content-end"
-                                asp-validation-for="Title"></span>
+                            @* <span class="section-color-shape d-flex justify-content-end"
+                                asp-validation-for="Title"></span> *@
 
                             <label asp-for="Price" class="properties-label">Price</label>
                             <input asp-for="Price" type="number" class="properties-form-field w-input"
@@ -58,15 +58,15 @@
 
                             <label asp-for="Address" for="Address-line" class="properties-label">Address</label>
                             <input asp-for="Address" type="text" class="properties-form-field w-input"
-                                placeholder="Address" id="location-input" required />
-                            <span class="section-color-shape d-flex justify-content-end"
-                                asp-validation-for="Address" value="@Model.Address"></span>
+                                placeholder="Address" id="location-input" value="@Model.Address" required />
+                            @* <span class="section-color-shape d-flex justify-content-end"
+                                asp-validation-for="Address" ></span> *@
 
                             <label asp-for="PostalCode" for="Postal-Code" class="properties-label">Postal Code</label>
                             <input asp-for="PostalCode" type="text" class="properties-form-field w-input"
-                                placeholder="Postal Code" id="postal_code-input" required />
-                            <span class="section-color-shape d-flex justify-content-end"
-                                asp-validation-for="PostalCode" value="@Model.PostalCode"></span>
+                                placeholder="Postal Code" id="postal_code-input" value="@Model.PostalCode" required />
+                            @* <span class="section-color-shape d-flex justify-content-end"
+                                asp-validation-for="PostalCode" ></span> *@
                         </div>
 
                         <div class="single-form width-50">
